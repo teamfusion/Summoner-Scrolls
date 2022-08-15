@@ -14,8 +14,8 @@ loom {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-        mixinConfig "examplemod-common.mixins.json"
-        mixinConfig "examplemod.mixins.json"
+        mixinConfig "${project.archives_base_name}-common.mixins.json"
+        mixinConfig "${project.archives_base_name}.mixins.json"
     }
 }
 
@@ -29,7 +29,6 @@ configurations {
 
 dependencies {
     forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
@@ -82,8 +81,6 @@ publishing {
         }
     }
 
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
     repositories {
-        // Add repositories to publish to here.
     }
 }

@@ -1,35 +1,35 @@
 modLoader = "javafml"
-loaderVersion = "[43,)"
-#issueTrackerURL = ""
-license = "Insert License Here"
+loaderVersion = "[40,)"
+issueTrackerURL = "https://github.com/teamfusion/Summoner-Scrolls/issues"
+license = "MIT (Code); ARR (Assets)"
 
 [[mods]]
-modId = "examplemod"
+modId = "summoner_scrolls"
 version = "${version}"
-displayName = "Example Mod"
-authors = "Me!"
+displayName = "Summoner Scrolls"
+authors = "Team Fusion"
 description = '''
-This is an example description! Tell everyone what your mod is about!
+Amongus Desc!
 '''
-#logoFile = ""
+logoFile = "logo.png"
 
-[[dependencies.examplemod]]
+[[dependencies.summoner_scrolls]]
 modId = "forge"
 mandatory = true
-versionRange = "[43,)"
+versionRange = "[40,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.summoner_scrolls]]
 modId = "minecraft"
 mandatory = true
-versionRange = "[1.19.2,)"
+versionRange = "[1.18.2,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.examplemod]]
+[[dependencies.summoner_scrolls]]
 modId = "architectury"
 mandatory = true
-versionRange = "[6.2.43,)"
+versionRange = "[4.9.83,)"
 ordering = "AFTER"
 side = "BOTH"

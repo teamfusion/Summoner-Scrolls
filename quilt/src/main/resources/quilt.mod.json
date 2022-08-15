@@ -1,26 +1,32 @@
 {
   "schema_version": 1,
   "mixin": [
-    "examplemod.mixins.json",
-    "examplemod-common.mixins.json"
+    "summoner_scrolls.mixins.json",
+    "summoner_scrolls-common.mixins.json"
   ],
   "quilt_loader": {
     "group": "${group}",
-    "id": "examplemod",
+    "id": "summoner_scrolls",
     "version": "${version}",
-    "name": "Example Mod",
-    "description": "This is an example description! Tell everyone what your mod is about!",
-    "authors": ["Me!"],
+    "name": "Summoner Scrolls",
+    "description": "Amongus Desc!",
+    "authors": [
+      "Team Fusion"
+    ],
     "contact": {
-      "sources": "https://github.com/architectury/architectury-templates"
+      "sources": "https://github.com/teamfusion/Summoner-Scrolls",
+      "issues": "https://github.com/teamfusion/Summoner-Scrolls/issues"
     },
-    "license": "Insert License Here",
-    "icon": "assets/examplemod/icon.png",
+    "license": [
+      "MIT (Code)",
+      "ARR (Assets)"
+    ],
+    "icon": "assets/summoner_scrolls/icon.png",
     "intermediate_mappings": "net.fabricmc:intermediary",
     "environment": "*",
     "entrypoints": {
       "init": [
-        "net.examplemod.quilt.ExampleModQuilt"
+        "com.github.teamfusion.spyglassplus.quilt.SpyglassPlusQuilt"
       ]
     },
     "depends": [
@@ -34,11 +40,11 @@
       },
       {
         "id": "minecraft",
-        "version": ">=1.19.2"
+        "version": ">=1.18.2"
       },
       {
         "id": "architectury",
-        "version": ">=6.2.43"
+        "version": ">=4.9.83"
       }
     ]
   }
