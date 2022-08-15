@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "summoner_scrolls:empty_summoner_scroll"
+  },
+  "addition": {
+    "item": "summoner_scrolls:skeleton_essence_stone"
+  },
+  "result": {
+    "item": "summoner_scrolls:skeleton_summoner_scroll"
+  }
+}
