@@ -10,8 +10,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 public class SummonerScrollsForge {
     public SummonerScrollsForge() {
         EventBuses.registerModEventBus(SummonerScrolls.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-        SummonerScrolls.init();
-
-        SummonerScrollsItems.init();
+        SummonerScrolls.commonInitialize();
     }
 }
