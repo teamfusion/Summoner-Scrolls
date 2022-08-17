@@ -5,6 +5,7 @@
   "client": [
   ],
   "mixins": [
+    "EnchantedBookItemMixin"
   ],
   "injectors": {
     "defaultRequire": 1
