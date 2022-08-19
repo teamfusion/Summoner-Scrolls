@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
 
-  "id": "summoner_scrolls",
+  "id": "summonerscrolls",
   "version": "${version}",
   "license": [
     "MIT (Code)",
@@ -9,7 +9,7 @@
   ],
 
   "name": "Summoner Scrolls",
-  "icon": "assets/summoner_scrolls/icon.png",
+  "icon": "assets/summonerscrolls/icon.png",
   "description": "Bringing more Magic into Minecraft!",
 
   "authors": [
@@ -27,11 +27,11 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [ "com.github.teamfusion.summoner_scrolls.fabric.SummonerScrollsFabric" ]
+    "main": [ "com.github.teamfusion.summonerscrolls.fabric.SummonerScrollsFabric" ]
   },
   "mixins": [
-    "summoner_scrolls.mixins.json",
-    "summoner_scrolls-common.mixins.json"
+    "summonerscrolls.mixins.json",
+    "summonerscrolls-common.mixins.json"
   ],
 
   "depends": {

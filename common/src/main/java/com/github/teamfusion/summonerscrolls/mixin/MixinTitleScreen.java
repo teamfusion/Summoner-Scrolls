@@ -1,4 +1,4 @@
-package com.github.teamfusion.summoner_scrolls.mixin;
+package com.github.teamfusion.summonerscrolls.mixin;
 
 import net.minecraft.client.gui.screens.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;

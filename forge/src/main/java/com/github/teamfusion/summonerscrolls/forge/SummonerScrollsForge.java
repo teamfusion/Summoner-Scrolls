@@ -1,7 +1,6 @@
-package com.github.teamfusion.summoner_scrolls.forge;
+package com.github.teamfusion.summonerscrolls.forge;
 
-import com.github.teamfusion.summoner_scrolls.SummonerScrolls;
-import com.github.teamfusion.summoner_scrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import dev.architectury.platform.forge.EventBuses;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;

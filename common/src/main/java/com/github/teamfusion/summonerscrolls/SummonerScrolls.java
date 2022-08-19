@@ -1,7 +1,7 @@
-package com.github.teamfusion.summoner_scrolls;
+package com.github.teamfusion.summonerscrolls;
 
 import com.github.teamfusion.enchantment.SummonerScrollsEnchantments;
-import com.github.teamfusion.summoner_scrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import dev.architectury.registry.CreativeTabRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;

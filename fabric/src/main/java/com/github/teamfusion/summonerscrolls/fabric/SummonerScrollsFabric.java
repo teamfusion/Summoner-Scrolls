@@ -1,6 +1,6 @@
-package com.github.teamfusion.summoner_scrolls.fabric;
+package com.github.teamfusion.summonerscrolls.fabric;
 
-import com.github.teamfusion.summoner_scrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import net.fabricmc.api.ModInitializer;
 
 public class SummonerScrollsFabric implements ModInitializer {

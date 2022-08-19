@@ -1,6 +1,6 @@
 package com.github.teamfusion.enchantment;
 
-import com.github.teamfusion.summoner_scrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;

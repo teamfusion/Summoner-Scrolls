@@ -1,4 +1,4 @@
-package com.github.teamfusion.summoner_scrolls.item;
+package com.github.teamfusion.summonerscrolls.item;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;

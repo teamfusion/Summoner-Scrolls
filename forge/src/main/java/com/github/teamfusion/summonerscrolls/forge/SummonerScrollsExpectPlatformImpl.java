@@ -1,7 +1,7 @@
-package com.github.teamfusion.summoner_scrolls.fabric;
+package com.github.teamfusion.summonerscrolls.forge;
 
-import com.github.teamfusion.summoner_scrolls.SummonerScrollsExpectPlatform;
-import org.quiltmc.loader.api.QuiltLoader;
+import com.github.teamfusion.summonerscrolls.SummonerScrollsExpectPlatform;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.nio.file.Path;
 
@@ -10,6 +10,6 @@ public class SummonerScrollsExpectPlatformImpl {
      * This is our actual method to {@link SummonerScrollsExpectPlatform#getConfigDirectory()}.
      */
     public static Path getConfigDirectory() {
-        return QuiltLoader.getConfigDir();
+        return FMLPaths.CONFIGDIR.get();
     }
 }

@@ -1,7 +1,6 @@
-package com.github.teamfusion.summoner_scrolls.quilt;
+package com.github.teamfusion.summonerscrolls.quilt;
 
-import com.github.teamfusion.summoner_scrolls.SummonerScrolls;
-import com.github.teamfusion.summoner_scrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
 

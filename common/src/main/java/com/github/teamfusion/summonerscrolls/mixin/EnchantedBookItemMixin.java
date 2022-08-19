@@ -1,4 +1,4 @@
-package com.github.teamfusion.summoner_scrolls.mixin;
+package com.github.teamfusion.summonerscrolls.mixin;
 
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.Item;

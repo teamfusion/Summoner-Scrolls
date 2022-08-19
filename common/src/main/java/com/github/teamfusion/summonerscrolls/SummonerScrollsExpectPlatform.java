@@ -1,4 +1,4 @@
-package com.github.teamfusion.summoner_scrolls;
+package com.github.teamfusion.summonerscrolls;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import dev.architectury.platform.Platform;
