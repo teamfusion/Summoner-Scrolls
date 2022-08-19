@@ -15,19 +15,15 @@ import java.util.function.Supplier;
 public class SummonerScrollsItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(SummonerScrolls.MOD_ID, Registry.ITEM_REGISTRY);
 
-    /* Empty Scroll */
-    public static final RegistrySupplier<Item> EMPTY_SUMMONER_SCROLL = ITEMS.register("empty_summoner_scroll", () ->
-            new BookItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
-
     /* Mob Scrolls */
     public static final RegistrySupplier<Item> ZOMBIE_SCROLL = ITEMS.register("zombie_summoner_scroll", () ->
-            new EnchantedBookItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> SKELETON_SCROLL = ITEMS.register("skeleton_summoner_scroll", () ->
-            new EnchantedBookItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> SPIDER_SCROLL = ITEMS.register("spider_summoner_scroll", () ->
-            new EnchantedBookItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> ENDERMAN_SCROLL = ITEMS.register("enderman_summoner_scroll", () ->
-            new EnchantedBookItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
 
     private static RegistrySupplier<Item> register(String id, Function<Item.Properties, Item> item) {
         return register(id, () -> item.apply(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));

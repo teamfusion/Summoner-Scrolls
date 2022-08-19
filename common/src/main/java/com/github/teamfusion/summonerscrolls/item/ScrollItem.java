@@ -1,9 +1,9 @@
 package com.github.teamfusion.summonerscrolls.item;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.world.item.EnchantedBookItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.enchantment.EnchantmentInstance;
 
 public class ScrollItem extends EnchantedBookItem {
     public ScrollItem(Properties properties) {
@@ -11,8 +11,5 @@ public class ScrollItem extends EnchantedBookItem {
     }
 
 
-    public static ListTag getEnchantments(ItemStack itemStack) {
-        CompoundTag compoundTag = itemStack.getTag();
-        return compoundTag != null ? compoundTag.getList("StoredEnchantments", 10) : new ListTag();
-    }
+
 }
