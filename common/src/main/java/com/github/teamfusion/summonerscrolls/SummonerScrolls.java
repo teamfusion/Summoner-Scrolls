@@ -1,7 +1,9 @@
 package com.github.teamfusion.summonerscrolls;
 
 import com.github.teamfusion.enchantment.SummonerScrollsEnchantments;
+import com.github.teamfusion.loot.SummonerScrollsLootTables;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.trade.SummonerScrollsTrades;
 import dev.architectury.registry.CreativeTabRegistry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -22,7 +24,8 @@ public class SummonerScrolls {
 
         SummonerScrollsEnchantments.ENCHANTMENTS.register();
         SummonerScrollsItems.ITEMS.register();
-    }
 
-    //TODO: add lang
+        SummonerScrollsLootTables.init();
+        SummonerScrollsTrades.init();
+    }
 }
