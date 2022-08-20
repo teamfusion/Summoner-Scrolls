@@ -14,6 +14,6 @@ public class SummonerScrollsForge {
         EventBuses.registerModEventBus(SummonerScrolls.MOD_ID, bus);
         SummonerScrolls.commonInitialize();
 
-        MinecraftForge.EVENT_BUS.register(AnvilUpdateEvents.class);
+        MinecraftForge.EVENT_BUS.register(CommonEvents.class);
     }
 }

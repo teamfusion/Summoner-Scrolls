@@ -20,8 +20,8 @@ public class SummonerScrolls {
     public static void commonInitialize() {
         LOGGER.info("Initializing {}", MOD_NAME);
 
-        SummonerScrollsItems.ITEMS.register();
         SummonerScrollsEnchantments.ENCHANTMENTS.register();
+        SummonerScrollsItems.ITEMS.register();
     }
 
     //TODO: add lang
