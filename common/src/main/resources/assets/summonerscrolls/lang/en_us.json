@@ -1,3 +1,14 @@
 {
-  "itemGroup.summonerscrolls.scrolls_tab": "Example Item"
+  "itemGroup.summonerscrolls.scrolls_tab": "Summoners Scrolls",
+
+  "item.summonerscrolls.zombie_summoner_scroll": "Zombie Summoner Scroll",
+  "item.summonerscrolls.skeleton_summoner_scroll": "Skeleton Summoner Scroll",
+  "item.summonerscrolls.spider_summoner_scroll": "Spider Summoner Scroll",
+  "item.summonerscrolls.enderman_summoner_scroll": "Enderman Summoner Scroll",
+
+
+  "enchantment.summonerscrolls.zombie_scroll": "Zombie Scroll",
+  "enchantment.summonerscrolls.skeleton_scroll": "Skeleton Scroll",
+  "enchantment.summonerscrolls.spider_scroll": "Spider Scroll",
+  "enchantment.summonerscrolls.enderman_scroll": "Enderman Scroll"
 }
