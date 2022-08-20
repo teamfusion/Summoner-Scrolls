@@ -5,9 +5,7 @@
   "client": [
   ],
   "mixins": [
-    "AnvilMenuMixin",
-    "EnchantedBookItemMixin",
-    "EnchantmentHelper"
+    "EnchantmentHelperMixin"
   ],
   "injectors": {
     "defaultRequire": 1
