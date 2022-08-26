@@ -13,6 +13,7 @@ public class SummonerScrollsEnchantments {
     public static final RegistrySupplier<Enchantment> SKELETON_SCROLL_ENCHANTMENT = register("skeleton_scroll", new SkeletonScrollEnchantment());
     public static final RegistrySupplier<Enchantment> SPIDER_SCROLL_ENCHANTMENT = register("spider_scroll", new SpiderScrollEnchantment());
     public static final RegistrySupplier<Enchantment> ENDERMAN_SCROLL_ENCHANTMENT = register("enderman_scroll", new EndermanScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> CREEPER_SCROLL_ENCHANTMENT = register("creeper_scroll", new CreeperScrollEnchantment());
 
     private static RegistrySupplier<Enchantment> register(String id, Enchantment enchantment) {
         return ENCHANTMENTS.register(id, () -> enchantment);

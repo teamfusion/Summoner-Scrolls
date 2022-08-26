@@ -121,6 +121,11 @@ public abstract class TieredItemMixin extends Item {
                 type = EntityType.SKELETON;
             }
         }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
+                type = EntityType.CREEPER;
+            }
+        }
         return type;
     }
 }

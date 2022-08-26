@@ -11,6 +11,7 @@ public class ZombieScrollEnchantment extends ScrollEnchantment {
         return super.checkCompatibility(enchantment) &&
                 enchantment != SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get() &&
                 enchantment != SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get() &&
+                enchantment != SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get() &&
                 enchantment != SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get();
     }
 }

@@ -51,5 +51,14 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
+        SummonerScrollsItems.CREEPER_SCROLL.listen((item) ->
+                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
+                    if (SCROLL_TABLES.contains(id)) {
+                        LootPool.Builder pool = LootPool.lootPool()
+                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
+                        context.addPool(pool);
+                    }
+                })
+        );
     }
 }

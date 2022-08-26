@@ -23,6 +23,8 @@ public class SummonerScrollsItems {
             new ScrollItem(SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> ENDERMAN_SCROLL = ITEMS.register("enderman_summoner_scroll", () ->
             new ScrollItem(SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+public static final RegistrySupplier<Item> CREEPER_SCROLL = ITEMS.register("creeper_summoner_scroll", () ->
+            new ScrollItem(SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
 
     private static RegistrySupplier<Item> register(String id, Function<Item.Properties, Item> item) {
         return register(id, () -> item.apply(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));

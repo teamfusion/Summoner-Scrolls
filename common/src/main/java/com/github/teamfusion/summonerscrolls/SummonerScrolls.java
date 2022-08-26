@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls;
 
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
+import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntities;
 import com.github.teamfusion.summonerscrolls.loot.SummonerScrollsLootTables;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import com.github.teamfusion.summonerscrolls.trade.SummonerScrollsTrades;
@@ -24,8 +25,11 @@ public class SummonerScrolls {
 
         SummonerScrollsEnchantments.ENCHANTMENTS.register();
         SummonerScrollsItems.ITEMS.register();
+        SummonerScrollsEntities.ENTITY_TYPES.register();
 
         SummonerScrollsLootTables.init();
         SummonerScrollsTrades.init();
     }
+
+    //TODO: add enchantment target for all tools
 }

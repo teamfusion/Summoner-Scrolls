@@ -10,6 +10,7 @@ public class SkeletonScrollEnchantment extends ScrollEnchantment {
     protected boolean checkCompatibility(Enchantment enchantment) {
         return super.checkCompatibility(enchantment) &&
                 enchantment != SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get() &&
+                enchantment != SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get() &&
                 enchantment != SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get() &&
                 enchantment != SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get();
     }

@@ -5,10 +5,12 @@
   "item.summonerscrolls.skeleton_summoner_scroll": "Skeleton Summoner Scroll",
   "item.summonerscrolls.spider_summoner_scroll": "Spider Summoner Scroll",
   "item.summonerscrolls.enderman_summoner_scroll": "Enderman Summoner Scroll",
+  "item.summonerscrolls.creeper_summoner_scroll": "Creeper Summoner Scroll",
 
 
   "enchantment.summonerscrolls.zombie_scroll": "Zombie Scroll",
   "enchantment.summonerscrolls.skeleton_scroll": "Skeleton Scroll",
   "enchantment.summonerscrolls.spider_scroll": "Spider Scroll",
-  "enchantment.summonerscrolls.enderman_scroll": "Enderman Scroll"
+  "enchantment.summonerscrolls.enderman_scroll": "Enderman Scroll",
+  "enchantment.summonerscrolls.creeper_scroll": "Creeper Scroll"
 }
