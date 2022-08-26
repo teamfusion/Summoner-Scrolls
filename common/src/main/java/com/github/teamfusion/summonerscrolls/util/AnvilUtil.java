@@ -1,27 +1,22 @@
-package com.github.teamfusion.summonerscrolls.forge;
+package com.github.teamfusion.summonerscrolls.util;
 
-import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.item.ScrollItem;
+import net.minecraft.world.Container;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
-import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = SummonerScrolls.MOD_ID)
-public class CommonEvents {
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    static void anvilUpdate(AnvilUpdateEvent event) {
-        ItemStack left = event.getLeft();
+public class AnvilUtil {
+    public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
-        ItemStack right = event.getRight();
         Item rightItem = right.getItem();
 
         if (rightItem instanceof ScrollItem scrollItem) {
@@ -33,9 +28,10 @@ public class CommonEvents {
                 ItemStack copy = left.copy();
                 EnchantmentHelper.setEnchantments(enchantments, copy);
 
-                event.setOutput(copy);
-                event.setCost(8);
+                outputSlot.setItem(0, copy);
+                container.cost.set(8);
             }
         }
+        return false;
     }
 }

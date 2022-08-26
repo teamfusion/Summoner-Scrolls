@@ -1,4 +1,4 @@
-package com.github.teamfusion.enchantment;
+package com.github.teamfusion.summonerscrolls.enchantment;
 
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.item.enchantment.Enchantment;

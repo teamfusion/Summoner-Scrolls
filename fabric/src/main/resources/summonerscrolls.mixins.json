@@ -5,6 +5,7 @@
   "client": [
   ],
   "mixins": [
+    "AnvilMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1

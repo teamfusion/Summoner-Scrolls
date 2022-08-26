@@ -1,4 +1,4 @@
-package com.github.teamfusion.loot;
+package com.github.teamfusion.summonerscrolls.loot;
 
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import dev.architectury.event.events.common.LootEvent;

@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.item;
 
-import com.github.teamfusion.enchantment.SummonerScrollsEnchantments;
+import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;

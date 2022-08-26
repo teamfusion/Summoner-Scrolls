@@ -1,4 +1,4 @@
-package com.github.teamfusion.enchantment;
+package com.github.teamfusion.summonerscrolls.enchantment;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import dev.architectury.registry.registries.DeferredRegister;

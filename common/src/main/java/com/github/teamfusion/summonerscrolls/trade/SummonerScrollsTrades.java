@@ -1,4 +1,4 @@
-package com.github.teamfusion.trade;
+package com.github.teamfusion.summonerscrolls.trade;
 
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import dev.architectury.registry.level.entity.trade.TradeRegistry;
