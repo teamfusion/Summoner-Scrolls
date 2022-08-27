@@ -40,6 +40,7 @@ public abstract class TieredItemMixin extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
+        ScrollEnchantUtil.setOwner(useOnContext.getPlayer());
         ItemStack stack = useOnContext.getItemInHand();
 
         EntityType<?> entityType2 = ScrollEnchantUtil.getEntityType(stack);
@@ -70,6 +71,7 @@ public abstract class TieredItemMixin extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        ScrollEnchantUtil.setOwner(player);
         ItemStack stack = player.getItemInHand(interactionHand);
 
         EntityType<?> entityType = ScrollEnchantUtil.getEntityType(stack);
@@ -86,11 +88,6 @@ public abstract class TieredItemMixin extends Item {
                 if (entityType.spawn((ServerLevel)level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, false, false) == null) {
                     return InteractionResultHolder.pass(itemStack);
                 } else {
-                    if (!player.getAbilities().instabuild) {
-                        itemStack.shrink(1);
-                    }
-
-                    player.awardStat(Stats.ITEM_USED.get(this));
                     level.gameEvent(GameEvent.ENTITY_PLACE, player);
                     return InteractionResultHolder.consume(itemStack);
                 }

@@ -30,7 +30,7 @@ public class ZombieSummonEntityRenderer extends ZombieRenderer {
 
     @Override
     protected int getBlockLightLevel(Zombie entity, BlockPos blockPos) {
-        return 15;
+        return 7;
     }
 
     @Override

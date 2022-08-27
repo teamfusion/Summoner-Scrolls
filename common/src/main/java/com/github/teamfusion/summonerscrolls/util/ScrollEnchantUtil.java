@@ -3,11 +3,14 @@ package com.github.teamfusion.summonerscrolls.util;
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class ScrollEnchantUtil {
+    public static Player player;
+
     public static EntityType<?> getEntityType(ItemStack stack) {
         EntityType<?> type = null;
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
@@ -36,5 +39,13 @@ public class ScrollEnchantUtil {
             }
         }
         return type;
+    }
+
+    public static void setOwner(Player owner) {
+        player = owner;
+    }
+
+    public static Player getOwner() {
+        return player;
     }
 }
