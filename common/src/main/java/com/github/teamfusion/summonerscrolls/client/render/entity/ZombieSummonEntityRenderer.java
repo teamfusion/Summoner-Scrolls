@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.ZombieRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.Blaze;
 import net.minecraft.world.entity.monster.Zombie;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,7 +28,8 @@ public class ZombieSummonEntityRenderer extends ZombieRenderer {
         return RenderType.entityTranslucent(getTextureLocation(livingEntity));
     }
 
-    protected int getBlockLightLevel(Blaze blaze, BlockPos blockPos) {
+    @Override
+    protected int getBlockLightLevel(Zombie entity, BlockPos blockPos) {
         return 15;
     }
 
