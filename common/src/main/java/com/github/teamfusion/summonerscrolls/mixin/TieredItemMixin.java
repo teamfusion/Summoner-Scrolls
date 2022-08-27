@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
+import com.github.teamfusion.summonerscrolls.util.ScrollEnchantUtil;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -41,7 +42,7 @@ public abstract class TieredItemMixin extends Item {
     public InteractionResult useOn(UseOnContext useOnContext) {
         ItemStack stack = useOnContext.getItemInHand();
 
-        EntityType<?> entityType2 = getEntityType(stack);
+        EntityType<?> entityType2 = ScrollEnchantUtil.getEntityType(stack);
 
         Level level = useOnContext.getLevel();
         if (!(level instanceof ServerLevel)) {
@@ -71,7 +72,7 @@ public abstract class TieredItemMixin extends Item {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack stack = player.getItemInHand(interactionHand);
 
-        EntityType<?> entityType = getEntityType(stack);
+        EntityType<?> entityType = ScrollEnchantUtil.getEntityType(stack);
 
         ItemStack itemStack = player.getItemInHand(interactionHand);
         BlockHitResult hitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
@@ -99,33 +100,5 @@ public abstract class TieredItemMixin extends Item {
         }
     }
 
-    private EntityType<?> getEntityType(ItemStack stack) {
-        EntityType<?> type = null;
-        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.ZOMBIE;
-            }
-        }
-        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.SKELETON;
-            }
-        }
-        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.SPIDER;
-            }
-        }
-        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.SKELETON;
-            }
-        }
-        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.CREEPER;
-            }
-        }
-        return type;
-    }
+
 }

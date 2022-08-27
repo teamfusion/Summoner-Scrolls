@@ -1,11 +1,15 @@
 package com.github.teamfusion.summonerscrolls;
 
+import com.github.teamfusion.summonerscrolls.client.SummonerScrollsClient;
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
-import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntities;
+import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
+import com.github.teamfusion.summonerscrolls.events.CommonEvents;
 import com.github.teamfusion.summonerscrolls.loot.SummonerScrollsLootTables;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import com.github.teamfusion.summonerscrolls.trade.SummonerScrollsTrades;
 import dev.architectury.registry.CreativeTabRegistry;
+import dev.architectury.utils.EnvExecutor;
+import net.fabricmc.api.EnvType;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
@@ -25,10 +29,15 @@ public class SummonerScrolls {
 
         SummonerScrollsEnchantments.ENCHANTMENTS.register();
         SummonerScrollsItems.ITEMS.register();
-        SummonerScrollsEntities.ENTITY_TYPES.register();
+        SummonerScrollsEntityTypes.ENTITY_TYPES.register();
+
+        SummonerScrollsEntityTypes.postRegister();
 
         SummonerScrollsLootTables.init();
         SummonerScrollsTrades.init();
+
+        CommonEvents.interactSummonEvent();
+        EnvExecutor.runInEnv(EnvType.CLIENT, () -> SummonerScrollsClient::commonClientInitialize);
     }
 
     //TODO: add enchantment target for all tools
