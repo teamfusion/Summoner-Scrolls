@@ -4,6 +4,7 @@ import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -17,7 +18,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-//todo: make dyeable, make it hold invisble torch for dynamic lighting, shift-right click to cancel summon, impermeable summon
+//todo: make dyeable, make it hold invisble torch for dynamic lighting, shift-right click to cancel summon
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -77,5 +78,29 @@ public class ZombieSummon extends Zombie {
 
     public void setOwnerUUID(@Nullable UUID uUID) {
         ownerUUID = uUID;
+    }
+
+    @Override
+    public boolean hurt(DamageSource damageSource, float f) {
+        if (damageSource.getEntity() == this.getOwner()) {
+            return false;
+        }
+        return super.hurt(damageSource, f);
+    }
+
+    @Override
+    public void push(Entity entity) {
+        if (entity == this.getOwner()) {
+            return;
+        }
+        super.push(entity);
+    }
+
+    @Override
+    protected void doPush(Entity entity) {
+        if (entity == this.getOwner()) {
+            return;
+        }
+        super.doPush(entity);
     }
 }
