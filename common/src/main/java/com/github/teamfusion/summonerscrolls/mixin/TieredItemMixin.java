@@ -1,24 +1,25 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
+import com.github.teamfusion.summonerscrolls.entity.ZombieSummon;
 import com.github.teamfusion.summonerscrolls.util.ScrollEnchantUtil;
+import com.google.common.collect.Maps;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SpawnEggItem;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
@@ -28,19 +29,22 @@ import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Map;
 import java.util.Objects;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 @Mixin(TieredItem.class)
 public abstract class TieredItemMixin extends Item {
+    private static final Map<EntityType<? extends Mob>, SpawnEggItem> PLAYER = Maps.newIdentityHashMap();
+
     public TieredItemMixin(Properties properties) {
         super(properties);
     }
 
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
-        ScrollEnchantUtil.setOwner(useOnContext.getPlayer());
+
         ItemStack stack = useOnContext.getItemInHand();
 
         EntityType<?> entityType2 = ScrollEnchantUtil.getEntityType(stack);
@@ -60,8 +64,9 @@ public abstract class TieredItemMixin extends Item {
             } else {
                 blockPos2 = blockPos.relative(direction);
             }
-            if (entityType2.spawn((ServerLevel)level, itemStack, useOnContext.getPlayer(), blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP) != null) {
-                itemStack.shrink(1);
+            Entity summon = entityType2.spawn((ServerLevel)level, itemStack, useOnContext.getPlayer(), blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
+            if (summon instanceof ZombieSummon mob) {
+                mob.setOwnerUUID(Objects.requireNonNull(useOnContext.getPlayer()).getUUID());
                 level.gameEvent(useOnContext.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
             }
 
@@ -71,7 +76,6 @@ public abstract class TieredItemMixin extends Item {
 
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ScrollEnchantUtil.setOwner(player);
         ItemStack stack = player.getItemInHand(interactionHand);
 
         EntityType<?> entityType = ScrollEnchantUtil.getEntityType(stack);

@@ -1,14 +1,11 @@
 package com.github.teamfusion.summonerscrolls.entity.goal;
 
-import java.util.EnumSet;
-
 import com.github.teamfusion.summonerscrolls.entity.ZombieSummon;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.ai.goal.Goal.Flag;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
+
+import java.util.EnumSet;
 
 public class OwnerHurtByTargetGoal extends TargetGoal {
     private final ZombieSummon mob;
@@ -28,7 +25,7 @@ public class OwnerHurtByTargetGoal extends TargetGoal {
         } else {
             this.ownerLastHurtBy = livingEntity.getLastHurtByMob();
             int i = livingEntity.getLastHurtByMobTimestamp();
-            return i != this.timestamp && this.canAttack(this.ownerLastHurtBy, TargetingConditions.DEFAULT) && this.mob.wantsToAttack(this.ownerLastHurtBy, livingEntity);
+            return i != this.timestamp && this.canAttack(this.ownerLastHurtBy, TargetingConditions.DEFAULT);
         }
     }
 

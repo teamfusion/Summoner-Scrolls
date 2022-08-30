@@ -9,8 +9,6 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 public class ScrollEnchantUtil {
-    public static Player player;
-
     public static EntityType<?> getEntityType(ItemStack stack) {
         EntityType<?> type = null;
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
@@ -39,13 +37,5 @@ public class ScrollEnchantUtil {
             }
         }
         return type;
-    }
-
-    public static void setOwner(Player owner) {
-        player = owner;
-    }
-
-    public static Player getOwner() {
-        return player;
     }
 }
