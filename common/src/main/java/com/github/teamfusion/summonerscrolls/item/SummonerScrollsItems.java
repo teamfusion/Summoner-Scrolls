@@ -16,15 +16,15 @@ public class SummonerScrollsItems {
 
     /* Mob Scrolls */
     public static final RegistrySupplier<Item> ZOMBIE_SCROLL = ITEMS.register("zombie_summoner_scroll", () ->
-            new ScrollItem(SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> SKELETON_SCROLL = ITEMS.register("skeleton_summoner_scroll", () ->
-            new ScrollItem(SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> SPIDER_SCROLL = ITEMS.register("spider_summoner_scroll", () ->
-            new ScrollItem(SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> ENDERMAN_SCROLL = ITEMS.register("enderman_summoner_scroll", () ->
-            new ScrollItem(SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 public static final RegistrySupplier<Item> CREEPER_SCROLL = ITEMS.register("creeper_summoner_scroll", () ->
-            new ScrollItem(SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT, new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
+            new ScrollItem(SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
     private static RegistrySupplier<Item> register(String id, Function<Item.Properties, Item> item) {
         return register(id, () -> item.apply(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));

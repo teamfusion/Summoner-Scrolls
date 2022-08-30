@@ -26,8 +26,8 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
         super(menuType, i, inventory, containerLevelAccess);
     }
 
-    @Inject(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z", ordinal = 1, shift = Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
-    private void createResult(CallbackInfo ci, ItemStack left, int i, int j, int k, ItemStack right, ItemStack itemStack3, Map map) {
+    @Inject(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z", ordinal = 1, shift = Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    private void createResult(CallbackInfo ci, ItemStack stack, int i, int j, int k, ItemStack left, ItemStack right, Map map) {
         AnvilMenu anvilMenu = (AnvilMenu) (Object) this;
         if (!AnvilUtil.onAnvilChange(anvilMenu, left, right, this.resultSlots, this.itemName, j, this.player)) {
             ci.cancel();
