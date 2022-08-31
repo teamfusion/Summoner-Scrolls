@@ -6,6 +6,7 @@ import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantm
 import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import com.github.teamfusion.summonerscrolls.loot.SummonerScrollsLootTables;
+import com.github.teamfusion.summonerscrolls.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.trade.SummonerScrollsTrades;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.utils.EnvExecutor;
@@ -30,6 +31,7 @@ public class SummonerScrolls {
         SummonerScrollsEnchantments.ENCHANTMENTS.register();
         SummonerScrollsItems.ITEMS.register();
         SummonerScrollsEntityTypes.ENTITY_TYPES.register();
+        SummonerScrollsSoundEvents.SOUND_EVENTS.register();
 
         SummonerScrollsEntityTypes.postRegister();
 

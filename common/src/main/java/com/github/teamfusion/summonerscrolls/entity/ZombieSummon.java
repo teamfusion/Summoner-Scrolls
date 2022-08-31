@@ -4,10 +4,11 @@ import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsPart
 import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.NbtUtils;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -20,14 +21,11 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
-
-//todo: make dyeable, make it hold invisible torch for dynamic lighting
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -123,6 +121,11 @@ public class ZombieSummon extends Zombie {
     }
 
     @Override
+    protected SoundEvent getDeathSound() {
+        return SummonerScrollsSoundEvents.SUMMON_DEATH.get();
+    }
+
+    @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("DespawnDelay", this.despawnDelay);
@@ -165,7 +168,7 @@ public class ZombieSummon extends Zombie {
 
     private void maybeDespawn() {
         if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
-            this.discard();
+            this.kill();
         }
     }
 
