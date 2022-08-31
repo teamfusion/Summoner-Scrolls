@@ -32,7 +32,12 @@ public class SummonParticle extends TextureSheetParticle {
 
     @Override
     public ParticleRenderType getRenderType() {
-        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+        return ParticleRenderType.PARTICLE_SHEET_LIT;
+    }
+
+    @Override
+    public int getLightColor(float partialTick) {
+        return 15728880;
     }
 
     @Environment(EnvType.CLIENT)

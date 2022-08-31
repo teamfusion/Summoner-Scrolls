@@ -16,13 +16,12 @@ import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-//todo: make dyeable, make it hold invisble torch for dynamic lighting, particle effect
+//todo: make dyeable, make it hold invisible torch for dynamic lighting
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -124,8 +123,8 @@ public class ZombieSummon extends Zombie {
     }
 
     private void spawnSummonParticles() {
-        for (float i = 0; i < Mth.TWO_PI; i += this.random.nextFloat(0.8F) + 0.5F) {
-            this.level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), this.getX() + Mth.cos(i) * 1.0D, this.getY(), this.getZ() + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
+        for (float i = 0; i < Mth.TWO_PI; i += this.random.nextFloat(3.2F) + 0.5F) {
+            this.level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), this.getX() + Mth.cos(i) * 1.0D, this.getRandomY(), this.getZ() + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
         }
     }
 }

@@ -4,9 +4,8 @@ import com.github.teamfusion.summonerscrolls.client.SummonerScrollsClient;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
-import com.github.teamfusion.summonerscrolls.events.CommonEvents;
-import com.github.teamfusion.summonerscrolls.loot.SummonerScrollsLootTables;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.loot.SummonerScrollsLootTables;
 import com.github.teamfusion.summonerscrolls.trade.SummonerScrollsTrades;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.utils.EnvExecutor;
@@ -38,7 +37,6 @@ public class SummonerScrolls {
         SummonerScrollsLootTables.init();
         SummonerScrollsTrades.init();
 
-        CommonEvents.interactSummonEvent();
         EnvExecutor.runInEnv(EnvType.CLIENT, () -> SummonerScrollsClient::commonClientInitialize);
     }
 
