@@ -3,11 +3,13 @@ package com.github.teamfusion.summonerscrolls.entity;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
+import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.NbtUtils;
 import net.minecraft.util.Mth;
+import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
@@ -17,6 +19,8 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -132,10 +136,14 @@ public class ZombieSummon extends Zombie {
         }
     }
 
+    @Override
+    protected boolean shouldDropLoot() {
+        return false;
+    }
 
     @Override
-    protected void dropCustomDeathLoot(DamageSource damageSource, int i, boolean bl) {
-        super.dropCustomDeathLoot(damageSource, i, bl);
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SummonerScrollsItems.INVISIBLE_SUMMON_LIGHT.get()));
     }
 
     @Override

@@ -18,7 +18,7 @@ public class SummonParticle extends TextureSheetParticle {
         this.yd = motionY;
         this.zd = motionZ;
         this.quadSize *= level.getRandom().nextDouble(0.6D) + 0.4D;
-        this.lifetime = level.getRandom().nextInt(15) + 20;
+        this.lifetime = level.getRandom().nextInt(14) + 10;
         this.sprites = spriteSet;
         this.setSpriteFromAge(this.sprites);
     }
