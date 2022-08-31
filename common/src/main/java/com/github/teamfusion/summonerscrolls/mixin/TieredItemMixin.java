@@ -63,6 +63,7 @@ public abstract class TieredItemMixin extends Item {
             if (summon instanceof ZombieSummon mob) {
                 mob.setOwnerUUID(player.getUUID());
                 player.getCooldowns().addCooldown(this, 1200);
+                mob.setDespawnDelay(600);
                 level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
             }
 

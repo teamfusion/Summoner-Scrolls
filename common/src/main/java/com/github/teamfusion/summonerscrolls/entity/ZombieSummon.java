@@ -5,6 +5,8 @@ import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtUtils;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -29,6 +31,7 @@ public class ZombieSummon extends Zombie {
     public static final Supplier<EntityType<ZombieSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(ZombieSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("zombie_summon"));
 
     public static UUID ownerUUID;
+    private int despawnDelay;
 
     public ZombieSummon(EntityType<? extends Zombie> entityType, Level level) {
         super(entityType, level);
@@ -116,10 +119,46 @@ public class ZombieSummon extends Zombie {
     }
 
     @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("DespawnDelay", this.despawnDelay);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        if (compoundTag.contains("DespawnDelay", 99)) {
+            this.despawnDelay = compoundTag.getInt("DespawnDelay");
+        }
+    }
+
+
+    @Override
+    protected void dropCustomDeathLoot(DamageSource damageSource, int i, boolean bl) {
+        super.dropCustomDeathLoot(damageSource, i, bl);
+    }
+
+    @Override
     public void aiStep() {
         super.aiStep();
-
+        if (!this.level.isClientSide) {
+            this.maybeDespawn();
+        }
         spawnSummonParticles();
+    }
+
+    public void setDespawnDelay(int i) {
+        this.despawnDelay = i;
+    }
+
+    public int getDespawnDelay() {
+        return this.despawnDelay;
+    }
+
+    private void maybeDespawn() {
+        if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
+            this.discard();
+        }
     }
 
     private void spawnSummonParticles() {
