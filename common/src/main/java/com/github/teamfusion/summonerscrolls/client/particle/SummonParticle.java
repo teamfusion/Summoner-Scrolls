@@ -1,0 +1,50 @@
+package com.github.teamfusion.summonerscrolls.client.particle;
+
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.particle.*;
+import net.minecraft.core.particles.SimpleParticleType;
+
+import javax.annotation.ParametersAreNonnullByDefault;
+
+@ParametersAreNonnullByDefault
+public class SummonParticle extends TextureSheetParticle {
+    private final SpriteSet sprites;
+
+    public SummonParticle(ClientLevel level, double x, double y, double z, double motionX, double motionY, double motionZ, SpriteSet spriteSet) {
+        super(level, x, y, z);
+        this.xd = motionX;
+        this.yd = motionY;
+        this.zd = motionZ;
+        this.quadSize *= level.getRandom().nextDouble(0.6D) + 0.4D;
+        this.lifetime = level.getRandom().nextInt(15) + 20;
+        this.sprites = spriteSet;
+        this.setSpriteFromAge(this.sprites);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.setSpriteFromAge(this.sprites);
+        this.yd += level.getRandom().nextDouble(0.01D);
+    }
+
+    @Override
+    public ParticleRenderType getRenderType() {
+        return ParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
+    }
+
+    @Environment(EnvType.CLIENT)
+    public static class Provider implements ParticleProvider<SimpleParticleType> {
+        private final SpriteSet sprite;
+
+        public Provider(SpriteSet spriteSet) {
+            this.sprite = spriteSet;
+        }
+
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel level, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
+            return new SummonParticle(level, x, y, z, xSpeed, ySpeed, zSpeed, this.sprite);
+        }
+    }
+}

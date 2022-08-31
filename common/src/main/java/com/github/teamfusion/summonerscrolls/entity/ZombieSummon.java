@@ -1,9 +1,13 @@
 package com.github.teamfusion.summonerscrolls.entity;
 
+import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -18,7 +22,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-//todo: make dyeable, make it hold invisble torch for dynamic lighting, shift-right click to cancel summon
+//todo: make dyeable, make it hold invisble torch for dynamic lighting, particle effect
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
@@ -44,6 +48,23 @@ public class ZombieSummon extends Zombie {
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
     }
 
+    public LivingEntity getOwner() {
+        try {
+            UUID uUID = this.getOwnerUUID();
+            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
+        } catch (IllegalArgumentException var2) {
+            return null;
+        }
+    }
+
+    public UUID getOwnerUUID() {
+        return ownerUUID;
+    }
+
+    public void setOwnerUUID(UUID uUID) {
+        ownerUUID = uUID;
+    }
+
     public boolean isAngryAt(LivingEntity livingEntity) {
         if (!this.canAttack(livingEntity)) {
             return false;
@@ -60,24 +81,6 @@ public class ZombieSummon extends Zombie {
     @Override
     protected boolean isSunSensitive() {
         return false;
-    }
-
-    @Nullable
-    public LivingEntity getOwner() {
-        try {
-            UUID uUID = this.getOwnerUUID();
-            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
-        } catch (IllegalArgumentException var2) {
-            return null;
-        }
-    }
-
-    public UUID getOwnerUUID() {
-        return ownerUUID;
-    }
-
-    public void setOwnerUUID(@Nullable UUID uUID) {
-        ownerUUID = uUID;
     }
 
     @Override
@@ -102,5 +105,27 @@ public class ZombieSummon extends Zombie {
             return;
         }
         super.doPush(entity);
+    }
+
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+        if (player.isShiftKeyDown()) {
+            this.kill();
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, interactionHand);
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+
+        spawnSummonParticles();
+    }
+
+    private void spawnSummonParticles() {
+        for (float i = 0; i < Mth.TWO_PI; i += this.random.nextFloat(0.8F) + 0.5F) {
+            this.level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), this.getX() + Mth.cos(i) * 1.0D, this.getY(), this.getZ() + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
+        }
     }
 }

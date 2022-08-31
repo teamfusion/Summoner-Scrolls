@@ -44,12 +44,13 @@ public abstract class TieredItemMixin extends Item {
 
     @Override
     public InteractionResult useOn(UseOnContext useOnContext) {
-
+        Player player = useOnContext.getPlayer();
         ItemStack stack = useOnContext.getItemInHand();
-
         EntityType<?> entityType2 = ScrollEnchantUtil.getEntityType(stack);
-
         Level level = useOnContext.getLevel();
+
+        assert player != null;
+
         if (!(level instanceof ServerLevel)) {
             return InteractionResult.SUCCESS;
         } else {
@@ -64,10 +65,11 @@ public abstract class TieredItemMixin extends Item {
             } else {
                 blockPos2 = blockPos.relative(direction);
             }
-            Entity summon = entityType2.spawn((ServerLevel)level, itemStack, useOnContext.getPlayer(), blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
+            Entity summon = entityType2.spawn((ServerLevel)level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
             if (summon instanceof ZombieSummon mob) {
-                mob.setOwnerUUID(Objects.requireNonNull(useOnContext.getPlayer()).getUUID());
-                level.gameEvent(useOnContext.getPlayer(), GameEvent.ENTITY_PLACE, blockPos);
+                mob.setOwnerUUID(player.getUUID());
+
+                level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
             }
 
             return InteractionResult.CONSUME;

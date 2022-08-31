@@ -6,7 +6,8 @@ import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 
-public class SummonerScrollsTags {
+public class
+SummonerScrollsTags {
     public static class EntityTypes {
         public static final TagKey<EntityType<?>> SUMMON = tag("summon");
 

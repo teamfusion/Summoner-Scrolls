@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls;
 
 import com.github.teamfusion.summonerscrolls.client.SummonerScrollsClient;
+import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
 import com.github.teamfusion.summonerscrolls.events.CommonEvents;
@@ -33,6 +34,7 @@ public class SummonerScrolls {
 
         SummonerScrollsEntityTypes.postRegister();
 
+        SummonerScrollsParticles.init();
         SummonerScrollsLootTables.init();
         SummonerScrollsTrades.init();
 

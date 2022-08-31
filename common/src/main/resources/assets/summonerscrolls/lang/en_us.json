@@ -7,10 +7,15 @@
   "item.summonerscrolls.enderman_summoner_scroll": "Enderman Summoner Scroll",
   "item.summonerscrolls.creeper_summoner_scroll": "Creeper Summoner Scroll",
 
-
   "enchantment.summonerscrolls.zombie_scroll": "Zombie Scroll",
   "enchantment.summonerscrolls.skeleton_scroll": "Skeleton Scroll",
   "enchantment.summonerscrolls.spider_scroll": "Spider Scroll",
   "enchantment.summonerscrolls.enderman_scroll": "Enderman Scroll",
-  "enchantment.summonerscrolls.creeper_scroll": "Creeper Scroll"
+  "enchantment.summonerscrolls.creeper_scroll": "Creeper Scroll",
+
+  "entity.summonerscrolls.zombie_summon": "Zombie Summon",
+  "entity.summonerscrolls.skeleton_summon": "Skeleton Summon",
+  "entity.summonerscrolls.spider_summon": "Spider Summon",
+  "entity.summonerscrolls.enderman_summon": "Enderman Summon",
+  "entity.summonerscrolls.creeper_summon": "Creeper Summon"
 }
