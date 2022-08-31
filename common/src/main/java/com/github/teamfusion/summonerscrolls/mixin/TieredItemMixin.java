@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.entity.ZombieSummon;
+import com.github.teamfusion.summonerscrolls.entity.Summon;
 import com.github.teamfusion.summonerscrolls.util.ScrollEnchantUtil;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -17,12 +17,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TieredItem;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.phys.BlockHitResult;
-import net.minecraft.world.phys.HitResult;
 import org.spongepowered.asm.mixin.Mixin;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -45,9 +42,7 @@ public abstract class TieredItemMixin extends Item {
 
         assert player != null;
 
-        if (!(level instanceof ServerLevel)) {
-            return InteractionResult.SUCCESS;
-        } else {
+        if (level instanceof ServerLevel) {
             ItemStack itemStack = useOnContext.getItemInHand();
             BlockPos blockPos = useOnContext.getClickedPos();
             Direction direction = useOnContext.getClickedFace();
@@ -59,42 +54,34 @@ public abstract class TieredItemMixin extends Item {
             } else {
                 blockPos2 = blockPos.relative(direction);
             }
-            Entity summon = entityType2.spawn((ServerLevel)level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
-            if (summon instanceof ZombieSummon mob) {
+            Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
+            if (summon instanceof Summon mob) {
+                mob.setOwnerUUID(player.getUUID());
+                player.getCooldowns().addCooldown(this, 1200);
+                mob.setDespawnDelay(600);
+                level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
+            }
+        }
+        return InteractionResult.SUCCESS;
+    }
+
+    @Override
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
+        ItemStack stack = player.getItemInHand(interactionHand);
+        EntityType<?> entityType = ScrollEnchantUtil.getEntityType(stack);
+        ItemStack itemStack = player.getItemInHand(interactionHand);
+        BlockPos blockPos = player.getOnPos();
+
+        if (level instanceof ServerLevel) {
+            Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
+            if (summon instanceof Summon mob) {
                 mob.setOwnerUUID(player.getUUID());
                 player.getCooldowns().addCooldown(this, 1200);
                 mob.setDespawnDelay(600);
                 level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
             }
 
-            return InteractionResult.SUCCESS;
         }
-    }
-
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
-        ItemStack stack = player.getItemInHand(interactionHand);
-
-        EntityType<?> entityType = ScrollEnchantUtil.getEntityType(stack);
-
-        ItemStack itemStack = player.getItemInHand(interactionHand);
-        BlockHitResult hitResult = getPlayerPOVHitResult(level, player, ClipContext.Fluid.SOURCE_ONLY);
-        if (hitResult.getType() != HitResult.Type.BLOCK) {
-            return InteractionResultHolder.pass(itemStack);
-        } else if (!(level instanceof ServerLevel)) {
-            return InteractionResultHolder.success(itemStack);
-        } else {
-            BlockPos blockPos = hitResult.getBlockPos();
-            if (level.mayInteract(player, blockPos) && player.mayUseItemAt(blockPos, hitResult.getDirection(), itemStack)) {
-                if (entityType.spawn((ServerLevel)level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, false, false) == null) {
-                    return InteractionResultHolder.pass(itemStack);
-                } else {
-                    level.gameEvent(GameEvent.ENTITY_PLACE, player);
-                    return InteractionResultHolder.success(itemStack);
-                }
-            } else {
-                return InteractionResultHolder.fail(itemStack);
-            }
-        }
+        return InteractionResultHolder.success(itemStack);
     }
 }
