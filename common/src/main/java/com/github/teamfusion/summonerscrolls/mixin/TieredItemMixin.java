@@ -42,27 +42,34 @@ public abstract class TieredItemMixin extends Item {
 
         assert player != null;
 
-        if (level instanceof ServerLevel) {
-            ItemStack itemStack = useOnContext.getItemInHand();
-            BlockPos blockPos = useOnContext.getClickedPos();
-            Direction direction = useOnContext.getClickedFace();
-            BlockState blockState = level.getBlockState(blockPos);
+        ItemStack itemStack = useOnContext.getItemInHand();
+        BlockPos blockPos = useOnContext.getClickedPos();
+        Direction direction = useOnContext.getClickedFace();
+        BlockState blockState = level.getBlockState(blockPos);
 
-            BlockPos blockPos2;
-            if (blockState.getCollisionShape(level, blockPos).isEmpty()) {
-                blockPos2 = blockPos;
+        if (level.mayInteract(player, blockPos)) {
+            if (!(level instanceof ServerLevel)) {
+                return InteractionResult.SUCCESS;
             } else {
-                blockPos2 = blockPos.relative(direction);
-            }
-            Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
-            if (summon instanceof Summon mob) {
-                mob.setOwnerUUID(player.getUUID());
-                player.getCooldowns().addCooldown(this, 1200);
-                mob.setDespawnDelay(600);
-                level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
+                BlockPos blockPos2;
+                if (blockState.getCollisionShape(level, blockPos).isEmpty()) {
+                    blockPos2 = blockPos;
+                } else {
+                    blockPos2 = blockPos.relative(direction);
+                }
+                Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
+                if (summon instanceof Summon mob) {
+                    mob.setOwnerUUID(player.getUUID());
+                    player.getCooldowns().addCooldown(this, 1200);
+                    mob.setDespawnDelay(600);
+                    level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
+                    return InteractionResult.SUCCESS;
+                } else {
+                    return InteractionResult.FAIL;
+                }
             }
         }
-        return InteractionResult.SUCCESS;
+        return InteractionResult.FAIL;
     }
 
     @Override
@@ -72,16 +79,22 @@ public abstract class TieredItemMixin extends Item {
         ItemStack itemStack = player.getItemInHand(interactionHand);
         BlockPos blockPos = player.getOnPos();
 
-        if (level instanceof ServerLevel) {
-            Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
-            if (summon instanceof Summon mob) {
-                mob.setOwnerUUID(player.getUUID());
-                player.getCooldowns().addCooldown(this, 1200);
-                mob.setDespawnDelay(600);
-                level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
+        if (level.mayInteract(player, blockPos)) {
+            if (!(level instanceof ServerLevel)) {
+                return InteractionResultHolder.success(itemStack);
+            } else {
+                Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
+                if (summon instanceof Summon mob) {
+                    mob.setOwnerUUID(player.getUUID());
+                    player.getCooldowns().addCooldown(this, 1200);
+                    mob.setDespawnDelay(600);
+                    level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
+                    return InteractionResultHolder.success(itemStack);
+                } else {
+                    return InteractionResultHolder.fail(itemStack);
+                }
             }
-
         }
-        return InteractionResultHolder.success(itemStack);
+        return InteractionResultHolder.fail(itemStack);
     }
 }
