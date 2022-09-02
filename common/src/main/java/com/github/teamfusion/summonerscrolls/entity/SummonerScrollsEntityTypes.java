@@ -15,7 +15,7 @@ public class SummonerScrollsEntityTypes {
     public static final RegistrySupplier<EntityType<ZombieSummon>> ZOMBIE_SUMMON = ENTITY_TYPES.register("zombie_summon", ZombieSummon.TYPE);
 
     public static void postRegister() {
-        EntityAttributeRegistry.register(ZOMBIE_SUMMON, ZombieSummon::createAttributes);
+        EntityAttributeRegistry.register(ZOMBIE_SUMMON, ZombieSummon::createSummonAttributes);
     }
 
     private static <T extends LivingEntity> RegistrySupplier<EntityType<T>> register(String id, EntityType.Builder<T> builder) {

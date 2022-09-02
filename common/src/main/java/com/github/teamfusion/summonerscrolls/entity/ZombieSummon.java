@@ -15,9 +15,14 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -46,12 +51,15 @@ public class ZombieSummon extends Zombie implements Summon {
     @Override
     protected void registerGoals() {
         this.targetSelector.addGoal(1, new OwnerHurtByTargetGoal(this));
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, (livingEntity) -> livingEntity instanceof Enemy));
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, Mob.class, 5, false, false, this::isEnemy));
         this.targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(this, Player.class, 10, true, false, this::isAngryAt));
         this.goalSelector.addGoal(5, new MeleeAttackGoal(this, 1.0, true));
         this.goalSelector.addGoal(6, new FollowOwnerGoal(this, 1.0, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 6.0F));
+        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
+    @Override
     public LivingEntity getOwner() {
         try {
             UUID uUID = this.getOwnerUUID();
@@ -61,10 +69,12 @@ public class ZombieSummon extends Zombie implements Summon {
         }
     }
 
+    @Override
     public UUID getOwnerUUID() {
         return ownerUUID;
     }
 
+    @Override
     public void setOwnerUUID(UUID uUID) {
         ownerUUID = uUID;
     }
@@ -75,6 +85,15 @@ public class ZombieSummon extends Zombie implements Summon {
         } else {
             return livingEntity.getType() == EntityType.PLAYER && !livingEntity.getUUID().equals(this.getOwnerUUID());
         }
+    }
+
+    public boolean isEnemy(LivingEntity livingEntity) {
+        if (livingEntity instanceof Summon summon) {
+            if (summon.getOwner() == this.getOwner()) {
+                return false;
+            }
+        }
+        return livingEntity instanceof Enemy;
     }
 
     @Override
@@ -158,10 +177,12 @@ public class ZombieSummon extends Zombie implements Summon {
         spawnSummonParticles();
     }
 
+    @Override
     public void setDespawnDelay(int i) {
         this.despawnDelay = i;
     }
 
+    @Override
     public int getDespawnDelay() {
         return this.despawnDelay;
     }
@@ -176,5 +197,9 @@ public class ZombieSummon extends Zombie implements Summon {
         for (float i = 0; i < Mth.TWO_PI; i += this.random.nextFloat(3.2F) + 0.5F) {
             this.level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), this.getX() + Mth.cos(i) * 1.0D, this.getRandomY(), this.getZ() + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
         }
+    }
+
+    public static AttributeSupplier.Builder createSummonAttributes() {
+        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 3.0).add(Attributes.ARMOR, 2.0).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 }
