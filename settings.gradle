@@ -12,4 +12,4 @@ include("fabric")
 include("quilt")
 include("forge")
 
-rootProject.name = "summoner_scrolls"
+rootProject.name = "summonerscrolls"

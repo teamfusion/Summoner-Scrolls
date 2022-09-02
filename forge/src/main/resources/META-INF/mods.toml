@@ -4,7 +4,7 @@ issueTrackerURL = "https://github.com/teamfusion/Summoner-Scrolls/issues"
 license = "MIT (Code); ARR (Assets)"
 
 [[mods]]
-modId = "summoner_scrolls"
+modId = "summonerscrolls"
 version = "${version}"
 displayName = "Summoner Scrolls"
 authors = "Team Fusion"
@@ -13,21 +13,21 @@ Bringing more Magic into Minecraft!
 '''
 logoFile = "logo.png"
 
-[[dependencies.summoner_scrolls]]
+[[dependencies.summonerscrolls]]
 modId = "forge"
 mandatory = true
 versionRange = "[40,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.summoner_scrolls]]
+[[dependencies.summonerscrolls]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.18.2,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.summoner_scrolls]]
+[[dependencies.summonerscrolls]]
 modId = "architectury"
 mandatory = true
 versionRange = "[4.9.83,)"
