@@ -1,11 +1,10 @@
 package com.github.teamfusion.summonerscrolls.entity.goal;
 
+import com.github.teamfusion.summonerscrolls.entity.Summon;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
-import com.github.teamfusion.summonerscrolls.entity.ZombieSummon;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.Goal;
-import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.LeavesBlock;
@@ -16,11 +15,7 @@ import net.minecraft.world.level.pathfinder.WalkNodeEvaluator;
 import java.util.EnumSet;
 
 public class FollowOwnerGoal extends Goal {
-    public static final int TELEPORT_WHEN_DISTANCE_IS = 12;
-    private static final int MIN_HORIZONTAL_DISTANCE_FROM_PLAYER_WHEN_TELEPORTING = 2;
-    private static final int MAX_HORIZONTAL_DISTANCE_FROM_PLAYER_WHEN_TELEPORTING = 3;
-    private static final int MAX_VERTICAL_DISTANCE_FROM_PLAYER_WHEN_TELEPORTING = 1;
-    private final ZombieSummon summon;
+    private final Mob summon;
     private LivingEntity owner;
     private final LevelReader level;
     private final double speedModifier;
@@ -31,7 +26,7 @@ public class FollowOwnerGoal extends Goal {
     private float oldWaterCost;
     private final boolean canFly;
 
-    public FollowOwnerGoal(ZombieSummon summon, double d, float f, float g, boolean bl) {
+    public FollowOwnerGoal(Mob summon, double d, float f, float g, boolean bl) {
         this.summon = summon;
         this.level = summon.level;
         this.speedModifier = d;
@@ -43,7 +38,11 @@ public class FollowOwnerGoal extends Goal {
     }
 
     public boolean canUse() {
-        LivingEntity livingEntity = this.summon.getOwner();
+        LivingEntity livingEntity = null;
+        if (summon instanceof Summon summon1) {
+            livingEntity = summon1.getOwner();
+        }
+
         if (livingEntity == null) {
             return false;
         } else if (livingEntity.isSpectator()) {
@@ -112,7 +111,7 @@ public class FollowOwnerGoal extends Goal {
         } else if (!this.canTeleportTo(new BlockPos(i, j, k))) {
             return false;
         } else {
-            this.summon.moveTo((double) i + 0.5, (double) j, (double) k + 0.5, this.summon.getYRot(), this.summon.getXRot());
+            this.summon.moveTo((double) i + 0.5, j, (double) k + 0.5, this.summon.getYRot(), this.summon.getXRot());
             this.navigation.stop();
             return true;
         }

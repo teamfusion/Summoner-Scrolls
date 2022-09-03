@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls.entity.goal;
 
-import com.github.teamfusion.summonerscrolls.entity.ZombieSummon;
+import com.github.teamfusion.summonerscrolls.entity.Summon;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
@@ -8,18 +9,22 @@ import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 import java.util.EnumSet;
 
 public class OwnerHurtByTargetGoal extends TargetGoal {
-    private final ZombieSummon mob;
+    private final Mob summon;
     private LivingEntity ownerLastHurtBy;
     private int timestamp;
 
-    public OwnerHurtByTargetGoal(ZombieSummon mob) {
-        super(mob, false);
-        this.mob = mob;
+    public OwnerHurtByTargetGoal(Mob summon) {
+        super(summon, false);
+        this.summon = summon;
         this.setFlags(EnumSet.of(Flag.TARGET));
     }
 
     public boolean canUse() {
-        LivingEntity livingEntity = this.mob.getOwner();
+        LivingEntity livingEntity = null;
+        if (summon instanceof Summon summon1) {
+            livingEntity = summon1.getOwner();
+        }
+
         if (livingEntity == null) {
             return false;
         } else {
@@ -30,8 +35,12 @@ public class OwnerHurtByTargetGoal extends TargetGoal {
     }
 
     public void start() {
-        this.mob.setTarget(this.ownerLastHurtBy);
-        LivingEntity livingEntity = this.mob.getOwner();
+        LivingEntity livingEntity = null;
+        if (summon instanceof Summon summon1) {
+            livingEntity = summon1.getOwner();
+        }
+
+        this.summon.setTarget(this.ownerLastHurtBy);
         if (livingEntity != null) {
             this.timestamp = livingEntity.getLastHurtByMobTimestamp();
         }
