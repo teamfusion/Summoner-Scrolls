@@ -27,8 +27,8 @@ public class ScrollEnchantUtil {
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.SKELETON;
+            if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
+                type = EntityType.ENDERMAN;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
@@ -37,5 +37,65 @@ public class ScrollEnchantUtil {
             }
         }
         return type;
+    }
+
+    public static int getXP(ItemStack stack) {
+        int summonXP = 0;
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
+                summonXP = 10;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
+                summonXP = 15;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+                summonXP = 10;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
+                summonXP = 30;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
+                summonXP = 40;
+            }
+        }
+        return summonXP;
+    }
+
+    public static int getDurability(ItemStack stack) {
+        int durability = 0;
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
+                durability = 1;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
+                durability = 2;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+                durability = 1;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
+                durability = 5;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
+                durability = 10;
+            }
+        }
+        return durability;
     }
 }

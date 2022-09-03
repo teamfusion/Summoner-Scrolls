@@ -6,6 +6,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
@@ -57,15 +58,14 @@ public abstract class TieredItemMixin extends Item {
                 } else {
                     blockPos2 = blockPos.relative(direction);
                 }
-                Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
-                if (summon instanceof Summon mob) {
-                    mob.setOwnerUUID(player.getUUID());
-                    player.getCooldowns().addCooldown(this, 1200);
-                    mob.setDespawnDelay(600);
-                    level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
-                    return InteractionResult.SUCCESS;
-                } else {
-                    return InteractionResult.FAIL;
+                if (player.experienceLevel >= 10) {
+                    Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
+                    if (summon instanceof Summon mob) {
+                        spawnSummon(player, stack, level, blockPos, mob);
+                        return InteractionResult.SUCCESS;
+                    } else {
+                        return InteractionResult.FAIL;
+                    }
                 }
             }
         }
@@ -83,18 +83,27 @@ public abstract class TieredItemMixin extends Item {
             if (!(level instanceof ServerLevel)) {
                 return InteractionResultHolder.success(itemStack);
             } else {
-                Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
-                if (summon instanceof Summon mob) {
-                    mob.setOwnerUUID(player.getUUID());
-                    player.getCooldowns().addCooldown(this, 1200);
-                    mob.setDespawnDelay(600);
-                    level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
-                    return InteractionResultHolder.success(itemStack);
-                } else {
-                    return InteractionResultHolder.fail(itemStack);
+                if (player.experienceLevel >= ScrollEnchantUtil.getXP(stack)) {
+                    Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
+                    if (summon instanceof Summon mob) {
+                        spawnSummon(player, stack, level, blockPos, mob);
+                        return InteractionResultHolder.success(itemStack);
+                    } else {
+                        return InteractionResultHolder.fail(itemStack);
+                    }
                 }
             }
         }
         return InteractionResultHolder.fail(itemStack);
+    }
+
+    private void spawnSummon(Player player, ItemStack stack, Level level, BlockPos blockPos, Summon mob) {
+        mob.setOwnerUUID(player.getUUID());
+        player.getCooldowns().addCooldown(this, 1200);
+        mob.setDespawnDelay(600);
+        player.giveExperienceLevels(-ScrollEnchantUtil.getXP(stack));
+        stack.hurt(ScrollEnchantUtil.getDurability(stack), level.random, (ServerPlayer) player);
+
+        level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
     }
 }
