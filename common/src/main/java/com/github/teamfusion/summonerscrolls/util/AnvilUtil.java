@@ -15,6 +15,7 @@ import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class AnvilUtil {
+    //todo: check if you can combine scrolls
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();

@@ -9,6 +9,15 @@ import net.minecraft.world.item.enchantment.Enchantment;
 public class SummonerScrollsEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(SummonerScrolls.MOD_ID, Registry.ENCHANTMENT_REGISTRY);
 
+    //todo: make enchantment classes or automatic way
+    public static final RegistrySupplier<Enchantment> BEE_SCROLL_ENCHANTMENT = register("bee_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> CAVE_SPIDER_SCROLL_ENCHANTMENT = register("cave_spider_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> CHARGED_CREEPER_SCROLL_ENCHANTMENT = register("charged_creeper_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> HUSK_SCROLL_ENCHANTMENT = register("husk_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> IRON_GOLEM_SCROLL_ENCHANTMENT = register("iron_golem_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> PIGLIN_BRUTE_SCROLL_ENCHANTMENT = register("piglin_brute_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> PIGLIN_SCROLL_ENCHANTMENT = register("piglin_scroll", new ZombieScrollEnchantment());
+    public static final RegistrySupplier<Enchantment> STRAY_SCROLL_ENCHANTMENT = register("stray_scroll", new ZombieScrollEnchantment());
     public static final RegistrySupplier<Enchantment> ZOMBIE_SCROLL_ENCHANTMENT = register("zombie_scroll", new ZombieScrollEnchantment());
     public static final RegistrySupplier<Enchantment> SKELETON_SCROLL_ENCHANTMENT = register("skeleton_scroll", new SkeletonScrollEnchantment());
     public static final RegistrySupplier<Enchantment> SPIDER_SCROLL_ENCHANTMENT = register("spider_scroll", new SpiderScrollEnchantment());

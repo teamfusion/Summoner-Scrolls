@@ -14,5 +14,6 @@ public class SummonerScrollsClient extends SummonerScrolls {
         LOGGER.info("Initializing {}-CLIENT", MOD_NAME);
 
         EntityRendererRegistry.register(SummonerScrollsEntityTypes.ZOMBIE_SUMMON, ZombieSummonRenderer::new);
+        EntityRendererRegistry.register(SummonerScrollsEntityTypes.HUSK_SUMMON, ZombieSummonRenderer::new);
     }
 }

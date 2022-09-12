@@ -10,17 +10,14 @@ public class SummonerScrollsTrades {
         SummonerScrollsItems.ZOMBIE_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
                 VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.ZOMBIE_SCROLL.get(), 1, 5, 2)
         ));
-        SummonerScrollsItems.SKELETON_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.SKELETON_SCROLL.get(), 1, 5, 2)
-        ));
         SummonerScrollsItems.SPIDER_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
                 VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.SPIDER_SCROLL.get(), 1, 5, 2)
         ));
-        SummonerScrollsItems.ENDERMAN_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.ENDERMAN_SCROLL.get(), 1, 5, 2)
+        SummonerScrollsItems.SKELETON_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
+                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.SKELETON_SCROLL.get(), 1, 5, 2)
         ));
-        SummonerScrollsItems.CREEPER_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.CREEPER_SCROLL.get(), 1, 5, 2)
+        SummonerScrollsItems.BEE_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
+                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(SummonerScrollsItems.ENDERMAN_SCROLL.get(), 1, 5, 2)
         ));
     }
 }
