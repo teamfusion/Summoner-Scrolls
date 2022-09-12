@@ -11,13 +11,14 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.Zombie;
 
 @Environment(EnvType.CLIENT)
-public class SummonWhiteFireLayer<T extends Zombie> extends EyesLayer<T, ZombieModel<T>> {
-    private static final RenderType SUMMON_WHITE_FIRE = RenderType.eyes(new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/zombie_summon_white_fire.png"));
+public class SummonGlowLayer<T extends Zombie> extends EyesLayer<T, ZombieModel<T>> {
+    private static final RenderType SUMMON_WHITE_FIRE = RenderType.eyes(new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/zombie_summon_glow.png"));
 
-    public SummonWhiteFireLayer(RenderLayerParent<T, ZombieModel<T>> renderLayerParent) {
+    public SummonGlowLayer(RenderLayerParent<T, ZombieModel<T>> renderLayerParent) {
         super(renderLayerParent);
     }
 
+    @Override
     public RenderType renderType() {
         return SUMMON_WHITE_FIRE;
     }
