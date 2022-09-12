@@ -174,7 +174,7 @@ public class ZombieSummon extends Zombie implements Summon {
         if (!this.level.isClientSide) {
             this.maybeDespawn();
         }
-        spawnSummonParticles();
+        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
     @Override
@@ -190,12 +190,6 @@ public class ZombieSummon extends Zombie implements Summon {
     private void maybeDespawn() {
         if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
             this.kill();
-        }
-    }
-
-    private void spawnSummonParticles() {
-        for (float i = 0; i < Mth.TWO_PI; i += this.random.nextFloat(3.2F) + 0.5F) {
-            this.level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), this.getX() + Mth.cos(i) * 1.0D, this.getRandomY(), this.getZ() + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
         }
     }
 
