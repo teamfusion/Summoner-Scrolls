@@ -12,6 +12,8 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -109,7 +111,7 @@ public class HuskSummon extends Husk implements Summon {
         if (damageSource.getEntity() == this.getOwner()) {
             return false;
         }
-        return super.hurt(DamageSource.ON_FIRE, f);
+        return super.hurt(damageSource, f);
     }
 
     @Override
@@ -194,5 +196,16 @@ public class HuskSummon extends Husk implements Summon {
     public static AttributeSupplier.Builder createSummonAttributes() {
         //todo: Costs 20 XP to summon. 5 Durability to use, burn enemy
         return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 6.0).add(Attributes.ARMOR, 2.0).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+    }
+
+    @Override
+    public boolean doHurtTarget(Entity entity) {
+        boolean bl = super.doHurtTarget(entity);
+        if (bl && this.getMainHandItem().isEmpty() && entity instanceof LivingEntity) {
+            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+            ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int)f), this);
+        }
+
+        return bl;
     }
 }

@@ -22,7 +22,7 @@ public class ZombieSummonRenderer extends ZombieRenderer {
 
     public ZombieSummonRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.addLayer(new SummonGlowLayer<>(this));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
     }
 
     @Nullable

@@ -22,7 +22,7 @@ public class HuskSummonRenderer extends HuskRenderer {
 
     public HuskSummonRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.addLayer(new SummonGlowLayer<>(this));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
     }
 
     @Nullable
