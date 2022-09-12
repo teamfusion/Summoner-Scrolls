@@ -12,8 +12,7 @@ import net.minecraft.world.entity.monster.Zombie;
 
 @Environment(EnvType.CLIENT)
 public class SummonGlowLayer<T extends Zombie> extends EyesLayer<T, ZombieModel<T>> {
-    public String SUMMON_NAME;
-    private final RenderType SUMMON_GLOW_LAYER = RenderType.eyes(new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon_glow.png"));
+    private final String SUMMON_NAME;
 
     public SummonGlowLayer(RenderLayerParent<T, ZombieModel<T>> renderLayerParent, String summonName) {
         super(renderLayerParent);
@@ -22,6 +21,6 @@ public class SummonGlowLayer<T extends Zombie> extends EyesLayer<T, ZombieModel<
 
     @Override
     public RenderType renderType() {
-        return SUMMON_GLOW_LAYER;
+        return RenderType.eyes(new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon_glow.png"));
     }
 }
