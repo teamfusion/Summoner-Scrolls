@@ -195,7 +195,11 @@ public class HuskSummon extends Husk implements Summon {
 
     public static AttributeSupplier.Builder createSummonAttributes() {
         //todo: Costs 20 XP to summon. 5 Durability to use, burn enemy
-        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 6.0).add(Attributes.ARMOR, 2.0).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.4)
+                .add(Attributes.ATTACK_DAMAGE, 6.0)
+                .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 
     @Override
