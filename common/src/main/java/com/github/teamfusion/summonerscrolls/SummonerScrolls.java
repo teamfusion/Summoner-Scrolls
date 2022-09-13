@@ -23,7 +23,7 @@ public class SummonerScrolls {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     public static final CreativeModeTab SCROLLS_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "scrolls_tab"), () ->
-            new ItemStack(SummonerScrollsItems.ZOMBIE_SCROLL.get()));
+            new ItemStack(SummonerScrollsItems.ENHANCEMENT_SCROLL.get()));
     
     public static void commonInitialize() {
         LOGGER.info("Initializing {}", MOD_NAME);

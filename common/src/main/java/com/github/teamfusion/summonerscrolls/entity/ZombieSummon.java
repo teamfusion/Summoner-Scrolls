@@ -194,6 +194,10 @@ public class ZombieSummon extends Zombie implements Summon {
     }
 
     public static AttributeSupplier.Builder createSummonAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0).add(Attributes.MOVEMENT_SPEED, 0.3).add(Attributes.ATTACK_DAMAGE, 3.0).add(Attributes.ARMOR, 2.0).add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 }
