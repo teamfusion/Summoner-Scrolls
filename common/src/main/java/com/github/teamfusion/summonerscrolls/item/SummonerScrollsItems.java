@@ -16,6 +16,8 @@ import java.util.function.Supplier;
 public class SummonerScrollsItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(SummonerScrolls.MOD_ID, Registry.ITEM_REGISTRY);
 
+    public static final RegistrySupplier<Item> ENHANCEMENT_SCROLL = ITEMS.register("enhancement_summoner_scroll", () ->  new Item(new Item.Properties().stacksTo(16).tab(SummonerScrolls.SCROLLS_TAB)));
+
     /* Mob Scrolls - Tier 1 */
     public static final RegistrySupplier<Item> ZOMBIE_SCROLL = ITEMS.register("zombie_summoner_scroll", () ->
             new ScrollItem(SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
@@ -39,14 +41,14 @@ public class SummonerScrollsItems {
             new ScrollItem(SummonerScrollsEnchantments.PIGLIN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
     /* Mob Scrolls - Tier 3 */
-//    public static final RegistrySupplier<Item> SHULKERMAN_SCROLL = ITEMS.register("shulkerman_summoner_scroll", () ->
-//            new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> CREEPER_SCROLL = ITEMS.register("creeper_summoner_scroll", () ->
             new ScrollItem(SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> CHARGED_CREEPER_SCROLL = ITEMS.register("charged_creeper_summoner_scroll", () ->
             new ScrollItem(SummonerScrollsEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> PIGLIN_BRUTE_SCROLL = ITEMS.register("piglin_brute_summoner_scroll", () ->
             new ScrollItem(SummonerScrollsEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+//    public static final RegistrySupplier<Item> SHULKERMAN_SCROLL = ITEMS.register("shulkerman_summoner_scroll", () ->
+//            new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> IRON_GOLEM_SCROLL = ITEMS.register("iron_golem_summoner_scroll", () ->
             new ScrollItem(SummonerScrollsEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
