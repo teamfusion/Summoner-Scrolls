@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls.util;
 
 import com.github.teamfusion.summonerscrolls.item.ScrollItem;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -28,6 +29,7 @@ public class AnvilUtil {
                 enchantments.put(enchantment, 1);
                 ItemStack copy = left.copy();
                 EnchantmentHelper.setEnchantments(enchantments, copy);
+                copy.setHoverName(new TextComponent(name));
 
                 outputSlot.setItem(0, copy);
                 container.cost.set(8);

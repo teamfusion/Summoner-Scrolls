@@ -2,6 +2,7 @@ package com.github.teamfusion.summonerscrolls.forge;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.item.ScrollItem;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -14,6 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
+import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = SummonerScrolls.MOD_ID)
 public class CommonEvents {
@@ -32,6 +34,7 @@ public class CommonEvents {
                 enchantments.put(enchantment, 1);
                 ItemStack copy = left.copy();
                 EnchantmentHelper.setEnchantments(enchantments, copy);
+                copy.setHoverName(new TextComponent(Objects.requireNonNull(event.getName())));
 
                 event.setOutput(copy);
                 event.setCost(8);
