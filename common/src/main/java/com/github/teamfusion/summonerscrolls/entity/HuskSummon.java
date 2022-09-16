@@ -59,6 +59,8 @@ public class HuskSummon extends Husk implements Summon {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
+
+
     @Override
     public LivingEntity getOwner() {
         try {
@@ -205,9 +207,12 @@ public class HuskSummon extends Husk implements Summon {
     @Override
     public boolean doHurtTarget(Entity entity) {
         boolean bl = super.doHurtTarget(entity);
-        if (bl && this.getMainHandItem().isEmpty() && entity instanceof LivingEntity) {
-            float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-            ((LivingEntity)entity).addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int)f), this);
+        if (entity instanceof LivingEntity livingEntity) {
+            if (bl && this.getMainHandItem().isEmpty()) {
+                float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int) f), this);
+                livingEntity.setSecondsOnFire(8);
+            }
         }
 
         return bl;

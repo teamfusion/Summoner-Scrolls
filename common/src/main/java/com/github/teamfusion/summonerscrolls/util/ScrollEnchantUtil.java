@@ -2,8 +2,10 @@ package com.github.teamfusion.summonerscrolls.util;
 
 import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
+import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -157,6 +159,58 @@ public class ScrollEnchantUtil {
 //            if (enchantment == SummonerScrollsEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
 //                summonXP = 60;
 //            }
+//        }
+
+        return summonXP;
+    }
+
+    public static int getScrollXPCount(ItemStack stack) {
+        Item item = stack.getItem();
+        int summonXP = 0;
+
+        /* Summon XP - Tier 1 */
+        if (item == SummonerScrollsItems.ZOMBIE_SCROLL.get()){
+            summonXP = 10;
+        }
+        if (item == SummonerScrollsItems.SPIDER_SCROLL.get()){
+            summonXP = 10;
+        }
+        if (item == SummonerScrollsItems.SKELETON_SCROLL.get()){
+            summonXP = 15;
+        }
+        if (item == SummonerScrollsItems.BEE_SCROLL.get()){
+            summonXP = 15;
+        }
+
+        /* Summon Types - Tier 2 */
+        if (item == SummonerScrollsItems.HUSK_SCROLL.get()){
+            summonXP = 20;
+        }
+        if (item == SummonerScrollsItems.STRAY_SCROLL.get()){
+            summonXP = 20;
+        }
+        if (item == SummonerScrollsItems.CAVE_SPIDER_SCROLL.get()){
+            summonXP = 15;
+        }
+        if (item == SummonerScrollsItems.ENDERMAN_SCROLL.get()){
+            summonXP = 30;
+        }
+        if (item == SummonerScrollsItems.SKELETON_SCROLL.get()){
+            summonXP = 30;
+        }
+
+        /* Summon Types - Tier 3 */
+        if (item == SummonerScrollsItems.CREEPER_SCROLL.get()){
+            summonXP = 40;
+        }
+        if (item == SummonerScrollsItems.PIGLIN_BRUTE_SCROLL.get()){
+            summonXP = 50;
+        }
+        if (item == SummonerScrollsItems.IRON_GOLEM_SCROLL.get()){
+            summonXP = 50;
+        }
+//        if (item == SummonerScrollsItems.CHARGED_CREEPER_SCROLL.get()){
+//            summonXP = 60;
 //        }
 
         return summonXP;

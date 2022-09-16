@@ -56,5 +56,8 @@
   "entity.summonerscrolls.charged_creeper_scroll": "Charged Creeper Summon",
   "entity.summonerscrolls.piglin_brute_scroll": "Piglin Brute Summon",
   "entity.summonerscrolls.shulkerman_scroll": "Shulkerman Summon",
-  "entity.summonerscrolls.iron_golem_scroll": "Iron Golem Summon"
+  "entity.summonerscrolls.iron_golem_scroll": "Iron Golem Summon",
+
+
+  "item.summonerscrolls.scroll.xpwarning": "Required XP:"
 }
