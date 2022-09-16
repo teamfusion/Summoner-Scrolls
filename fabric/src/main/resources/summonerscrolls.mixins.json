@@ -6,7 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "AnvilMenuMixin"
+    "main.com.github.teamfusion.summonerscrolls.mixin.fabric.AnvilMenuMixin"
   ],
   "injectors": {
     "defaultRequire": 1

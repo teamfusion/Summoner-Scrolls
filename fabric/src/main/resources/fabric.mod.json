@@ -27,7 +27,9 @@
 
   "environment": "*",
   "entrypoints": {
-    "main": [ "com.github.teamfusion.summonerscrolls.fabric.SummonerScrollsFabric" ]
+    "main": [
+      "com.github.teamfusion.summonerscrolls.fabric.SummonerScrollsFabric"
+    ]
   },
   "mixins": [
     "summonerscrolls.mixins.json",

@@ -1,4 +1,4 @@
-package com.github.teamfusion.summonerscrolls.tags;
+package com.github.teamfusion.summonerscrolls.tag;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import net.minecraft.resources.ResourceLocation;
