@@ -21,7 +21,9 @@ public final class ModelProvider extends FabricModelProvider {
     @Override
     public void generateItemModels(ItemModelGenerators gen) {
         for (RegistrySupplier<Item> item : SummonerScrollsItems.ITEMS) {
-            gen.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
+            if (item.get() != SummonerScrollsItems.SUMMON_BOW.get()) {
+                gen.generateFlatItem(item.get(), ModelTemplates.FLAT_ITEM);
+            }
         }
     }
 }

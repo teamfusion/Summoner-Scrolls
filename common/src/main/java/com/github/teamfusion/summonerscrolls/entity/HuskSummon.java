@@ -21,7 +21,6 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -59,7 +58,10 @@ public class HuskSummon extends Husk implements Summon {
         this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
     }
 
-
+    @Override
+    public LivingEntity getSummon() {
+        return this;
+    }
 
     @Override
     public LivingEntity getOwner() {
@@ -79,23 +81,6 @@ public class HuskSummon extends Husk implements Summon {
     @Override
     public void setOwnerUUID(UUID uUID) {
         ownerUUID = uUID;
-    }
-
-    public boolean isAngryAt(LivingEntity livingEntity) {
-        if (!this.canAttack(livingEntity)) {
-            return false;
-        } else {
-            return livingEntity.getType() == EntityType.PLAYER && !livingEntity.getUUID().equals(this.getOwnerUUID());
-        }
-    }
-
-    public boolean isEnemy(LivingEntity livingEntity) {
-        if (livingEntity instanceof Summon summon) {
-            if (summon.getOwner() == this.getOwner()) {
-                return false;
-            }
-        }
-        return livingEntity instanceof Enemy;
     }
 
     @Override
@@ -180,6 +165,20 @@ public class HuskSummon extends Husk implements Summon {
     }
 
     @Override
+    public boolean doHurtTarget(Entity entity) {
+        boolean bl = super.doHurtTarget(entity);
+        if (entity instanceof LivingEntity livingEntity) {
+            if (bl && this.getMainHandItem().isEmpty()) {
+                float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
+                livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int) f), this);
+                livingEntity.setSecondsOnFire(8);
+            }
+        }
+
+        return bl;
+    }
+
+    @Override
     public void setDespawnDelay(int i) {
         this.despawnDelay = i;
     }
@@ -196,25 +195,10 @@ public class HuskSummon extends Husk implements Summon {
     }
 
     public static AttributeSupplier.Builder createSummonAttributes() {
-        //todo: Costs 20 XP to summon. 5 Durability to use, burn enemy
         return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.4)
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
                 .add(Attributes.ARMOR, 2.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
-    }
-
-    @Override
-    public boolean doHurtTarget(Entity entity) {
-        boolean bl = super.doHurtTarget(entity);
-        if (entity instanceof LivingEntity livingEntity) {
-            if (bl && this.getMainHandItem().isEmpty()) {
-                float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int) f), this);
-                livingEntity.setSecondsOnFire(8);
-            }
-        }
-
-        return bl;
     }
 }

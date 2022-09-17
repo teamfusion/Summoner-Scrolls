@@ -1,10 +1,11 @@
 package com.github.teamfusion.summonerscrolls.item;
 
-import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
+import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.StandingAndWallBlockItem;
 import net.minecraft.world.level.block.Blocks;
@@ -63,7 +64,10 @@ public class SummonerScrollsItems {
 //    public static final RegistrySupplier<Item> ENHANCEMENT_SCROLL = ITEMS.register("enhancement_scroll", () ->
 //            new Item(new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
-    /* Extra Items */
+    /* Extra Summon Items */
+    public static final RegistrySupplier<Item> SUMMON_BOW = ITEMS.register("summon_bow", () ->
+            new BowItem(new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+
     public static final RegistrySupplier<Item> INVISIBLE_SUMMON_LIGHT = ITEMS.register("invisible_summon_light", () ->
             new StandingAndWallBlockItem(Blocks.TORCH, Blocks.WALL_TORCH, new Item.Properties().stacksTo(1)));
 

@@ -37,7 +37,7 @@ public class ZombieSummonRenderer extends ZombieRenderer {
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Zombie zombie) {
+    public ResourceLocation getTextureLocation(Zombie entity) {
         return SUMMON_LOCATION;
     }
 }

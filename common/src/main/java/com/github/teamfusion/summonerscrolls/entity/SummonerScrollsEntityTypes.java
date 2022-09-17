@@ -14,10 +14,12 @@ public class SummonerScrollsEntityTypes {
 
     public static final RegistrySupplier<EntityType<ZombieSummon>> ZOMBIE_SUMMON = ENTITY_TYPES.register("zombie_summon", ZombieSummon.TYPE);
     public static final RegistrySupplier<EntityType<HuskSummon>> HUSK_SUMMON = ENTITY_TYPES.register("husk_summon", HuskSummon.TYPE);
+    public static final RegistrySupplier<EntityType<SkeletonSummon>> SKELETON_SUMMON = ENTITY_TYPES.register("skeleton_summon", SkeletonSummon.TYPE);
 
     public static void postRegister() {
         EntityAttributeRegistry.register(ZOMBIE_SUMMON, ZombieSummon::createSummonAttributes);
         EntityAttributeRegistry.register(HUSK_SUMMON, HuskSummon::createSummonAttributes);
+        EntityAttributeRegistry.register(SKELETON_SUMMON, SkeletonSummon::createSummonAttributes);
     }
 
     private static <T extends LivingEntity> RegistrySupplier<EntityType<T>> register(String id, EntityType.Builder<T> builder) {

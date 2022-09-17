@@ -1,8 +1,8 @@
 package com.github.teamfusion.summonerscrolls.entity.goal;
 
 import com.github.teamfusion.summonerscrolls.entity.Summon;
-import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
 import net.minecraft.world.entity.ai.targeting.TargetingConditions;
 

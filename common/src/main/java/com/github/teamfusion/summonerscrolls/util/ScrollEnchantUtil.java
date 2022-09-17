@@ -4,7 +4,6 @@ import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantm
 import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
 import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -27,7 +26,7 @@ public class ScrollEnchantUtil {
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                type = EntityType.SKELETON;
+                type = SummonerScrollsEntityTypes.SKELETON_SUMMON.get();
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
@@ -222,71 +221,71 @@ public class ScrollEnchantUtil {
         /* Summon XP - Tier 1 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
-                durability = 10;
+                durability = 1;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
-                durability = 10;
+                durability = 1;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                durability = 15;
+                durability = 2;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
-                durability = 15;
+                durability = 5;
             }
         }
 
         /* Summon Types - Tier 2 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
-                durability = 20;
+                durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
-                durability = 20;
+                durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
-                durability = 15;
+                durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
-                durability = 30;
+                durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                durability = 30;
+            if (enchantment == SummonerScrollsEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get()){
+                durability = 10;
             }
         }
 
         /* Summon Types - Tier 3 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
-                durability = 40;
+                durability = 10;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
-                durability = 50;
+                durability = 10;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SummonerScrollsEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
-                durability = 50;
+                durability = 15;
             }
         }
 //        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
 //            if (enchantment == SummonerScrollsEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
-//                durability = 60;
+//                durability = 15;
 //            }
 //        }
 
