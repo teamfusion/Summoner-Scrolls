@@ -1,12 +1,13 @@
-package com.github.teamfusion.summonerscrolls.enchantment;
+package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.common.enchantment.ScrollEnchantment;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.core.Registry;
 import net.minecraft.world.item.enchantment.Enchantment;
 
-public class SummonerScrollsEnchantments {
+public class SSEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(SummonerScrolls.MOD_ID, Registry.ENCHANTMENT_REGISTRY);
 
     //todo: make enchantment classes or automatic way

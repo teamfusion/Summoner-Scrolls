@@ -1,6 +1,6 @@
-package com.github.teamfusion.summonerscrolls.util;
+package com.github.teamfusion.summonerscrolls.common.util;
 
-import com.github.teamfusion.summonerscrolls.item.ScrollItem;
+import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -15,7 +15,7 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import javax.annotation.Nonnull;
 import java.util.Map;
 
-public class AnvilUtil {
+public class InventoryUtil {
     //todo: check if you can combine scrolls
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();

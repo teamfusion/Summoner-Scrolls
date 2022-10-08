@@ -1,13 +1,13 @@
 package com.github.teamfusion.summonerscrolls;
 
-import com.github.teamfusion.summonerscrolls.client.SummonerScrollsClient;
+import com.github.teamfusion.summonerscrolls.client.SSClient;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
-import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
-import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
-import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
-import com.github.teamfusion.summonerscrolls.loot.SummonerScrollsLootTables;
-import com.github.teamfusion.summonerscrolls.sound.SummonerScrollsSoundEvents;
-import com.github.teamfusion.summonerscrolls.trade.SummonerScrollsTrades;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
+import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
+import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
+import com.github.teamfusion.summonerscrolls.common.util.trade.SSTrades;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.utils.EnvExecutor;
 import net.fabricmc.api.EnvType;
@@ -23,24 +23,27 @@ public class SummonerScrolls {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     public static final CreativeModeTab SCROLLS_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "scrolls_tab"), () ->
-            new ItemStack(SummonerScrollsItems.ENHANCEMENT_SCROLL.get()));
+            new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
     
     public static void commonInitialize() {
         LOGGER.info("Initializing {}", MOD_NAME);
 
-        SummonerScrollsEnchantments.ENCHANTMENTS.register();
-        SummonerScrollsItems.ITEMS.register();
-        SummonerScrollsEntityTypes.ENTITY_TYPES.register();
+        SSEnchantments.ENCHANTMENTS.register();
+        SSItems.ITEMS.register();
+        SSEntityTypes.ENTITY_TYPES.register();
         SummonerScrollsSoundEvents.SOUND_EVENTS.register();
 
-        SummonerScrollsEntityTypes.postRegister();
+        SSEntityTypes.postRegister();
 
         SummonerScrollsParticles.init();
-        SummonerScrollsLootTables.init();
-        SummonerScrollsTrades.init();
+        SSLootTables.init();
+        SSTrades.init();
 
-        EnvExecutor.runInEnv(EnvType.CLIENT, () -> SummonerScrollsClient::commonClientInitialize);
+        EnvExecutor.runInEnv(EnvType.CLIENT, () -> SSClient::commonClientInitialize);
     }
-
+    //todo: blue enchantment glare for summon scrolls
+    //todo: create spawn eggs
     //TODO: add enchantment target for all tools
+    //todo: add comments for everything
+    //todo: use less acesswidner stuff and more acessors
 }

@@ -1,6 +1,6 @@
-package com.github.teamfusion.summonerscrolls.item;
+package com.github.teamfusion.summonerscrolls.common.item;
 
-import com.github.teamfusion.summonerscrolls.util.ScrollEnchantUtil;
+import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -27,7 +27,7 @@ public class ScrollItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, list, tooltipFlag);
-        list.add((new TranslatableComponent("item.summonerscrolls.scroll.xpwarning")).append(" ").append(String.valueOf(ScrollEnchantUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
+        list.add((new TranslatableComponent("item.summonerscrolls.scroll.xp_warning")).append(" ").append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
     }
 
 //    @Override

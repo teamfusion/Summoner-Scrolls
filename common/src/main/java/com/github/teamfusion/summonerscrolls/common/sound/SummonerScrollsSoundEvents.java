@@ -1,4 +1,4 @@
-package com.github.teamfusion.summonerscrolls.sound;
+package com.github.teamfusion.summonerscrolls.common.sound;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import dev.architectury.registry.registries.DeferredRegister;

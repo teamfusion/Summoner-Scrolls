@@ -1,4 +1,4 @@
-package com.github.teamfusion.summonerscrolls.entity;
+package com.github.teamfusion.summonerscrolls.common.entity;
 
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import net.minecraft.util.Mth;

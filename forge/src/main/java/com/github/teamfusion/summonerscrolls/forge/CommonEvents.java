@@ -1,7 +1,7 @@
 package com.github.teamfusion.summonerscrolls.forge;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.item.ScrollItem;
+import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.item.DiggerItem;
 import net.minecraft.world.item.Item;

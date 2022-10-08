@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.mixin.fabric;
 
-import com.github.teamfusion.summonerscrolls.util.AnvilUtil;
+import com.github.teamfusion.summonerscrolls.common.util.InventoryUtil;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.inventory.AnvilMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
@@ -30,7 +30,7 @@ public abstract class AnvilMenuMixin extends ItemCombinerMenu {
     @Inject(method = "createResult", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;isEmpty()Z", ordinal = 1, shift = Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void createResult(CallbackInfo ci, ItemStack stack, int i, int j, int k, ItemStack left, ItemStack right, Map<Enchantment, Integer> map) {
         AnvilMenu anvilMenu = (AnvilMenu) (Object) this;
-        if (!AnvilUtil.onAnvilChange(anvilMenu, left, right, this.resultSlots, this.itemName, j, this.player)) {
+        if (!InventoryUtil.onAnvilChange(anvilMenu, left, right, this.resultSlots, this.itemName, j, this.player)) {
             ci.cancel();
         }
     }

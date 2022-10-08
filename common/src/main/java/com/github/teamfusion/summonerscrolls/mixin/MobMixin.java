@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.entity.Summon;
+import com.github.teamfusion.summonerscrolls.common.entity.Summon;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;

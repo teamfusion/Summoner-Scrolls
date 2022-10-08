@@ -1,9 +1,9 @@
-package com.github.teamfusion.summonerscrolls.entity;
+package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
-import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
-import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
-import com.github.teamfusion.summonerscrolls.sound.SummonerScrollsSoundEvents;
+import com.github.teamfusion.summonerscrolls.common.entity.goal.FollowOwnerGoal;
+import com.github.teamfusion.summonerscrolls.common.entity.goal.OwnerHurtByTargetGoal;
+import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
@@ -145,7 +145,7 @@ public class ZombieSummon extends Zombie implements Summon {
 
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SummonerScrollsItems.INVISIBLE_SUMMON_LIGHT.get()));
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
     }
 
     @Override

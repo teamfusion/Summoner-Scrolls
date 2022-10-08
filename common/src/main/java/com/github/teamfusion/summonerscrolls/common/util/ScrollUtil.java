@@ -1,70 +1,70 @@
-package com.github.teamfusion.summonerscrolls.util;
+package com.github.teamfusion.summonerscrolls.common.util;
 
-import com.github.teamfusion.summonerscrolls.enchantment.SummonerScrollsEnchantments;
-import com.github.teamfusion.summonerscrolls.entity.SummonerScrollsEntityTypes;
-import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
+import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-public class ScrollEnchantUtil {
+public class ScrollUtil {
     //todo: add 5x bee types
     public static EntityType<?> getEntityType(ItemStack stack) {
         EntityType<?> type = null;
         /* Summon Types - Tier 1 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
-                type = SummonerScrollsEntityTypes.ZOMBIE_SUMMON.get();
+            if (enchantment == SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
+                type = SSEntityTypes.ZOMBIE_SUMMON.get();
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.SPIDER;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
-                type = SummonerScrollsEntityTypes.SKELETON_SUMMON.get();
+            if (enchantment == SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
+                type = SSEntityTypes.SKELETON_SUMMON.get();
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.BEE;
             }
         }
 
         /* Summon Types - Tier 2 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
-                type = SummonerScrollsEntityTypes.HUSK_SUMMON.get();
+            if (enchantment == SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
+                type = SSEntityTypes.HUSK_SUMMON.get();
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.STRAY;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.CAVE_SPIDER;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.ENDERMAN;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.PIGLIN;
             }
         }
 
         /* Summon Types - Tier 3 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.CREEPER;
             }
         }
@@ -74,12 +74,12 @@ public class ScrollEnchantUtil {
 //            }
 //        }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.PIGLIN_BRUTE;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
                 type = EntityType.IRON_GOLEM;
             }
         }
@@ -91,66 +91,66 @@ public class ScrollEnchantUtil {
 
         /* Summon XP - Tier 1 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
                 summonXP = 10;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
                 summonXP = 10;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
                 summonXP = 15;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
                 summonXP = 15;
             }
         }
 
         /* Summon Types - Tier 2 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
                 summonXP = 20;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
                 summonXP = 20;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
                 summonXP = 15;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
                 summonXP = 30;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
                 summonXP = 30;
             }
         }
 
         /* Summon Types - Tier 3 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
                 summonXP = 40;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
                 summonXP = 50;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
                 summonXP = 50;
             }
         }
@@ -168,44 +168,44 @@ public class ScrollEnchantUtil {
         int summonXP = 0;
 
         /* Summon XP - Tier 1 */
-        if (item == SummonerScrollsItems.ZOMBIE_SCROLL.get()){
+        if (item == SSItems.ZOMBIE_SCROLL.get()){
             summonXP = 10;
         }
-        if (item == SummonerScrollsItems.SPIDER_SCROLL.get()){
+        if (item == SSItems.SPIDER_SCROLL.get()){
             summonXP = 10;
         }
-        if (item == SummonerScrollsItems.SKELETON_SCROLL.get()){
+        if (item == SSItems.SKELETON_SCROLL.get()){
             summonXP = 15;
         }
-        if (item == SummonerScrollsItems.BEE_SCROLL.get()){
+        if (item == SSItems.BEE_SCROLL.get()){
             summonXP = 15;
         }
 
         /* Summon Types - Tier 2 */
-        if (item == SummonerScrollsItems.HUSK_SCROLL.get()){
+        if (item == SSItems.HUSK_SCROLL.get()){
             summonXP = 20;
         }
-        if (item == SummonerScrollsItems.STRAY_SCROLL.get()){
+        if (item == SSItems.STRAY_SCROLL.get()){
             summonXP = 20;
         }
-        if (item == SummonerScrollsItems.CAVE_SPIDER_SCROLL.get()){
+        if (item == SSItems.CAVE_SPIDER_SCROLL.get()){
             summonXP = 15;
         }
-        if (item == SummonerScrollsItems.ENDERMAN_SCROLL.get()){
+        if (item == SSItems.ENDERMAN_SCROLL.get()){
             summonXP = 30;
         }
-        if (item == SummonerScrollsItems.SKELETON_SCROLL.get()){
+        if (item == SSItems.SKELETON_SCROLL.get()){
             summonXP = 30;
         }
 
         /* Summon Types - Tier 3 */
-        if (item == SummonerScrollsItems.CREEPER_SCROLL.get()){
+        if (item == SSItems.CREEPER_SCROLL.get()){
             summonXP = 40;
         }
-        if (item == SummonerScrollsItems.PIGLIN_BRUTE_SCROLL.get()){
+        if (item == SSItems.PIGLIN_BRUTE_SCROLL.get()){
             summonXP = 50;
         }
-        if (item == SummonerScrollsItems.IRON_GOLEM_SCROLL.get()){
+        if (item == SSItems.IRON_GOLEM_SCROLL.get()){
             summonXP = 50;
         }
 //        if (item == SummonerScrollsItems.CHARGED_CREEPER_SCROLL.get()){
@@ -220,66 +220,66 @@ public class ScrollEnchantUtil {
 
         /* Summon XP - Tier 1 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()){
                 durability = 1;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
                 durability = 1;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()){
                 durability = 2;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
                 durability = 5;
             }
         }
 
         /* Summon Types - Tier 2 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get()){
                 durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get()){
                 durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()){
                 durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
                 durability = 5;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get()){
                 durability = 10;
             }
         }
 
         /* Summon Types - Tier 3 */
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
                 durability = 10;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
                 durability = 10;
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-            if (enchantment == SummonerScrollsEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
+            if (enchantment == SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
                 durability = 15;
             }
         }

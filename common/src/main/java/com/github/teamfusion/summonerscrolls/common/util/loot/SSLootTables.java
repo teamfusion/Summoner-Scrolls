@@ -1,6 +1,6 @@
-package com.github.teamfusion.summonerscrolls.loot;
+package com.github.teamfusion.summonerscrolls.common.util.loot;
 
-import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
+import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import dev.architectury.event.events.common.LootEvent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
@@ -11,14 +11,14 @@ import net.minecraft.world.level.storage.loot.providers.number.BinomialDistribut
 import java.util.Collection;
 import java.util.Set;
 
-public class SummonerScrollsLootTables {
+public class SSLootTables {
     public static final Collection<ResourceLocation> TIER_ONE_SCROLL_TABLES = Set.of(BuiltInLootTables.SIMPLE_DUNGEON);
     public static final Collection<ResourceLocation> TIER_TWO_SCROLL_TABLES = Set.of(BuiltInLootTables.BASTION_TREASURE, BuiltInLootTables.BASTION_BRIDGE, BuiltInLootTables.BASTION_HOGLIN_STABLE, BuiltInLootTables.BASTION_OTHER);
     public static final Collection<ResourceLocation> TIER_THREE_SCROLL_TABLES = Set.of(BuiltInLootTables.END_CITY_TREASURE);
 
     public static void init() {
         /* Loot - Tier 1 */
-        SummonerScrollsItems.ZOMBIE_SCROLL.listen((item) ->
+        SSItems.ZOMBIE_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_ONE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -27,7 +27,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.SPIDER_SCROLL.listen((item) ->
+        SSItems.SPIDER_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_ONE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -36,7 +36,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.SKELETON_SCROLL.listen((item) ->
+        SSItems.SKELETON_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_ONE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -45,7 +45,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.BEE_SCROLL.listen((item) ->
+        SSItems.BEE_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_ONE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -56,7 +56,7 @@ public class SummonerScrollsLootTables {
         );
 
         /* Loot - Tier 2 */
-        SummonerScrollsItems.HUSK_SCROLL.listen((item) ->
+        SSItems.HUSK_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_TWO_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -65,7 +65,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.STRAY_SCROLL.listen((item) ->
+        SSItems.STRAY_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_TWO_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -74,7 +74,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.CAVE_SPIDER_SCROLL.listen((item) ->
+        SSItems.CAVE_SPIDER_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_TWO_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -83,7 +83,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.ENDERMAN_SCROLL.listen((item) ->
+        SSItems.ENDERMAN_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_TWO_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -92,7 +92,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.PIGLIN_SCROLL.listen((item) ->
+        SSItems.PIGLIN_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_TWO_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -113,7 +113,7 @@ public class SummonerScrollsLootTables {
 //                    }
 //                })
 //        );
-        SummonerScrollsItems.CREEPER_SCROLL.listen((item) ->
+        SSItems.CREEPER_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_THREE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -122,7 +122,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.PIGLIN_BRUTE_SCROLL.listen((item) ->
+        SSItems.PIGLIN_BRUTE_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_THREE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -131,7 +131,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.IRON_GOLEM_SCROLL.listen((item) ->
+        SSItems.IRON_GOLEM_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_THREE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()
@@ -140,7 +140,7 @@ public class SummonerScrollsLootTables {
                     }
                 })
         );
-        SummonerScrollsItems.CHARGED_CREEPER_SCROLL.listen((item) ->
+        SSItems.CHARGED_CREEPER_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_THREE_SCROLL_TABLES.contains(id)) {
                         LootPool.Builder pool = LootPool.lootPool()

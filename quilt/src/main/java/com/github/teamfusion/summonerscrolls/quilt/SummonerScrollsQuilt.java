@@ -9,4 +9,5 @@ public class SummonerScrollsQuilt implements ModInitializer {
     public void onInitialize(ModContainer mod) {
         SummonerScrolls.commonInitialize();
     }
+    //todo: update quilt
 }
