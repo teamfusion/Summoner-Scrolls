@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.common.entity.Summon;
+import com.github.teamfusion.summonerscrolls.common.entity.ISummon;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Mob;
@@ -18,7 +18,7 @@ public abstract class MobMixin extends Entity {
 
     @Inject(method = "isSunBurnTick", at = @At("HEAD"), cancellable = true)
     protected void isSunBurnTick(CallbackInfoReturnable<Boolean> cir) {
-        if (this instanceof Summon) {
+        if (this instanceof ISummon) {
             cir.setReturnValue(false);
         }
     }

@@ -10,7 +10,7 @@ import net.minecraft.world.level.LevelAccessor;
 import java.util.Random;
 import java.util.UUID;
 
-public interface Summon {
+public interface ISummon {
     void setOwnerUUID(UUID uuid);
 
     UUID getOwnerUUID();
@@ -30,7 +30,7 @@ public interface Summon {
     }
 
     default boolean isEnemy(LivingEntity livingEntity) {
-        if (livingEntity instanceof Summon summon) {
+        if (livingEntity instanceof ISummon summon) {
             if (summon.getOwner() == this.getOwner()) {
                 return false;
             }

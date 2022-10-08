@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.common.entity.Summon;
+import com.github.teamfusion.summonerscrolls.common.entity.ISummon;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
@@ -60,7 +60,7 @@ public abstract class TieredItemMixin extends Item {
                 }
                 if (player.totalExperience >= ScrollUtil.getXP(stack)) {
                     Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
-                    if (summon instanceof Summon mob) {
+                    if (summon instanceof ISummon mob) {
                         spawnSummon(player, stack, level, blockPos, mob);
                         return InteractionResult.SUCCESS;
                     } else {
@@ -85,7 +85,7 @@ public abstract class TieredItemMixin extends Item {
             } else {
                 if (player.totalExperience >= ScrollUtil.getXP(stack)) {
                     Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
-                    if (summon instanceof Summon mob) {
+                    if (summon instanceof ISummon mob) {
                         spawnSummon(player, stack, level, blockPos, mob);
                         return InteractionResultHolder.success(itemStack);
                     } else {
@@ -97,7 +97,7 @@ public abstract class TieredItemMixin extends Item {
         return InteractionResultHolder.fail(itemStack);
     }
 
-    private void spawnSummon(Player player, ItemStack stack, Level level, BlockPos blockPos, Summon mob) {
+    private void spawnSummon(Player player, ItemStack stack, Level level, BlockPos blockPos, ISummon mob) {
         mob.setOwnerUUID(player.getUUID());
         player.getCooldowns().addCooldown(this, 1200);
         mob.setDespawnDelay(600);

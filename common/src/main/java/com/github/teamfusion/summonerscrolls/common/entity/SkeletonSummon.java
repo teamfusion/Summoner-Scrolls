@@ -37,7 +37,7 @@ import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class SkeletonSummon extends Skeleton implements Summon {
+public class SkeletonSummon extends Skeleton implements ISummon {
     public static final Supplier<EntityType<SkeletonSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(SkeletonSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("zombie_summon"));
 
     public static UUID ownerUUID;

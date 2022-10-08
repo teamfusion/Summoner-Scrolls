@@ -127,5 +127,5 @@ public final class LanguageGenerator implements DataProvider {
         if (this.data.put(key, value) != null) throw new IllegalStateException("Duplicate translation key " + key);
     }
 
-    //todo: make items use handheld models
+    //todo: make tools use handheld models
 }

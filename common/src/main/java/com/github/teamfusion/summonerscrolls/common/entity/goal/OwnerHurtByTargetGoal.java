@@ -1,6 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.entity.goal;
 
-import com.github.teamfusion.summonerscrolls.common.entity.Summon;
+import com.github.teamfusion.summonerscrolls.common.entity.ISummon;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.goal.target.TargetGoal;
@@ -21,7 +21,7 @@ public class OwnerHurtByTargetGoal extends TargetGoal {
 
     public boolean canUse() {
         LivingEntity livingEntity = null;
-        if (summon instanceof Summon summon1) {
+        if (summon instanceof ISummon summon1) {
             livingEntity = summon1.getOwner();
         }
 
@@ -36,7 +36,7 @@ public class OwnerHurtByTargetGoal extends TargetGoal {
 
     public void start() {
         LivingEntity livingEntity = null;
-        if (summon instanceof Summon summon1) {
+        if (summon instanceof ISummon summon1) {
             livingEntity = summon1.getOwner();
         }
 

@@ -33,7 +33,7 @@ import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class HuskSummon extends Husk implements Summon {
+public class HuskSummon extends Husk implements ISummon {
     public static final Supplier<EntityType<HuskSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(HuskSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("husk_summon"));
 
     public static UUID ownerUUID;
