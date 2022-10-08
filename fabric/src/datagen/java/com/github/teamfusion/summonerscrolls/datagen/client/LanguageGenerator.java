@@ -32,7 +32,7 @@ public final class LanguageGenerator implements DataProvider {
     @Override
     public void run(HashCache cache) throws IOException {
         this.addTranslations();
-        Path path = this.generator.getOutputFolder().resolve("assets/summonerscrolls/lang/en_test.json");
+        Path path = this.generator.getOutputFolder().resolve("assets/summonerscrolls/lang/en_us.json");
         DataProvider.save(GSON, cache, GSON.toJsonTree(this.data), path);
     }
 
@@ -126,4 +126,6 @@ public final class LanguageGenerator implements DataProvider {
     private void add(String key, String value) {
         if (this.data.put(key, value) != null) throw new IllegalStateException("Duplicate translation key " + key);
     }
+
+    //todo: make items use handheld models
 }
