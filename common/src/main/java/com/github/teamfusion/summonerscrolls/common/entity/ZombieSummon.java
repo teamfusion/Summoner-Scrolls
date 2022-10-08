@@ -42,7 +42,7 @@ public class ZombieSummon extends Zombie implements ISummon {
     }
 
     public MobType getMobType() {
-        return SummonerMobTypes.SUMMON;
+        return MobType.UNDEFINED;
     }
 
     @Override

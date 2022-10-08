@@ -51,7 +51,7 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     }
 
     public MobType getMobType() {
-        return SummonerMobTypes.SUMMON;
+        return MobType.UNDEFINED;
     }
 
     @Override

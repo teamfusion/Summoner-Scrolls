@@ -44,7 +44,7 @@ public class HuskSummon extends Husk implements ISummon {
     }
 
     public MobType getMobType() {
-        return SummonerMobTypes.SUMMON;
+        return MobType.UNDEFINED;
     }
 
     @Override
