@@ -1,7 +1,7 @@
 package com.github.teamfusion.summonerscrolls.mixin;
 
-import com.github.teamfusion.summonerscrolls.entity.Summon;
-import com.github.teamfusion.summonerscrolls.util.ScrollEnchantUtil;
+import com.github.teamfusion.summonerscrolls.common.entity.Summon;
+import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -38,7 +38,7 @@ public abstract class TieredItemMixin extends Item {
     public InteractionResult useOn(UseOnContext useOnContext) {
         Player player = useOnContext.getPlayer();
         ItemStack stack = useOnContext.getItemInHand();
-        EntityType<?> entityType2 = ScrollEnchantUtil.getEntityType(stack);
+        EntityType<?> entityType2 = ScrollUtil.getEntityType(stack);
         Level level = useOnContext.getLevel();
 
         assert player != null;
@@ -58,7 +58,7 @@ public abstract class TieredItemMixin extends Item {
                 } else {
                     blockPos2 = blockPos.relative(direction);
                 }
-                if (player.totalExperience >= ScrollEnchantUtil.getXP(stack)) {
+                if (player.totalExperience >= ScrollUtil.getXP(stack)) {
                     Entity summon = entityType2.spawn((ServerLevel) level, itemStack, player, blockPos2, MobSpawnType.MOB_SUMMONED, true, !Objects.equals(blockPos, blockPos2) && direction == Direction.UP);
                     if (summon instanceof Summon mob) {
                         spawnSummon(player, stack, level, blockPos, mob);
@@ -75,7 +75,7 @@ public abstract class TieredItemMixin extends Item {
     @Override
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand interactionHand) {
         ItemStack stack = player.getItemInHand(interactionHand);
-        EntityType<?> entityType = ScrollEnchantUtil.getEntityType(stack);
+        EntityType<?> entityType = ScrollUtil.getEntityType(stack);
         ItemStack itemStack = player.getItemInHand(interactionHand);
         BlockPos blockPos = player.getOnPos();
 
@@ -83,7 +83,7 @@ public abstract class TieredItemMixin extends Item {
             if (!(level instanceof ServerLevel)) {
                 return InteractionResultHolder.success(itemStack);
             } else {
-                if (player.totalExperience >= ScrollEnchantUtil.getXP(stack)) {
+                if (player.totalExperience >= ScrollUtil.getXP(stack)) {
                     Entity summon = entityType.spawn((ServerLevel) level, itemStack, player, blockPos, MobSpawnType.MOB_SUMMONED, true, true);
                     if (summon instanceof Summon mob) {
                         spawnSummon(player, stack, level, blockPos, mob);
@@ -101,8 +101,8 @@ public abstract class TieredItemMixin extends Item {
         mob.setOwnerUUID(player.getUUID());
         player.getCooldowns().addCooldown(this, 1200);
         mob.setDespawnDelay(600);
-        player.giveExperiencePoints(-ScrollEnchantUtil.getXP(stack));
-        stack.hurt(ScrollEnchantUtil.getDurability(stack), level.random, (ServerPlayer) player);
+        player.giveExperiencePoints(-ScrollUtil.getXP(stack));
+        stack.hurt(ScrollUtil.getDurability(stack), level.random, (ServerPlayer) player);
 
         level.gameEvent(player, GameEvent.ENTITY_PLACE, blockPos);
     }

@@ -1,13 +1,16 @@
-package com.github.teamfusion.summonerscrolls.entity;
+package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.entity.goal.FollowOwnerGoal;
-import com.github.teamfusion.summonerscrolls.entity.goal.OwnerHurtByTargetGoal;
-import com.github.teamfusion.summonerscrolls.item.SummonerScrollsItems;
-import com.github.teamfusion.summonerscrolls.sound.SummonerScrollsSoundEvents;
+import com.github.teamfusion.summonerscrolls.common.entity.goal.FollowOwnerGoal;
+import com.github.teamfusion.summonerscrolls.common.entity.goal.OwnerHurtByTargetGoal;
+import com.github.teamfusion.summonerscrolls.common.entity.goal.SummonerRangedBowAttackGoal;
+import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -22,7 +25,10 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.AbstractArrow;
+import net.minecraft.world.entity.projectile.ProjectileUtil;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
 
 import javax.annotation.ParametersAreNonnullByDefault;
@@ -36,6 +42,8 @@ public class SkeletonSummon extends Skeleton implements Summon {
 
     public static UUID ownerUUID;
     private int despawnDelay;
+
+    private final SummonerRangedBowAttackGoal<SkeletonSummon> bowGoal = new SummonerRangedBowAttackGoal(this, 1.0, 20, 15.0F);
 
     public SkeletonSummon(EntityType<? extends Skeleton> entityType, Level level) {
         super(entityType, level);
@@ -151,8 +159,8 @@ public class SkeletonSummon extends Skeleton implements Summon {
 
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
-        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SummonerScrollsItems.INVISIBLE_SUMMON_LIGHT.get()));
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(SummonerScrollsItems.INVISIBLE_SUMMON_LIGHT.get()));
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(SSItems.SUMMON_BOW.get()));
     }
 
     @Override
@@ -162,6 +170,45 @@ public class SkeletonSummon extends Skeleton implements Summon {
             this.maybeDespawn();
         }
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+    }
+
+    @Override
+    public void reassessWeaponGoal() {
+        if (this.level != null && !this.level.isClientSide) {
+            this.goalSelector.removeGoal(this.meleeGoal);
+            this.goalSelector.removeGoal(this.bowGoal);
+            ItemStack itemStack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, SSItems.SUMMON_BOW.get()));
+            if (itemStack.is(SSItems.SUMMON_BOW.get())) {
+                int i = 20;
+                if (this.level.getDifficulty() != Difficulty.HARD) {
+                    i = 40;
+                }
+
+                this.bowGoal.setMinAttackInterval(i);
+                this.goalSelector.addGoal(4, this.bowGoal);
+            } else {
+                this.goalSelector.addGoal(4, this.meleeGoal);
+            }
+
+        }
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity target, float velocity) {
+        ItemStack itemStack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, SSItems.SUMMON_BOW.get())));
+        AbstractArrow abstractArrow = this.getArrow(itemStack, velocity);
+        double d = target.getX() - this.getX();
+        double e = target.getY(0.3333333333333333) - abstractArrow.getY();
+        double f = target.getZ() - this.getZ();
+        double g = Math.sqrt(d * d + f * f);
+        abstractArrow.shoot(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.level.getDifficulty().getId() * 4));
+        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
+        this.level.addFreshEntity(abstractArrow);
+    }
+
+    @Override
+    public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeapon) {
+        return projectileWeapon == SSItems.SUMMON_BOW.get();
     }
 
     @Override
