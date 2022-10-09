@@ -1,8 +1,11 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
+import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import net.minecraft.client.renderer.entity.ItemRenderer;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -290,5 +293,16 @@ public class ScrollUtil {
 //        }
 
         return durability;
+    }
+    private static ResourceLocation SUMMON_ITEM_GLINT_LOCATION = ItemRenderer.ENCHANT_GLINT_LOCATION;
+
+    public static void setGlintLocation(boolean value) {
+        if (value) {
+            SUMMON_ITEM_GLINT_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/misc/summon_item_glint.png");
+        }
+    }
+
+    public static ResourceLocation getGlintLocation() {
+        return SUMMON_ITEM_GLINT_LOCATION;
     }
 }

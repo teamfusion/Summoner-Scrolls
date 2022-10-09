@@ -32,6 +32,7 @@ public class InventoryUtil {
                 copy.setHoverName(new TextComponent(name));
 
                 outputSlot.setItem(0, copy);
+                ScrollUtil.setGlintLocation(true);
                 container.cost.set(8);
             }
         }
