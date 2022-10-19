@@ -1,9 +1,7 @@
 package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.client.render.entity.StraySummonRenderer;
 import com.github.teamfusion.summonerscrolls.common.entity.*;
-import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
@@ -11,8 +9,8 @@ import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.item.Item;
 
+@SuppressWarnings({"unused"})
 public class SSEntityTypes {
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(SummonerScrolls.MOD_ID, Registry.ENTITY_TYPE_REGISTRY);
 

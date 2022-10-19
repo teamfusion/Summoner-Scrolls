@@ -29,8 +29,9 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
+@SuppressWarnings({"rawtypes", "unchecked"})
 public class SkeletonSummon extends Skeleton implements ISummon {
     public static final Supplier<EntityType<SkeletonSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(SkeletonSummon::new, MobCategory.MISC).sized(0.6F, 1.99F).clientTrackingRange(8).build("skeleton_summon"));
 
@@ -82,11 +83,6 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     public boolean isBaby() {
         return false;
     }
-
-//    @Override
-//    protected boolean isSunSensitive() {
-//        return false;
-//    }
 
     @Override
     public boolean hurt(DamageSource damageSource, float f) {

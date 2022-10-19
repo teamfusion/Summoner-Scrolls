@@ -5,6 +5,7 @@ import com.github.teamfusion.summonerscrolls.client.render.entity.layers.SummonG
 import com.github.teamfusion.summonerscrolls.common.entity.SpiderSummon;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.SpiderRenderer;
@@ -15,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class SpiderSummonRenderer extends SpiderRenderer<SpiderSummon> {
     public static final String SUMMON_NAME = "spider";

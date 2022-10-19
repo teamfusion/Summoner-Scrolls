@@ -17,6 +17,7 @@ import net.minecraft.world.level.LevelAccessor;
 import java.util.Random;
 import java.util.UUID;
 
+@SuppressWarnings("unused")
 public interface ISummon {
     void setOwnerUUID(UUID uuid);
 

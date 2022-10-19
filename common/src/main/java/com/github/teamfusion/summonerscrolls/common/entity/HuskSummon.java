@@ -1,7 +1,5 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.common.entity.goal.FollowOwnerGoal;
-import com.github.teamfusion.summonerscrolls.common.entity.goal.OwnerHurtByTargetGoal;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
@@ -17,10 +15,6 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Husk;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -31,8 +25,8 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class HuskSummon extends Husk implements ISummon {
     public static final Supplier<EntityType<HuskSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(HuskSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("husk_summon"));
 

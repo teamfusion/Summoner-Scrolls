@@ -13,7 +13,7 @@ import net.minecraft.world.level.block.Blocks;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused"})
 public class SSItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(SummonerScrolls.MOD_ID, Registry.ITEM_REGISTRY);
 
@@ -46,16 +46,24 @@ public class SSItems {
             new ScrollItem(SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> PIGLIN_BRUTE_SCROLL = ITEMS.register("piglin_brute_summoner_scroll", () ->
             new ScrollItem(SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
-//    public static final RegistrySupplier<Item> SHULKERMAN_SCROLL = ITEMS.register("shulkerman_summoner_scroll", () ->
-//            new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+    /*
+    * public static final RegistrySupplier<Item> SHULKERMAN_SCROLL = ITEMS.register("shulkerman_summoner_scroll", () ->
+            * new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+            */
     public static final RegistrySupplier<Item> IRON_GOLEM_SCROLL = ITEMS.register("iron_golem_summoner_scroll", () ->
             new ScrollItem(SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
-    /* Mob Scrolls - Tier 4 */
-//    public static final RegistrySupplier<Item> WARDEN_SCROLL = ITEMS.register("warden_summoner_scroll", () ->
-//            new ScrollItem(SummonerScrollsEnchantments.WARDEN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
-//    public static final RegistrySupplier<Item> HEROBRINE_SCROLL = ITEMS.register("herobrine_summoner_scroll", () ->
-//            new ScrollItem(SummonerScrollsEnchantments.HEROBRINE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+    /* Mob Scrolls - Tier 4
+        * public static final RegistrySupplier<Item> HEROBRINE_SCROLL = ITEMS.register("herobrine_summoner_scroll", () ->
+        * new ScrollItem(SummonerScrollsEnchantments.HEROBRINE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+     */
+
+    /* Extra Summon Items */
+    public static final RegistrySupplier<Item> ENHANCEMENT_SCROLL = ITEMS.register("enhancement_scroll", () ->
+            new Item(new Item.Properties().stacksTo(16).tab(SummonerScrolls.SCROLLS_TAB)));
+
+    public static final RegistrySupplier<Item> INVISIBLE_SUMMON_LIGHT = ITEMS.register("invisible_summon_light", () ->
+            new StandingAndWallBlockItem(Blocks.TORCH, Blocks.WALL_TORCH, new Item.Properties().stacksTo(1)));
 
     /* Summon Tools */
     public static final RegistrySupplier<Item> SUMMON_BOW = ITEMS.register("summon_bow", () ->
@@ -72,13 +80,6 @@ public class SSItems {
             new ShovelItem(SummonerTiers.SUMMONER, 1.5F, -3.0F, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final RegistrySupplier<Item> SUMMON_HOE = ITEMS.register("summon_hoe", () ->
             new HoeItem(SummonerTiers.SUMMONER, -2, -3.0F, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
-
-    /* Extra Summon Items */
-    public static final RegistrySupplier<Item> ENHANCEMENT_SCROLL = ITEMS.register("enhancement_scroll", () ->
-            new Item(new Item.Properties().stacksTo(16).tab(SummonerScrolls.SCROLLS_TAB)));
-
-    public static final RegistrySupplier<Item> INVISIBLE_SUMMON_LIGHT = ITEMS.register("invisible_summon_light", () ->
-            new StandingAndWallBlockItem(Blocks.TORCH, Blocks.WALL_TORCH, new Item.Properties().stacksTo(1)));
 
     private static RegistrySupplier<Item> register(String id, Function<Item.Properties, Item> item) {
         return register(id, () -> item.apply(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));

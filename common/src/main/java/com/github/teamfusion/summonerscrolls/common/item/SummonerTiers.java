@@ -7,6 +7,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 
 import java.util.function.Supplier;
 
+@SuppressWarnings({"rawtypes", "unchecked", "deprecation"})
 public enum SummonerTiers implements Tier {
     SUMMONER(3, 32, 12.0F, 2.0F, 22, () -> Ingredient.of(SSItems.ENHANCEMENT_SCROLL.get()));
 

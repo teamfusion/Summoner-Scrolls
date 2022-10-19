@@ -20,6 +20,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
+@SuppressWarnings({"rawtypes", "unchecked"})
 @Environment(EnvType.CLIENT)
 public class SummonStrayClothingLayer<T extends Mob & RangedAttackMob, M extends EntityModel<T>> extends RenderLayer<T, M> {
     private static final ResourceLocation STRAY_CLOTHES_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/stray_summon_overlay.png");

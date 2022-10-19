@@ -3,6 +3,7 @@ package com.github.teamfusion.summonerscrolls.common.item;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.ChatFormatting;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.item.Item;
@@ -16,6 +17,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class ScrollItem extends Item {
     public RegistrySupplier<Enchantment> enchantment;
 
@@ -29,11 +31,6 @@ public class ScrollItem extends Item {
         super.appendHoverText(stack, level, list, tooltipFlag);
         list.add((new TranslatableComponent("item.summonerscrolls.scroll.xp_warning")).append(" ").append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
     }
-
-//    @Override
-//    public Optional<TooltipComponent> getTooltipImage(ItemStack itemStack) {
-//        return super.getTooltipImage(itemStack);
-//    }
 
     public RegistrySupplier<Enchantment> getEnchantment() {
         return enchantment;

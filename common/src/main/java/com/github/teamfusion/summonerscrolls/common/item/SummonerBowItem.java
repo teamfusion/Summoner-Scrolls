@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls.common.item;
 
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
@@ -15,8 +16,11 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Predicate;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class SummonerBowItem extends BowItem {
     public static final Predicate<ItemStack> SUMMONER_ARROW_ONLY = (itemStack) -> itemStack.is(SSItems.SUMMON_ARROW.get());
 
@@ -60,9 +64,7 @@ public class SummonerBowItem extends BowItem {
                             abstractArrow.setSecondsOnFire(100);
                         }
 
-                        itemStack.hurtAndBreak(1, player, (player2) -> {
-                            player2.broadcastBreakEvent(player.getUsedItemHand());
-                        });
+                        itemStack.hurtAndBreak(1, player, (player2) -> player2.broadcastBreakEvent(player.getUsedItemHand()));
                         if (bl2 || player.getAbilities().instabuild && (itemStack2.is(SSItems.SUMMON_ARROW.get()) || itemStack2.is(Items.SPECTRAL_ARROW) || itemStack2.is(Items.TIPPED_ARROW))) {
                             abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY;
                         }

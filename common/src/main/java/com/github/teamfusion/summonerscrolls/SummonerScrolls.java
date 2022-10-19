@@ -5,8 +5,8 @@ import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsPart
 import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
-import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
+import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
 import com.github.teamfusion.summonerscrolls.common.util.trade.SSTrades;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.utils.EnvExecutor;
@@ -46,5 +46,5 @@ public class SummonerScrolls {
     //todo: create spawn eggs
     //TODO: add enchantment target for all tools
     //todo: add comments for everything
-    //todo: use less acesswidner stuff and more acessors
+    //todo: use less accesswidener stuff and more accessors
 }

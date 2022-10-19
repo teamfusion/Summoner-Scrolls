@@ -102,17 +102,17 @@ public class SSLootTables {
                 })
         );
 
-        /* Loot - Tier 3 */
-
-//        SummonerScrollsItems.SHULKERMAN_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
+        /* Loot - Tier 3
+        SummonerScrollsItems.SHULKERMAN_SCROLL.listen((item) ->
+                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
+                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
+                        LootPool.Builder pool = LootPool.lootPool()
+                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
+                        context.addPool(pool);
+                    }
+                })
+        );
+         */
         SSItems.CREEPER_SCROLL.listen((item) ->
                 LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
                     if (TIER_THREE_SCROLL_TABLES.contains(id)) {

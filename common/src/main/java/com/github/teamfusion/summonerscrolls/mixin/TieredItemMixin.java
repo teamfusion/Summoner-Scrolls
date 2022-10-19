@@ -26,8 +26,8 @@ import org.spongepowered.asm.mixin.Mixin;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Objects;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 @Mixin(TieredItem.class)
 public abstract class TieredItemMixin extends Item {
     public TieredItemMixin(Properties properties) {
