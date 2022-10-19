@@ -1,9 +1,8 @@
 package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.common.entity.HuskSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.SkeletonSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.ZombieSummon;
+import com.github.teamfusion.summonerscrolls.client.render.entity.StraySummonRenderer;
+import com.github.teamfusion.summonerscrolls.common.entity.*;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
@@ -19,13 +18,13 @@ public class SSEntityTypes {
 
     /* Summon Entities - Tier 1 */
     public static final RegistrySupplier<EntityType<ZombieSummon>> ZOMBIE_SUMMON = ENTITY_TYPES.register("zombie_summon", ZombieSummon.TYPE);
-//    public static final RegistrySupplier<EntityType<>> SPIDER_SUMMON = ENTITY_TYPES.register("spider_summon", ZombieSummon.TYPE);
+    public static final RegistrySupplier<EntityType<SpiderSummon>> SPIDER_SUMMON = ENTITY_TYPES.register("spider_summon", SpiderSummon.TYPE);
     public static final RegistrySupplier<EntityType<SkeletonSummon>> SKELETON_SUMMON = ENTITY_TYPES.register("skeleton_summon", SkeletonSummon.TYPE);
 //    public static final RegistrySupplier<EntityType<>> BEE_SUMMON = ENTITY_TYPES.register("bee_summon", ZombieSummon.TYPE);
 
     /* Summon Entities - Tier 2 */
     public static final RegistrySupplier<EntityType<HuskSummon>> HUSK_SUMMON = ENTITY_TYPES.register("husk_summon", HuskSummon.TYPE);
-//    public static final RegistrySupplier<EntityType<>> STRAY_SUMMON = ENTITY_TYPES.register("stray_summon", ZombieSummon.TYPE);
+    public static final RegistrySupplier<EntityType<StraySummon>> STRAY_SUMMON = ENTITY_TYPES.register("stray_summon", StraySummon.TYPE);
 //    public static final RegistrySupplier<EntityType<>> CAVE_SPIDER_SUMMON = ENTITY_TYPES.register("cave_spider_summon", ZombieSummon.TYPE);
 //    public static final RegistrySupplier<EntityType<>> ENDERMAN_SUMMON = ENTITY_TYPES.register("enderman_summon", ZombieSummon.TYPE);
 //    public static final RegistrySupplier<EntityType<>> PIGLIN_SUMMON = ENTITY_TYPES.register("piglin_summon", ZombieSummon.TYPE);
@@ -47,8 +46,11 @@ public class SSEntityTypes {
 
     public static void postRegister() {
         EntityAttributeRegistry.register(ZOMBIE_SUMMON, ZombieSummon::createSummonAttributes);
-        EntityAttributeRegistry.register(HUSK_SUMMON, HuskSummon::createSummonAttributes);
+        EntityAttributeRegistry.register(SPIDER_SUMMON, SpiderSummon::createSummonAttributes);
         EntityAttributeRegistry.register(SKELETON_SUMMON, SkeletonSummon::createSummonAttributes);
+
+        EntityAttributeRegistry.register(HUSK_SUMMON, HuskSummon::createSummonAttributes);
+        EntityAttributeRegistry.register(STRAY_SUMMON, StraySummon::createSummonAttributes);
     }
 
     private static <T extends LivingEntity> RegistrySupplier<EntityType<T>> register(String id, EntityType.Builder<T> builder) {

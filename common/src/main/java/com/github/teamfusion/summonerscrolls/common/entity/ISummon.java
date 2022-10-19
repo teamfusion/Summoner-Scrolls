@@ -8,10 +8,7 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.*;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
@@ -59,6 +56,7 @@ public interface ISummon {
     default void commonGoals(GoalSelector targetSelector, GoalSelector goalSelector) {
         if (this.getSummon() instanceof PathfinderMob mob) {
             targetSelector.addGoal(1, new OwnerHurtByTargetGoal(mob));
+            goalSelector.addGoal(2, new MeleeAttackGoal(mob, 1.0, true));
             targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(mob, Mob.class, 5, false, false, this::isEnemy));
             targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(mob, Player.class, 10, true, false, this::isAngryAt));
             goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(mob, 1.0));
