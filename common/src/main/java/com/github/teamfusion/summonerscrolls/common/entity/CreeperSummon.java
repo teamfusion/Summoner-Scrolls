@@ -2,40 +2,41 @@ package com.github.teamfusion.summonerscrolls.common.entity;
 
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
+import com.github.teamfusion.summonerscrolls.mixin.access.CreeperAccessor;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.Difficulty;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.effect.MobEffectInstance;
-import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.world.entity.monster.Husk;
+import net.minecraft.world.entity.ai.goal.SwellGoal;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.gameevent.GameEvent;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-public class HuskSummon extends Husk implements ISummon {
-    public static final Supplier<EntityType<HuskSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(HuskSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("husk_summon"));
+@ParametersAreNonnullByDefault
+public class CreeperSummon extends Creeper implements ISummon {
+    public static final Supplier<EntityType<CreeperSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(CreeperSummon::new, MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("creeper_summon"));
 
     public static UUID ownerUUID;
     private int despawnDelay;
 
-    public HuskSummon(EntityType<? extends Husk> entityType, Level level) {
+    public CreeperSummon(EntityType<? extends Creeper> entityType, Level level) {
         super(entityType, level);
     }
 
@@ -46,7 +47,7 @@ public class HuskSummon extends Husk implements ISummon {
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
-        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
+        this.goalSelector.addGoal(2, new SwellGoal(this));
     }
 
     @Override
@@ -76,11 +77,6 @@ public class HuskSummon extends Husk implements ISummon {
 
     @Override
     public boolean isBaby() {
-        return false;
-    }
-
-    @Override
-    protected boolean isSunSensitive() {
         return false;
     }
 
@@ -155,19 +151,7 @@ public class HuskSummon extends Husk implements ISummon {
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
-    @Override
-    public boolean doHurtTarget(Entity entity) {
-        boolean bl = super.doHurtTarget(entity);
-        if (entity instanceof LivingEntity livingEntity) {
-            if (bl && this.getMainHandItem().isEmpty()) {
-                float f = this.level.getCurrentDifficultyAt(this.blockPosition()).getEffectiveDifficulty();
-                livingEntity.addEffect(new MobEffectInstance(MobEffects.HUNGER, 140 * (int) f), this);
-                livingEntity.setSecondsOnFire(8);
-            }
-        }
 
-        return bl;
-    }
 
     @Override
     public void setDespawnDelay(int i) {
@@ -185,11 +169,50 @@ public class HuskSummon extends Husk implements ISummon {
         }
     }
 
+    @Override
+    public void tick() {
+        int swell = ((CreeperAccessor)this).getSwell();
+        int maxSwell = ((CreeperAccessor)this).getMaxSwell();
+
+        if (this.isAlive()) {
+            ((CreeperAccessor)this).setOldSwell(swell);
+            if (this.isIgnited()) {
+                this.setSwellDir(1);
+            }
+
+            int i = this.getSwellDir();
+            if (i > 0 && swell == 0) {
+                this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
+                this.gameEvent(GameEvent.PRIME_FUSE);
+            }
+
+            swell += i;
+            if (swell < 0) {
+                swell = 0;
+            }
+
+            if (swell >= maxSwell) {
+                ((CreeperAccessor)this).setOldSwell(maxSwell);
+                this.explodeSummonCreeper();
+            }
+        }
+
+        super.tick();
+    }
+
+    private void explodeSummonCreeper() {
+        if (!this.level.isClientSide) {
+            float f = this.isPowered() ? 8.0F : 4.0F;
+            this.dead = true;
+            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor)this).getExplosionRadius() * f, Explosion.BlockInteraction.NONE);
+            this.discard();
+            ((CreeperAccessor)this).callSpawnLingeringCloud();
+        }
+    }
+
     public static AttributeSupplier.Builder createSummonAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.4)
-                .add(Attributes.ATTACK_DAMAGE, 6.0)
-                .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 }

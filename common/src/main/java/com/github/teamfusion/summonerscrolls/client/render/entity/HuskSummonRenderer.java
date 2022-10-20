@@ -29,17 +29,17 @@ public class HuskSummonRenderer extends HuskRenderer {
 
     @Nullable
     @Override
-    protected RenderType getRenderType(Zombie livingEntity, boolean bl, boolean bl2, boolean bl3) {
-        return RenderType.entityTranslucent(getTextureLocation(livingEntity));
+    protected RenderType getRenderType(Zombie summon, boolean bl, boolean bl2, boolean bl3) {
+        return RenderType.entityTranslucent(getTextureLocation(summon));
     }
 
     @Override
-    protected int getBlockLightLevel(Zombie entity, BlockPos blockPos) {
+    protected int getBlockLightLevel(Zombie summon, BlockPos blockPos) {
         return 15;
     }
 
     @Override
-    public ResourceLocation getTextureLocation(Zombie entity) {
+    public ResourceLocation getTextureLocation(Zombie summon) {
         return SUMMON_LOCATION;
     }
 }

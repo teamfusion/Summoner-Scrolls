@@ -40,7 +40,7 @@ public class StraySummon extends SkeletonSummon {
     protected AbstractArrow getArrow(ItemStack itemStack, float f) {
         AbstractArrow abstractArrow = super.getArrow(itemStack, f);
         if (abstractArrow instanceof Arrow) {
-            ((Arrow)abstractArrow).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 600));
+            ((Arrow)abstractArrow).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 220));
         }
 
         return abstractArrow;

@@ -13,6 +13,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Zombie;
 import net.minecraft.world.entity.player.Player;
@@ -42,6 +43,7 @@ public class ZombieSummon extends Zombie implements ISummon {
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
     }
 
     @Override

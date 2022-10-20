@@ -57,7 +57,6 @@ public interface ISummon {
     default void commonGoals(GoalSelector targetSelector, GoalSelector goalSelector) {
         if (this.getSummon() instanceof PathfinderMob mob) {
             targetSelector.addGoal(1, new OwnerHurtByTargetGoal(mob));
-            goalSelector.addGoal(2, new MeleeAttackGoal(mob, 1.0, true));
             targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(mob, Mob.class, 5, false, false, this::isEnemy));
             targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(mob, Player.class, 10, true, false, this::isAngryAt));
             goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(mob, 1.0));

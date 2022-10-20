@@ -14,6 +14,7 @@ import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
@@ -27,7 +28,7 @@ import java.util.function.Supplier;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SpiderSummon extends Spider implements ISummon {
-    public static final Supplier<EntityType<SpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(SpiderSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("spider_summon"));
+    public static final Supplier<EntityType<SpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(SpiderSummon::new, MobCategory.MISC).sized(1.4F, 0.9F).clientTrackingRange(8).build("spider_summon"));
 
     public static UUID ownerUUID;
     private int despawnDelay;
@@ -43,6 +44,7 @@ public class SpiderSummon extends Spider implements ISummon {
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
         this.goalSelector.addGoal(3, new LeapAtTargetGoal(this, 0.4F));
     }
 

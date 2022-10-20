@@ -42,6 +42,7 @@ public class SummonerScrolls {
         EnvExecutor.runInEnv(EnvType.CLIENT, () -> SSClient::commonClientInitialize);
     }
 
+    //todo: put todos in respective classes
     //todo: blue enchantment glare for summon scrolls
     //todo: create spawn eggs
     //TODO: add enchantment target for all tools

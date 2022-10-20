@@ -39,17 +39,17 @@ public class SkeletonSummonRenderer extends HumanoidMobRenderer<AbstractSkeleton
 
     @Nullable
     @Override
-    protected RenderType getRenderType(AbstractSkeleton livingEntity, boolean bl, boolean bl2, boolean bl3) {
-        return RenderType.entityTranslucent(getTextureLocation(livingEntity));
+    protected RenderType getRenderType(AbstractSkeleton summon, boolean bl, boolean bl2, boolean bl3) {
+        return RenderType.entityTranslucent(getTextureLocation(summon));
     }
 
     @Override
-    protected int getBlockLightLevel(AbstractSkeleton entity, BlockPos blockPos) {
+    protected int getBlockLightLevel(AbstractSkeleton summon, BlockPos blockPos) {
         return 15;
     }
 
     @Override
-    public ResourceLocation getTextureLocation(AbstractSkeleton entity) {
+    public ResourceLocation getTextureLocation(AbstractSkeleton summon) {
         return SUMMON_LOCATION;
     }
 }

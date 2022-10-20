@@ -1,5 +1,7 @@
 package com.github.teamfusion.summonerscrolls.common.entity.goal;
 
+import com.github.teamfusion.summonerscrolls.common.entity.SkeletonSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.StraySummon;
 import com.github.teamfusion.summonerscrolls.common.item.SummonerBowItem;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import net.minecraft.world.entity.LivingEntity;
@@ -78,7 +80,10 @@ public class SummonerRangedBowAttackGoal<T extends Monster & RangedAttackMob> ex
                     int i = this.mob.getTicksUsingItem();
                     if (i >= 20) {
                         this.mob.stopUsingItem();
-                        this.mob.performRangedAttack(livingEntity, SummonerBowItem.getPowerForTime(i));
+                        if (this.mob instanceof StraySummon)
+                            this.mob.performRangedAttack(livingEntity, 2.0F);
+                        else
+                            this.mob.performRangedAttack(livingEntity, 1.0F);
                         this.attackTime = this.attackIntervalMin;
                     }
                 }
