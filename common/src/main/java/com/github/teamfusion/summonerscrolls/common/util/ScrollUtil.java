@@ -66,6 +66,13 @@ public class ScrollUtil {
                 }
             }
         });
+        SSEntityTypes.ENDERMAN_SUMMON.listen((summon) -> {
+            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+                if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()) {
+                    type = summon;
+                }
+            }
+        });
 /*
 *        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
 *            if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
@@ -87,17 +94,14 @@ public class ScrollUtil {
                 }
             }
         });
+        SSEntityTypes.CHARGED_CREEPER_SUMMON.listen((summon) -> {
+            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+                if (enchantment == SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()) {
+                    type = summon;
+                }
+            }
+        });
 /*
-*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-*            if (enchantment == SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()){
-*                type = EntityType.CREEPER;
-*            }
-*        }
-**        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-**            if (enchantment == SummonerScrollsEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
-**                type = EntityType.CHARGED_CREEPER;
-**            }
-**        }
 *        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
 *            if (enchantment == SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
 *                type = EntityType.PIGLIN_BRUTE;
@@ -180,13 +184,11 @@ public class ScrollUtil {
                 summonXP = 50;
             }
         }
-        /*
-*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-*            if (enchantment == SummonerScrollsEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
-*                summonXP = 60;
-*            }
-*        }
-         */
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
+                summonXP = 60;
+            }
+        }
 
         return summonXP;
     }
@@ -236,11 +238,9 @@ public class ScrollUtil {
         if (item == SSItems.IRON_GOLEM_SCROLL.get()){
             summonXP = 50;
         }
-        /*
-*        if (item == SummonerScrollsItems.CHARGED_CREEPER_SCROLL.get()){
-*            summonXP = 60;
-*        }
-         */
+        if (item == SSItems.CHARGED_CREEPER_SCROLL.get()){
+            summonXP = 60;
+        }
 
         return summonXP;
     }
@@ -313,13 +313,11 @@ public class ScrollUtil {
                 durability = 15;
             }
         }
-        /*
-*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-*            if (enchantment == SummonerScrollsEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
-*                durability = 15;
-*            }
-*        }
-         */
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()){
+                durability = 15;
+            }
+        }
 
         return durability;
     }

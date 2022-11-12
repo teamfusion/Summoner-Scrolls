@@ -20,7 +20,9 @@ public class SSClient extends SummonerScrolls {
         EntityRendererRegistry.register(SSEntityTypes.HUSK_SUMMON, HuskSummonRenderer::new);
         EntityRendererRegistry.register(SSEntityTypes.STRAY_SUMMON, StraySummonRenderer::new);
         EntityRendererRegistry.register(SSEntityTypes.CAVE_SPIDER_SUMMON, CaveSpiderSummonRenderer::new);
+        EntityRendererRegistry.register(SSEntityTypes.ENDERMAN_SUMMON, EndermanSummonRenderer::new);
 
         EntityRendererRegistry.register(SSEntityTypes.CREEPER_SUMMON, CreeperSummonRenderer::new);
+        EntityRendererRegistry.register(SSEntityTypes.CHARGED_CREEPER_SUMMON, CreeperSummonRenderer::new);
     }
 }

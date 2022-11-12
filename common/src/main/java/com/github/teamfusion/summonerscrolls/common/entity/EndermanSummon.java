@@ -2,16 +2,10 @@ package com.github.teamfusion.summonerscrolls.common.entity;
 
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
-import com.github.teamfusion.summonerscrolls.mixin.access.CreeperAccessor;
 import com.google.common.base.Suppliers;
-import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.syncher.EntityDataAccessor;
-import net.minecraft.network.syncher.EntityDataSerializers;
-import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -19,38 +13,27 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.SwellGoal;
-import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.ai.goal.GoalSelector;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.level.LevelAccessor;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
-public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
-    public static final Supplier<EntityType<CreeperSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, false), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("creeper_summon"));
-    public static final Supplier<EntityType<CreeperSummon>> TYPE_CHARGED = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, true), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("charged_creeper_summon"));
-
-    private static final EntityDataAccessor<Boolean> DATA_IS_POWERED = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.BOOLEAN);
+public class EndermanSummon extends EnderMan implements ISummon {
+    public static final Supplier<EntityType<EndermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(EndermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("enderman_summon"));
 
     public static UUID ownerUUID;
     private int despawnDelay;
 
-    public CreeperSummon(EntityType<CreeperSummon> entityType, Level level, boolean isPowered) {
+    public EndermanSummon(EntityType<? extends EnderMan> entityType, Level level) {
         super(entityType, level);
-        this.entityData.set(DATA_IS_POWERED, isPowered);
-    }
-
-    protected void defineSynchedData() {
-        super.defineSynchedData();
-        this.entityData.define(DATA_IS_POWERED, false);
     }
 
     public MobType getMobType() {
@@ -60,7 +43,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
-        this.goalSelector.addGoal(2, new SwellGoal(this));
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
     }
 
     @Override
@@ -134,31 +117,15 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
-        if (this.entityData.get(DATA_IS_POWERED)) {
-            compoundTag.putBoolean("powered", true);
-        }
-
         compoundTag.putInt("DespawnDelay", this.despawnDelay);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
-        this.entityData.set(DATA_IS_POWERED, compoundTag.getBoolean("powered"));
         if (compoundTag.contains("DespawnDelay", 99)) {
             this.despawnDelay = compoundTag.getInt("DespawnDelay");
         }
-    }
-
-    @Override
-    public boolean isPowered() {
-        return this.entityData.get(DATA_IS_POWERED);
-    }
-
-    @Override
-    public void thunderHit(ServerLevel serverLevel, LightningBolt lightningBolt) {
-        super.thunderHit(serverLevel, lightningBolt);
-        this.entityData.set(DATA_IS_POWERED, false);
     }
 
     @Override
@@ -180,8 +147,6 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
-
-
     @Override
     public void setDespawnDelay(int i) {
         this.despawnDelay = i;
@@ -192,56 +157,82 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         return this.despawnDelay;
     }
 
+    @Override
+    public void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
+        ISummon.super.spawnSummonParticles(random, level, x, y, z);
+    }
+
+    @Override
+    public boolean isEnemy(LivingEntity livingEntity) {
+        return ISummon.super.isEnemy(livingEntity);
+    }
+
+    @Override
+    public void commonGoals(GoalSelector targetSelector, GoalSelector goalSelector) {
+        ISummon.super.commonGoals(targetSelector, goalSelector);
+    }
+
     private void maybeDespawn() {
         if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
             this.kill();
         }
     }
 
-    @Override
-    public void tick() {
-        int swell = ((CreeperAccessor)this).getSwell();
-        int maxSwell = ((CreeperAccessor)this).getMaxSwell();
-
-        if (this.isAlive()) {
-            ((CreeperAccessor)this).setOldSwell(swell);
-            if (this.isIgnited()) {
-                this.setSwellDir(1);
-            }
-
-            int i = this.getSwellDir();
-            if (i > 0 && swell == 0) {
-                this.playSound(SoundEvents.CREEPER_PRIMED, 1.0F, 0.5F);
-                this.gameEvent(GameEvent.PRIME_FUSE);
-            }
-
-            swell += i;
-            if (swell < 0) {
-                swell = 0;
-            }
-
-            if (swell >= maxSwell) {
-                ((CreeperAccessor)this).setOldSwell(maxSwell);
-                this.explodeSummonCreeper();
-            }
-        }
-
-        super.tick();
-    }
-
-    private void explodeSummonCreeper() {
-        if (!this.level.isClientSide) {
-            float f = this.isPowered() ? 8.0F : 4.0F;
-            this.dead = true;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor)this).getExplosionRadius() * f, Explosion.BlockInteraction.NONE);
-            this.discard();
-            ((CreeperAccessor)this).callSpawnLingeringCloud();
-        }
-    }
-
     public static AttributeSupplier.Builder createSummonAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.ARMOR, 2.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+    }
+
+    @Override
+    public boolean alwaysAccepts() {
+        return super.alwaysAccepts();
+    }
+
+    @Override
+    public void addPersistentAngerSaveData(CompoundTag compoundTag) {
+        super.addPersistentAngerSaveData(compoundTag);
+    }
+
+    @Override
+    public void readPersistentAngerSaveData(Level level, CompoundTag compoundTag) {
+        super.readPersistentAngerSaveData(level, compoundTag);
+    }
+
+    @Override
+    public void updatePersistentAnger(ServerLevel serverLevel, boolean bl) {
+        super.updatePersistentAnger(serverLevel, bl);
+    }
+
+    @Override
+    public boolean isAngryAt(LivingEntity livingEntity) {
+        return super.isAngryAt(livingEntity);
+    }
+
+    @Override
+    public boolean isAngryAtAllPlayers(Level level) {
+        return super.isAngryAtAllPlayers(level);
+    }
+
+    @Override
+    public boolean isAngry() {
+        return super.isAngry();
+    }
+
+    @Override
+    public void playerDied(Player player) {
+        super.playerDied(player);
+    }
+
+    @Override
+    public void forgetCurrentTargetAndRefreshUniversalAnger() {
+        super.forgetCurrentTargetAndRefreshUniversalAnger();
+    }
+
+    @Override
+    public void stopBeingAngry() {
+        super.stopBeingAngry();
     }
 }
