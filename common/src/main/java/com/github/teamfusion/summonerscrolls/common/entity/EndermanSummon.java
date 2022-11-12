@@ -81,6 +81,9 @@ public class EndermanSummon extends EnderMan implements ISummon {
         if (damageSource.getEntity() == this.getOwner()) {
             return false;
         }
+        if (!this.level.isClientSide() && this.random.nextInt(10) != 0) {
+            this.teleport();
+        }
         return super.hurt(damageSource, f);
     }
 
