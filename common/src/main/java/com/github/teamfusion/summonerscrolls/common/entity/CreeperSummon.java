@@ -12,6 +12,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -27,8 +28,10 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
+import net.minecraft.world.phys.AABB;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -162,8 +165,13 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     }
 
     @Override
-    protected boolean shouldDropLoot() {
-        return false;
+    protected void dropEquipment() {
+        super.dropEquipment();
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.OFFHAND);
+        if (!itemstack.isEmpty()) {
+            this.spawnAtLocation(itemstack);
+            this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+        }
     }
 
     @Override
@@ -231,9 +239,8 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
 
     private void explodeSummonCreeper() {
         if (!this.level.isClientSide) {
-            float f = this.isPowered() ? 8.0F : 4.0F;
             this.dead = true;
-            this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor)this).getExplosionRadius() * f, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Explosion.BlockInteraction.NONE);
             this.discard();
             ((CreeperAccessor)this).callSpawnLingeringCloud();
         }
