@@ -132,8 +132,13 @@ public class EndermanSummon extends EnderMan implements ISummon {
     }
 
     @Override
-    protected boolean shouldDropLoot() {
-        return false;
+    protected void dropEquipment() {
+        super.dropEquipment();
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.OFFHAND);
+        if (!itemstack.isEmpty()) {
+            this.spawnAtLocation(itemstack);
+            this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+        }
     }
 
     @Override
