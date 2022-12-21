@@ -86,7 +86,7 @@ public final class LanguageGenerator implements DataProvider {
 //        this.item(SSItems.SK.get(), "Shulkerman Summoner Scroll");
         this.item(SSItems.IRON_GOLEM_SCROLL.get(), "Iron Golem Summoner Scroll");
 
-        this.item(SSItems.INVISIBLE_SUMMON_LIGHT.get(), "Invisible Summon Light");
+        this.add("item.summonerscrolls.invisible_summon_light", "Invisible Summon Light");
 
         // Enchantment
         this.enchantment(SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(), "Zombie Summon");

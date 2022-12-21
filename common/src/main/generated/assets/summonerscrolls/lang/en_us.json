@@ -1,5 +1,4 @@
 {
-  "block.minecraft.torch": "Invisible Summon Light",
   "enchantment.summonerscrolls.bee_scroll": "Bee Summon",
   "enchantment.summonerscrolls.cave_spider_scroll": "Cave Spider Summon",
   "enchantment.summonerscrolls.charged_creeper_scroll": "Charged Creeper Summon",
@@ -23,6 +22,7 @@
   "item.summonerscrolls.enderman_summoner_scroll": "Enderman Summoner Scroll",
   "item.summonerscrolls.enhancement_scroll": "Summon Enhancement Scroll",
   "item.summonerscrolls.husk_summoner_scroll": "Husk Summoner Scroll",
+  "item.summonerscrolls.invisible_summon_light": "Invisible Summon Light",
   "item.summonerscrolls.iron_golem_summoner_scroll": "Iron Golem Summoner Scroll",
   "item.summonerscrolls.piglin_brute_summoner_scroll": "Piglin Brute Summoner Scroll",
   "item.summonerscrolls.piglin_summoner_scroll": "Piglin Summoner Scroll",
