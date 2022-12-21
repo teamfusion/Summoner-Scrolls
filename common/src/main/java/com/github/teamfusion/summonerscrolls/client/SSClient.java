@@ -1,7 +1,14 @@
 package com.github.teamfusion.summonerscrolls.client;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.client.render.entity.*;
+import com.github.teamfusion.summonerscrolls.client.render.entity.CaveSpiderSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.CreeperSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.EndermanSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.HuskSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.SkeletonSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.SpiderSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.StraySummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.ZombieSummonRenderer;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import dev.architectury.registry.client.level.entity.EntityRendererRegistry;
 import net.fabricmc.api.EnvType;

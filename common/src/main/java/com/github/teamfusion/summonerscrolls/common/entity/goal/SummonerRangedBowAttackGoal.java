@@ -1,8 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.entity.goal;
 
-import com.github.teamfusion.summonerscrolls.common.entity.SkeletonSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.StraySummon;
-import com.github.teamfusion.summonerscrolls.common.item.SummonerBowItem;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.RangedBowAttackGoal;

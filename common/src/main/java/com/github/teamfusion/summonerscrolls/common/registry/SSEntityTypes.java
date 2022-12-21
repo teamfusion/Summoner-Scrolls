@@ -1,7 +1,14 @@
 package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.common.entity.*;
+import com.github.teamfusion.summonerscrolls.common.entity.CaveSpiderSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.CreeperSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.EndermanSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.HuskSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.SkeletonSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.SpiderSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.StraySummon;
+import com.github.teamfusion.summonerscrolls.common.entity.ZombieSummon;
 import dev.architectury.registry.level.entity.EntityAttributeRegistry;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
