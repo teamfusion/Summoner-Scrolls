@@ -38,15 +38,12 @@ public class SSEntityTypes {
     public static final RegistrySupplier<EntityType<CreeperSummon>> CREEPER_SUMMON = ENTITY_TYPES.register("creeper_summon", CreeperSummon.TYPE);
     public static final RegistrySupplier<EntityType<CreeperSummon>> CHARGED_CREEPER_SUMMON = ENTITY_TYPES.register("charged_creeper_summon", CreeperSummon.TYPE_CHARGED);
 //    public static final RegistrySupplier<EntityType<>> PIGLIN_BRUTE_SUMMON = ENTITY_TYPES.register("piglin_brute_summon", ZombieSummon.TYPE);
-//    //    public static final RegistrySupplier<EntityType<> SHULKERMAN_SUMMON = ENTITY_TYPES.register("shulkerman_summoner_scroll", () ->
-////            new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+//    //    public static final RegistrySupplier<EntityType<> SHULKERMAN_SUMMON = ENTITY_TYPES.register("shulkerman_summoner_scroll", () -> new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 //    public static final RegistrySupplier<EntityType<>> IRON_GOLEM_SUMMON = ENTITY_TYPES.register("iron_golem_summon", ZombieSummon.TYPE);
 
     /* Summon Entities - Tier 4 */
-//    public static final RegistrySupplier<EntityType<> WARDEN_SUMMON = ENTITY_TYPES.register("warden_summoner_scroll", () ->
-//            new ScrollItem(SummonerScrollsEnchantments.WARDEN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
-//    public static final RegistrySupplier<EntityType<> HEROBRINE_SUMMON = ENTITY_TYPES.register("herobrine_summoner_scroll", () ->
-//            new ScrollItem(SummonerScrollsEnchantments.HEROBRINE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+//    public static final RegistrySupplier<EntityType<> WARDEN_SUMMON = ENTITY_TYPES.register("warden_summoner_scroll", () ->new ScrollItem(SummonerScrollsEnchantments.WARDEN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+//    public static final RegistrySupplier<EntityType<> HEROBRINE_SUMMON = ENTITY_TYPES.register("herobrine_summoner_scroll", () ->new ScrollItem(SummonerScrollsEnchantments.HEROBRINE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
 
     public static void postRegister() {

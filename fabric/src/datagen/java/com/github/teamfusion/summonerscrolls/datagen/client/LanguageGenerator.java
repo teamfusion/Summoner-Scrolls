@@ -44,26 +44,25 @@ public final class LanguageGenerator implements DataProvider {
     private void addTranslations() {
         // Entities
         this.entity(SSEntityTypes.ZOMBIE_SUMMON.get(), "Zombie Summon");
+        this.entity(SSEntityTypes.SPIDER_SUMMON.get(), "Spider Summon");
         this.entity(SSEntityTypes.SKELETON_SUMMON.get(), "Skeleton Summon");
+//        this.entity(SSEntityTypes.BEE_SUMMON.get(), "Bee Summon");
 
         this.entity(SSEntityTypes.HUSK_SUMMON.get(), "Husk Summon");
+        this.entity(SSEntityTypes.STRAY_SUMMON.get(), "Stray Summon");
+        this.entity(SSEntityTypes.CAVE_SPIDER_SUMMON.get(), "Cave Spider Summon");
+        this.entity(SSEntityTypes.ENDERMAN_SUMMON.get(), "Enderman Summon");
+//        this.entity(SSEntityTypes.PIGLIN_SUMMON.get(), "Piglin Summon");
 
-        //  "entity.summonerscrolls.zombie_summon": "Zombie Summon",
-        //  "entity.summonerscrolls.skeleton_summon": "Skeleton Summon",
-        //  "entity.summonerscrolls.spider_summon": "Spider Summon",
-        //  "entity.summonerscrolls.bee_summon": "Bee Summon",
-        //
-        //  "entity.summonerscrolls.husk_scroll": "Husk Summon",
-        //  "entity.summonerscrolls.stray_scroll": "Stray Summon",
-        //  "entity.summonerscrolls.cave_spider_scroll": "Cave Spider Summon",
-        //  "entity.summonerscrolls.enderman_scroll": "Enderman Summon",
-        //  "entity.summonerscrolls.piglin_scroll": "Piglin Summon",
-        //
-        //  "entity.summonerscrolls.creeper_scroll": "Creeper Summon",
-        //  "entity.summonerscrolls.charged_creeper_scroll": "Charged Creeper Summon",
-        //  "entity.summonerscrolls.piglin_brute_scroll": "Piglin Brute Summon",
-        //  "entity.summonerscrolls.shulkerman_scroll": "Shulkerman Summon",
-        //  "entity.summonerscrolls.iron_golem_scroll": "Iron Golem Summon",
+        this.entity(SSEntityTypes.CREEPER_SUMMON.get(), "Creeper Summon");
+        this.entity(SSEntityTypes.CHARGED_CREEPER_SUMMON.get(), "Charged Creeper Summon");
+//        this.entity(SSEntityTypes.PIGLIN_BRUTE_SUMMON.get(), "Piglin Brute Summon");
+//        this.entity(SSEntityTypes.SHULKERMAN_SUMMON.get(), "Shulkerman Summon");
+//        this.entity(SSEntityTypes.IRON_GOLEM_SUMMON.get(), "Iron Golem Summon");
+
+//        this.entity(SSEntityTypes.WARDEN_SUMMON.get(), "Warden Summon");
+//        this.entity(SSEntityTypes.HEROBRINE_SUMMON.get(), "Herobrine Summon");
+
 
         // Items
         this.item(SSItems.ENHANCEMENT_SCROLL.get(), "Summon Enhancement Scroll");
