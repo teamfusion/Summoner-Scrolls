@@ -203,14 +203,4 @@ public class BeeSummon extends Bee implements ISummon {
     public boolean isAngryAt(LivingEntity livingEntity) {
         return this.isSummonAngryAt(livingEntity);
     }
-
-    @Override
-    public void forgetCurrentTargetAndRefreshUniversalAnger() {
-        super.forgetCurrentTargetAndRefreshUniversalAnger();
-    }
-
-    @Override
-    public void stopBeingAngry() {
-        super.stopBeingAngry();
-    }
 }
