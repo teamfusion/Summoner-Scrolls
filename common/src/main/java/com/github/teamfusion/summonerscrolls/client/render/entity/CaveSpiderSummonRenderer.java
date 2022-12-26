@@ -16,8 +16,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class CaveSpiderSummonRenderer<T extends CaveSpiderSummon> extends SpiderSummonRenderer<T> {
-    public static final String SUMMON_NAME = "spider";
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/spider_summon.png");
 
     private static final float SCALE = 0.7F;
 

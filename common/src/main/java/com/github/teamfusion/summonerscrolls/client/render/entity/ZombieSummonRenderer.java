@@ -19,12 +19,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class ZombieSummonRenderer extends ZombieRenderer {
-    public static final String SUMMON_NAME = "zombie";
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/zombie_summon.png");
 
     public ZombieSummonRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
     }
 
     @Nullable

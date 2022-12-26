@@ -23,8 +23,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Environment(EnvType.CLIENT)
 public class SpiderSummonRenderer<T extends SpiderSummon> extends SpiderRenderer<T> {
-    public static final String SUMMON_NAME = "spider";
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/spider_summon.png");
 
     public SpiderSummonRenderer(EntityRendererProvider.Context context) {
         this(context, ModelLayers.SPIDER);
@@ -32,7 +31,7 @@ public class SpiderSummonRenderer<T extends SpiderSummon> extends SpiderRenderer
 
     public SpiderSummonRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation) {
         super(context, modelLayerLocation);
-        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
         this.addLayer(new SpiderEyesLayer(this));
     }
 

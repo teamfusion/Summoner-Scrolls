@@ -19,12 +19,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class CreeperSummonRenderer extends CreeperRenderer {
-    public static final String SUMMON_NAME = "creeper";
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/creeper_summon.png");
 
     public CreeperSummonRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
     }
 
     @Nullable

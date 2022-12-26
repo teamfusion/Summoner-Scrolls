@@ -19,12 +19,11 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class EndermanSummonRenderer extends EndermanRenderer {
-    public static final String SUMMON_NAME = "enderman";
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/enderman_summon.png");
 
     public EndermanSummonRenderer(EntityRendererProvider.Context context) {
         super(context);
-        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
     }
 
     @Nullable

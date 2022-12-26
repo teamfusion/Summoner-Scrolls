@@ -24,8 +24,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Environment(EnvType.CLIENT)
 public class SkeletonSummonRenderer extends HumanoidMobRenderer<AbstractSkeleton, SkeletonModel<AbstractSkeleton>> {
-    public static final String SUMMON_NAME = "skeleton";
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/" + SUMMON_NAME + "_summon.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/skeleton_summon.png");
 
     public SkeletonSummonRenderer(EntityRendererProvider.Context context) {
         this(context, ModelLayers.SKELETON, ModelLayers.SKELETON_INNER_ARMOR, ModelLayers.SKELETON_OUTER_ARMOR);
@@ -34,7 +33,7 @@ public class SkeletonSummonRenderer extends HumanoidMobRenderer<AbstractSkeleton
     public SkeletonSummonRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, ModelLayerLocation modelLayerLocation2, ModelLayerLocation modelLayerLocation3) {
         super(context, new SkeletonModel(context.bakeLayer(modelLayerLocation)), 0.5F);
         this.addLayer(new HumanoidArmorLayer(this, new SkeletonModel(context.bakeLayer(modelLayerLocation2)), new SkeletonModel(context.bakeLayer(modelLayerLocation3))));
-        this.addLayer(new SummonGlowLayer<>(this, SUMMON_NAME));
+        this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
     }
 
     @Nullable

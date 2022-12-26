@@ -227,6 +227,9 @@ public class ScrollUtil {
         if (item == SSItems.SKELETON_SCROLL.get()){
             summonXP = 30;
         }
+        if (item == SSItems.PIGLIN_SCROLL.get()){
+            summonXP = 30;
+        }
 
         /* Summon Types - Tier 3 */
         if (item == SSItems.CREEPER_SCROLL.get()){
