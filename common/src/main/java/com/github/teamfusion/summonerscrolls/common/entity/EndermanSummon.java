@@ -141,7 +141,6 @@ public class EndermanSummon extends EnderMan implements ISummon {
         super.dropEquipment();
         ItemStack itemstack = this.getItemBySlot(EquipmentSlot.OFFHAND);
         if (!itemstack.isEmpty()) {
-            this.spawnAtLocation(itemstack);
             this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
         }
     }
