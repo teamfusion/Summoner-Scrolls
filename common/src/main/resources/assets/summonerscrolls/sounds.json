@@ -1,0 +1,12 @@
+{
+  "entity.summon.death": {
+    "category": "entity",
+    "subtitle": "entity.summon.death",
+    "sounds": [
+      {
+        "name": "summonerscrolls:entity/summon/entity.summon.death",
+        "stream": true
+      }
+    ]
+  }
+}
