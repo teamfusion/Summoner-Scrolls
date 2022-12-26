@@ -199,52 +199,7 @@ public class EndermanSummon extends EnderMan implements ISummon {
     }
 
     @Override
-    public boolean alwaysAccepts() {
-        return super.alwaysAccepts();
-    }
-
-    @Override
-    public void addPersistentAngerSaveData(CompoundTag compoundTag) {
-        super.addPersistentAngerSaveData(compoundTag);
-    }
-
-    @Override
-    public void readPersistentAngerSaveData(Level level, CompoundTag compoundTag) {
-        super.readPersistentAngerSaveData(level, compoundTag);
-    }
-
-    @Override
-    public void updatePersistentAnger(ServerLevel serverLevel, boolean bl) {
-        super.updatePersistentAnger(serverLevel, bl);
-    }
-
-    @Override
     public boolean isAngryAt(LivingEntity livingEntity) {
         return super.isAngryAt(livingEntity);
-    }
-
-    @Override
-    public boolean isAngryAtAllPlayers(Level level) {
-        return super.isAngryAtAllPlayers(level);
-    }
-
-    @Override
-    public boolean isAngry() {
-        return super.isAngry();
-    }
-
-    @Override
-    public void playerDied(Player player) {
-        super.playerDied(player);
-    }
-
-    @Override
-    public void forgetCurrentTargetAndRefreshUniversalAnger() {
-        super.forgetCurrentTargetAndRefreshUniversalAnger();
-    }
-
-    @Override
-    public void stopBeingAngry() {
-        super.stopBeingAngry();
     }
 }
