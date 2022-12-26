@@ -107,7 +107,7 @@ public final class LanguageGenerator implements DataProvider {
 
         // Misc
         this.add("itemGroup.summonerscrolls.scrolls_tab", "Summoner Scrolls");
-        this.add("item.summonerscrolls.scroll.xp_warning", "Required XP:");
+        this.add("item.summonerscrolls.scroll.xp_warning", "Required XP: ");
     }
 
     private void item(Item entry, String name) {

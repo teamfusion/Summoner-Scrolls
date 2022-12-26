@@ -29,7 +29,7 @@ public class ScrollItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, list, tooltipFlag);
-        list.add((new TranslatableComponent("item.summonerscrolls.scroll.xp_warning")).append(" ").append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
+        list.add((new TranslatableComponent("item.summonerscrolls.scroll.xp_warning")).append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
     }
 
     public RegistrySupplier<Enchantment> getEnchantment() {
