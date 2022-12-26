@@ -45,4 +45,9 @@ public class StraySummon extends SkeletonSummon {
 
         return abstractArrow;
     }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }

@@ -71,4 +71,9 @@ public class CaveSpiderSummon extends SpiderSummon {
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.45);
     }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }

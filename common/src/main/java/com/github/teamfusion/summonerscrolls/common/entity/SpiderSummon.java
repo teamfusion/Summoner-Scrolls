@@ -181,4 +181,9 @@ public class SpiderSummon extends Spider implements ISummon {
                 .add(Attributes.ARMOR, 2.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }

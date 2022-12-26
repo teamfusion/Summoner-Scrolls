@@ -225,4 +225,9 @@ public class SkeletonSummon extends Skeleton implements ISummon {
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }

@@ -202,4 +202,9 @@ public class EndermanSummon extends EnderMan implements ISummon {
     public boolean isAngryAt(LivingEntity livingEntity) {
         return super.isAngryAt(livingEntity);
     }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }

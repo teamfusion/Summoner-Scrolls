@@ -203,4 +203,9 @@ public class BeeSummon extends Bee implements ISummon {
     public boolean isAngryAt(LivingEntity livingEntity) {
         return this.isSummonAngryAt(livingEntity);
     }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }
