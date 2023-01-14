@@ -15,13 +15,14 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
+import java.util.function.Supplier;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ScrollItem extends Item {
-    public RegistrySupplier<Enchantment> enchantment;
+    public Supplier<Enchantment> enchantment;
 
-    public ScrollItem(RegistrySupplier<Enchantment> enchantment, Properties properties) {
+    public ScrollItem(Supplier<Enchantment> enchantment, Properties properties) {
         super(properties);
         this.enchantment = enchantment;
     }
@@ -32,7 +33,7 @@ public class ScrollItem extends Item {
         list.add((new TranslatableComponent("item.summonerscrolls.scroll.xp_warning")).append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
     }
 
-    public RegistrySupplier<Enchantment> getEnchantment() {
+    public Supplier<Enchantment> getEnchantment() {
         return enchantment;
     }
 }

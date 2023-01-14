@@ -8,6 +8,8 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
 import com.github.teamfusion.summonerscrolls.common.util.trade.SSTrades;
+import com.github.teamfusion.summonerscrolls.platform.Environment;
+import com.github.teamfusion.summonerscrolls.platform.ModInstance;
 import dev.architectury.registry.CreativeTabRegistry;
 import dev.architectury.utils.EnvExecutor;
 import net.fabricmc.api.EnvType;
@@ -21,12 +23,13 @@ public class SummonerScrolls {
     public static final String MOD_ID = "summonerscrolls";
     public static final String MOD_NAME = "Summoner Scrolls";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
+    public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).client(SSClient::commonClientInitialize).build();
 
-    public static final CreativeModeTab SCROLLS_TAB = CreativeTabRegistry.create(new ResourceLocation(MOD_ID, "scrolls_tab"), () ->
-            new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
+    public static final CreativeModeTab SCROLLS_TAB = Environment.createTab(new ResourceLocation(MOD_ID, "scrolls_tab"), () -> new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
     
     public static void commonInitialize() {
         LOGGER.info("Initializing {}", MOD_NAME);
+        INSTANCE.bootstrap();
 
         SSEnchantments.ENCHANTMENTS.register();
         SSItems.ITEMS.register();
@@ -39,7 +42,7 @@ public class SummonerScrolls {
         SSLootTables.init();
         SSTrades.init();
 
-        EnvExecutor.runInEnv(EnvType.CLIENT, () -> SSClient::commonClientInitialize);
+//        EnvExecutor.runInEnv(EnvType.CLIENT, () -> SSClient::commonClientInitialize);
     }
 
     //todo: put todos in respective classes
