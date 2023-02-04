@@ -6,9 +6,7 @@
   "client": [
   ],
   "mixins": [
-    "MobMixin",
     "PlayerMixin",
-    "TieredItemMixin",
     "access.CreeperAccessor"
   ],
   "injectors": {

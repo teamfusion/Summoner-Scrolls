@@ -30,7 +30,9 @@ public class InventoryUtil {
                 enchantments.put(enchantment, 1);
                 ItemStack copy = left.copy();
                 EnchantmentHelper.setEnchantments(enchantments, copy);
-                copy.setHoverName(new TextComponent(name));
+                if (name != null && !name.isEmpty()) {
+                    copy.setHoverName(new TextComponent(name));
+                }
 
                 outputSlot.setItem(0, copy);
                 container.cost.set(8);
