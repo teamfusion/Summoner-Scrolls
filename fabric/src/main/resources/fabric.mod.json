@@ -40,7 +40,6 @@
     "java": ">=17",
     "minecraft": ">=1.18",
     "fabricloader": ">=0.14",
-    "fabric": ">=0.58",
-    "architectury": ">=4.9"
+    "fabric": ">=0.58"
   }
 }
