@@ -37,5 +37,8 @@
   "item.summonerscrolls.spider_summoner_scroll": "Spider Summoner Scroll",
   "item.summonerscrolls.stray_summoner_scroll": "Stray Summoner Scroll",
   "item.summonerscrolls.zombie_summoner_scroll": "Zombie Summoner Scroll",
-  "itemGroup.summonerscrolls.scrolls_tab": "Summoner Scrolls"
+  "itemGroup.summonerscrolls.scrolls_tab": "Summoner Scrolls",
+  "message.summonerscrolls.cooldown": "You must wait %s seconds before summoning this again.",
+  "message.summonerscrolls.not_enough_xp": "You need %s experience levels to use this scroll",
+  "message.summonerscrolls.summon_success": "Successfully summoned a %s!"
 }

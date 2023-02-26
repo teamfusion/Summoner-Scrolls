@@ -108,6 +108,9 @@ public final class LanguageGenerator implements DataProvider {
         // Misc
         this.add("itemGroup.summonerscrolls.scrolls_tab", "Summoner Scrolls");
         this.add("item.summonerscrolls.scroll.xp_warning", "Required XP: ");
+        this.add("message.summonerscrolls.summon_success", "Successfully summoned a %s!");
+        this.add("message.summonerscrolls.not_enough_xp", "You need %s experience levels to use this scroll");
+        this.add("message.summonerscrolls.cooldown", "You must wait %s seconds before summoning this again.");
     }
 
     private void item(Item entry, String name) {
