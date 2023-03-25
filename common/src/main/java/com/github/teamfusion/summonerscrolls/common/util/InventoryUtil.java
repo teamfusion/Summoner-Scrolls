@@ -1,6 +1,5 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
-import com.github.teamfusion.summonerscrolls.common.enchantment.ScrollEnchantment;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
@@ -27,46 +26,18 @@ public class InventoryUtil {
             Enchantment enchantment = scrollItem.getEnchantment().get();
 
             if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
+                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
+                enchantments.put(enchantment, 1);
+                ItemStack copy = left.copy();
+                EnchantmentHelper.setEnchantments(enchantments, copy);
+                if (name != null && !name.isEmpty()) {
+                    copy.setHoverName(new TextComponent(name));
+                }
 
-                replaceScrollEnchants(enchantment, left, right, name, outputSlot, container);
-
-
+                outputSlot.setItem(0, copy);
+                container.cost.set(8);
             }
         }
         return false;
-    }
-
-    private static void replaceScrollEnchants(Enchantment newEnchant, ItemStack insert, ItemStack result, String name, Container outputSlot, AnvilMenu container) {
-        ItemStack lefte = insert.copy();
-        Map<Enchantment, Integer> insertMap = EnchantmentHelper.getEnchantments(insert);
-        Map<Enchantment, Integer> resultMap = EnchantmentHelper.getEnchantments(result);
-//        Iterator<Map.Entry<Enchantment, Integer>> var5 = map.entrySet().iterator();
-
-        for (Enchantment enchantment : resultMap.keySet()) {
-            if (enchantment == newEnchant) {
-                return;
-            } else if (enchantment instanceof ScrollEnchantment) {
-                resultMap.remove(enchantment);
-                insertMap.put(newEnchant, 1);
-                ItemStack copy = result.copy();
-                EnchantmentHelper.setEnchantments(resultMap, copy);
-                if (name != null && !name.isEmpty()) {
-                    copy.setHoverName(new TextComponent(name));
-                }
-
-                outputSlot.setItem(0, copy);
-                container.cost.set(8);
-            } else {
-                insertMap.put(newEnchant, 1);
-                ItemStack copy = insert.copy();
-                EnchantmentHelper.setEnchantments(insertMap, copy);
-                if (name != null && !name.isEmpty()) {
-                    copy.setHoverName(new TextComponent(name));
-                }
-
-                outputSlot.setItem(0, copy);
-                container.cost.set(8);
-            }
-        }
     }
 }
