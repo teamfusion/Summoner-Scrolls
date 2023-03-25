@@ -1,10 +1,14 @@
 package com.github.teamfusion.summonerscrolls.client;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.client.render.entity.BeeSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.CaveSpiderSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.CreeperSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.EndermanSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.HuskSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.IronGolemSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.PiglinBruteSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.PiglinSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.SkeletonSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.SpiderSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.StraySummonRenderer;
@@ -31,14 +35,18 @@ public class SSClient {
         RenderRegistry.renderer(SSEntityTypes.ZOMBIE_SUMMON, ZombieSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.SPIDER_SUMMON, SpiderSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.SKELETON_SUMMON, SkeletonSummonRenderer::new);
+        RenderRegistry.renderer(SSEntityTypes.BEE_SUMMON, BeeSummonRenderer::new);
 
         RenderRegistry.renderer(SSEntityTypes.HUSK_SUMMON, HuskSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.STRAY_SUMMON, StraySummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.CAVE_SPIDER_SUMMON, CaveSpiderSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.ENDERMAN_SUMMON, EndermanSummonRenderer::new);
+        RenderRegistry.renderer(SSEntityTypes.PIGLIN_SUMMON, PiglinSummonRenderer::new);
 
         RenderRegistry.renderer(SSEntityTypes.CREEPER_SUMMON, CreeperSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.CHARGED_CREEPER_SUMMON, CreeperSummonRenderer::new);
+        RenderRegistry.renderer(SSEntityTypes.PIGLIN_BRUTE_SUMMON, PiglinBruteSummonRenderer::new);
+        RenderRegistry.renderer(SSEntityTypes.IRON_GOLEM_SUMMON, IronGolemSummonRenderer::new);
     }
 
     public static void postClientInitialize() {

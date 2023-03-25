@@ -5,6 +5,7 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -19,6 +20,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 @ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public final class LanguageGenerator implements DataProvider {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
     private final Map<String, String> data = new TreeMap<>();
@@ -46,19 +48,19 @@ public final class LanguageGenerator implements DataProvider {
         this.entity(SSEntityTypes.ZOMBIE_SUMMON.get(), "Zombie Summon");
         this.entity(SSEntityTypes.SPIDER_SUMMON.get(), "Spider Summon");
         this.entity(SSEntityTypes.SKELETON_SUMMON.get(), "Skeleton Summon");
-//        this.entity(SSEntityTypes.BEE_SUMMON.get(), "Bee Summon");
+        this.entity(SSEntityTypes.BEE_SUMMON.get(), "Bee Summon");
 
         this.entity(SSEntityTypes.HUSK_SUMMON.get(), "Husk Summon");
         this.entity(SSEntityTypes.STRAY_SUMMON.get(), "Stray Summon");
         this.entity(SSEntityTypes.CAVE_SPIDER_SUMMON.get(), "Cave Spider Summon");
         this.entity(SSEntityTypes.ENDERMAN_SUMMON.get(), "Enderman Summon");
-//        this.entity(SSEntityTypes.PIGLIN_SUMMON.get(), "Piglin Summon");
+        this.entity(SSEntityTypes.PIGLIN_SUMMON.get(), "Piglin Summon");
 
         this.entity(SSEntityTypes.CREEPER_SUMMON.get(), "Creeper Summon");
         this.entity(SSEntityTypes.CHARGED_CREEPER_SUMMON.get(), "Charged Creeper Summon");
-//        this.entity(SSEntityTypes.PIGLIN_BRUTE_SUMMON.get(), "Piglin Brute Summon");
+        this.entity(SSEntityTypes.PIGLIN_BRUTE_SUMMON.get(), "Piglin Brute Summon");
 //        this.entity(SSEntityTypes.SHULKERMAN_SUMMON.get(), "Shulkerman Summon");
-//        this.entity(SSEntityTypes.IRON_GOLEM_SUMMON.get(), "Iron Golem Summon");
+        this.entity(SSEntityTypes.IRON_GOLEM_SUMMON.get(), "Iron Golem Summon");
 
 //        this.entity(SSEntityTypes.WARDEN_SUMMON.get(), "Warden Summon");
 //        this.entity(SSEntityTypes.HEROBRINE_SUMMON.get(), "Herobrine Summon");
@@ -70,7 +72,6 @@ public final class LanguageGenerator implements DataProvider {
         this.item(SSItems.ZOMBIE_SCROLL.get(), "Zombie Summoner Scroll");
         this.item(SSItems.SKELETON_SCROLL.get(), "Skeleton Summoner Scroll");
         this.item(SSItems.SPIDER_SCROLL.get(), "Spider Summoner Scroll");
-        //todo: bee swarm?
         this.item(SSItems.BEE_SCROLL.get(), "Bee Swarm Summoner Scroll");
 
         this.item(SSItems.HUSK_SCROLL.get(), "Husk Summoner Scroll");

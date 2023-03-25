@@ -179,6 +179,7 @@ public class SpiderSummon extends Spider implements ISummon {
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
                 .add(Attributes.ATTACK_DAMAGE, 3.0)
                 .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.MAX_HEALTH, 16.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 

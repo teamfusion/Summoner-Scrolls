@@ -14,136 +14,40 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import java.util.Map;
 
 public class ScrollUtil {
-    private static final Map<EntityType<? extends LivingEntity>, Enchantment> SCROLL_SUMMONEABLES = ImmutableMap.of(
+    private static final Map<EntityType<? extends LivingEntity>, Enchantment> SCROLL_SUMMONEABLES = ImmutableMap.<EntityType<? extends LivingEntity>, Enchantment>builder()
             /* Summon Types - Tier 1 */
-            SSEntityTypes.ZOMBIE_SUMMON.get(), SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(),
-            SSEntityTypes.SPIDER_SUMMON.get(), SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get(),
-            SSEntityTypes.SKELETON_SUMMON.get(), SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get(),
-            /* Summon Types - Tier 2 */
-            SSEntityTypes.HUSK_SUMMON.get(), SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get(),
-            SSEntityTypes.STRAY_SUMMON.get(), SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get(),
-            SSEntityTypes.CAVE_SPIDER_SUMMON.get(), SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get(),
-            SSEntityTypes.ENDERMAN_SUMMON.get(), SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get(),
-            /* Summon Types - Tier 3 */
-            SSEntityTypes.CREEPER_SUMMON.get(), SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get(),
-            SSEntityTypes.CHARGED_CREEPER_SUMMON.get(), SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()
-    );
+            .put(SSEntityTypes.ZOMBIE_SUMMON.get(), SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.SPIDER_SUMMON.get(), SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.SKELETON_SUMMON.get(), SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.BEE_SUMMON.get(), SSEnchantments.BEE_SCROLL_ENCHANTMENT.get())
 
-    //todo: add 5x bee types
-    private static EntityType<?> type;
+            /* Summon Types - Tier 2 */
+            .put(SSEntityTypes.HUSK_SUMMON.get(), SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.STRAY_SUMMON.get(), SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.CAVE_SPIDER_SUMMON.get(), SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.ENDERMAN_SUMMON.get(), SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.PIGLIN_SUMMON.get(), SSEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get())
+
+            /* Summon Types - Tier 3 */
+            .put(SSEntityTypes.CREEPER_SUMMON.get(), SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.CHARGED_CREEPER_SUMMON.get(), SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.PIGLIN_BRUTE_SUMMON.get(), SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.IRON_GOLEM_SUMMON.get(), SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get())
+            .build();
+
+    private static EntityType<?> TYPE;
 
     public static EntityType<?> getEntityType(ItemStack stack) {
-        /* Summon Types - Tier 1 */
         SCROLL_SUMMONEABLES.forEach((summon, scroll) -> {
             for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
                 if (enchantment == scroll) {
-                    type = summon;
+                    TYPE = summon;
                     break;
                 }
             }
         });
 
-        return type;
-
-//        SSEntityTypes.ZOMBIE_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        SSEntityTypes.SPIDER_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        SSEntityTypes.SKELETON_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        /*
-//*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//*            if (enchantment == SSEnchantments.BEE_SCROLL_ENCHANTMENT.get()){
-//*                type = EntityType.BEE;
-//*            }
-//*        }
-//         */
-//
-//        /* Summon Types - Tier 2 */
-//        SSEntityTypes.HUSK_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        SSEntityTypes.STRAY_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        SSEntityTypes.CAVE_SPIDER_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        SSEntityTypes.ENDERMAN_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-///*
-//*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//*            if (enchantment == SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get()){
-//*                type = EntityType.ENDERMAN;
-//*            }
-//*        }
-//*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//*            if (enchantment == SSEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get()){
-//*                type = EntityType.PIGLIN;
-//*            }
-//*        }
-//         */
-//
-//        /* Summon Types - Tier 3 */
-//        SSEntityTypes.CREEPER_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-//        SSEntityTypes.CHARGED_CREEPER_SUMMON.listen((summon) -> {
-//            for (Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//                if (enchantment == SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get()) {
-//                    type = summon;
-//                }
-//            }
-//        });
-///*
-//*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//*            if (enchantment == SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
-//*                type = EntityType.PIGLIN_BRUTE;
-//*            }
-//*        }
-//*        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
-//*            if (enchantment == SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
-//*                type = EntityType.IRON_GOLEM;
-//*            }
-//*        }
-//        */
-//        return type;
+        return TYPE;
     }
 
     public static int getXP(ItemStack stack) {

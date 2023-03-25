@@ -8,6 +8,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -40,10 +41,15 @@ public class StraySummon extends SkeletonSummon {
     protected AbstractArrow getArrow(ItemStack itemStack, float f) {
         AbstractArrow abstractArrow = super.getArrow(itemStack, f);
         if (abstractArrow instanceof Arrow) {
-            ((Arrow)abstractArrow).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 220));
+            ((Arrow)abstractArrow).addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 400));
         }
 
         return abstractArrow;
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity target, float velocity) {
+        preformBowAttack(target, velocity, true);
     }
 
     @Override

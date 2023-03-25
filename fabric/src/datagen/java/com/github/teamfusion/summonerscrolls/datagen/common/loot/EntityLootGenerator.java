@@ -49,13 +49,13 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-//        this.add(SSEntityTypes.BEE_SUMMON, consumer, LootTable.lootTable()
-//                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-//                        .add(LootItem.lootTableItem(SSItems.BEE_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
-//                        .apply(LootingEnchantFunction.lootingMultiplier(ConstantValue.exactly(0.01F)))
-//                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
-//                )
-//        );
+        this.add(SSEntityTypes.BEE_SUMMON, consumer, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(SSItems.BEE_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(ConstantValue.exactly(0.01F)))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                )
+        );
 
         /* Tier 2 */
         this.add(SSEntityTypes.HUSK_SUMMON, consumer, LootTable.lootTable()
@@ -86,13 +86,13 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-//        this.add(SSEntityTypes.PIGLIN_SUMMON, consumer, LootTable.lootTable()
-//                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
-//                        .add(LootItem.lootTableItem(SSItems.PIGLIN_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
-//                        .apply(LootingEnchantFunction.lootingMultiplier(ConstantValue.exactly(0.01F)))
-//                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
-//                )
-//        );
+        this.add(SSEntityTypes.PIGLIN_SUMMON, consumer, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(SSItems.PIGLIN_SCROLL.get()).when(LootItemRandomChanceCondition.randomChance(0.01F)))
+                        .apply(LootingEnchantFunction.lootingMultiplier(ConstantValue.exactly(0.01F)))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                )
+        );
 
         /* TODO - Tier 3 */
         this.add(SSEntityTypes.CREEPER_SUMMON, consumer, LootTable.lootTable()
@@ -109,13 +109,27 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
-
+        this.add(SSEntityTypes.PIGLIN_BRUTE_SUMMON, consumer, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(SSItems.PIGLIN_BRUTE_SCROLL.get()))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+        );
+        this.add(SSEntityTypes.IRON_GOLEM_SUMMON, consumer, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(SSItems.IRON_GOLEM_SCROLL.get()))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+        );
     }
 
     private <T extends Entity> void add(Supplier<EntityType<T>> type, BiConsumer<ResourceLocation, LootTable.Builder> consumer, LootTable.Builder builder) {
         consumer.accept(type.get().getDefaultLootTable(), builder);
     }
 
+    @SuppressWarnings("unused")
     private void add(ResourceLocation type, BiConsumer<ResourceLocation, LootTable.Builder> consumer, LootTable.Builder builder) {
         consumer.accept(type, builder);
     }

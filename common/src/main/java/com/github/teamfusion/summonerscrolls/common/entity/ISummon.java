@@ -58,11 +58,13 @@ public interface ISummon {
     }
 
     default void commonGoals(GoalSelector targetSelector, GoalSelector goalSelector) {
-        if (this.getSummon() instanceof PathfinderMob mob) {
+        if (this.getSummon() instanceof Mob mob) {
             targetSelector.addGoal(1, new OwnerHurtByTargetGoal(mob));
             targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(mob, Mob.class, 5, false, false, this::isEnemy));
             targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(mob, Player.class, 10, true, false, this::isSummonAngryAt));
-            goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(mob, 1.0));
+            if (mob instanceof PathfinderMob pathfinderMob) {
+                goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(pathfinderMob, 1.0));
+            }
             goalSelector.addGoal(6, new FollowOwnerGoal(mob, 1.0, 10.0F, 2.0F, false));
             goalSelector.addGoal(7, new LookAtPlayerGoal(mob, Player.class, 6.0F));
             goalSelector.addGoal(8, new RandomLookAroundGoal(mob));

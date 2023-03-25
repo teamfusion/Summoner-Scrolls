@@ -4,7 +4,6 @@ import com.github.teamfusion.summonerscrolls.common.entity.ISummon;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.InteractionEvent;
-import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -46,6 +45,12 @@ public class SSEvents {
                 // Get the entity type and spawn the entity
                 EntityType<?> entityType = ScrollUtil.getEntityType(itemStack);
                 Entity entity = entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                if (entityType == SSEntityTypes.BEE_SUMMON.get()) {
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                }
 
                 // Check if the entity is an ISummon
                 if (entity instanceof ISummon summon) {

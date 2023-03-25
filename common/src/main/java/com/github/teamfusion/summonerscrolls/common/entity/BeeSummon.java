@@ -5,7 +5,6 @@ import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEv
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -51,6 +50,7 @@ public class BeeSummon extends Bee implements ISummon {
 
     @Override
     protected void registerGoals() {
+        super.registerGoals();
         this.commonGoals(this.targetSelector, this.goalSelector);
         goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
     }
@@ -192,11 +192,13 @@ public class BeeSummon extends Bee implements ISummon {
     }
 
     public static AttributeSupplier.Builder createSummonAttributes() {
-        return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
+        return Monster.createMonsterAttributes()
+                .add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.ATTACK_DAMAGE, 2.0)
                 .add(Attributes.ARMOR, 2.0)
-                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+                .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE)
+                .add(Attributes.FLYING_SPEED, 0.8);
     }
 
     @Override

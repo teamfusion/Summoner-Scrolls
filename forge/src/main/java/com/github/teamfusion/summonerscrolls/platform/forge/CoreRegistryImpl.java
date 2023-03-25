@@ -4,7 +4,6 @@ import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import net.minecraft.core.Registry;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 
 import java.util.function.Supplier;

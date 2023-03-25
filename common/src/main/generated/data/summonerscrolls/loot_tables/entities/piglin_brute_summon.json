@@ -7,7 +7,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "summonerscrolls:skeleton_summoner_scroll"
+          "name": "summonerscrolls:piglin_brute_summoner_scroll"
         }
       ],
       "conditions": [
