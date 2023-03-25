@@ -4,6 +4,7 @@ import com.github.teamfusion.summonerscrolls.client.SSClient;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEvents;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
