@@ -1,6 +1,7 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
@@ -17,7 +18,6 @@ import java.util.Map;
 
 @SuppressWarnings({"unused"})
 public class InventoryUtil {
-    //todo: check if you can combine scrolls
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();
@@ -27,15 +27,26 @@ public class InventoryUtil {
 
             if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
-                enchantments.put(enchantment, 1);
-                ItemStack copy = left.copy();
-                EnchantmentHelper.setEnchantments(enchantments, copy);
-                if (name != null && !name.isEmpty()) {
-                    copy.setHoverName(new TextComponent(name));
+
+                boolean canEnchant = true;
+                for (Enchantment enchantment2 : enchantments.keySet()) {
+                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
+                        canEnchant = false;
+                        break;
+                    }
                 }
 
-                outputSlot.setItem(0, copy);
-                container.cost.set(8);
+                if (canEnchant) {
+                    enchantments.put(enchantment, 1);
+                    ItemStack copy = left.copy();
+                    EnchantmentHelper.setEnchantments(enchantments, copy);
+                    if (name != null && !name.isEmpty()) {
+                        copy.setHoverName(new TextComponent(name));
+                    }
+
+                    outputSlot.setItem(0, copy);
+                    container.cost.set(8);
+                }
             }
         }
         return false;
