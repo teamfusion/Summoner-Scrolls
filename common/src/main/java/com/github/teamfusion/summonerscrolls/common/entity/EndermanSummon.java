@@ -3,8 +3,8 @@ package com.github.teamfusion.summonerscrolls.common.entity;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
+import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -27,10 +27,13 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
+import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
+@ParametersAreNonnullByDefault
+@MethodsReturnNonnullByDefault
 public class EndermanSummon extends EnderMan implements ISummon {
     public static final Supplier<EntityType<EndermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(EndermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("enderman_summon"));
 
@@ -193,8 +196,9 @@ public class EndermanSummon extends EnderMan implements ISummon {
     public static AttributeSupplier.Builder createSummonAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.3)
-                .add(Attributes.ATTACK_DAMAGE, 3.0)
+                .add(Attributes.ATTACK_DAMAGE, 7.0)
                 .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.MAX_HEALTH, 40.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 

@@ -45,7 +45,7 @@ public class CaveSpiderSummon extends SpiderSummon {
                 }
 
                 if (i > 0) {
-                    ((LivingEntity)summon).addEffect(new MobEffectInstance(MobEffects.POISON, i * 20, 0), this);
+                    ((LivingEntity)summon).addEffect(new MobEffectInstance(MobEffects.WEAKNESS, i * 20, 0), this);
                 }
             }
 
@@ -69,6 +69,7 @@ public class CaveSpiderSummon extends SpiderSummon {
         return SpiderSummon.createSummonAttributes()
                 .add(Attributes.MAX_HEALTH, 12.0)
                 .add(Attributes.ATTACK_DAMAGE, 6.0)
+                .add(Attributes.MAX_HEALTH, 12.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.45);
     }
 

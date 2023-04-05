@@ -1,6 +1,5 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
-import com.github.teamfusion.summonerscrolls.common.enchantment.ScrollEnchantment;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
@@ -18,7 +17,7 @@ import java.util.Map;
 
 @SuppressWarnings({"unused"})
 public class InventoryUtil {
-    //todo: check if you can combine scrolls
+    //TODO: replaceable scrolls & Enhancements scrolls functionality
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();
@@ -27,46 +26,29 @@ public class InventoryUtil {
             Enchantment enchantment = scrollItem.getEnchantment().get();
 
             if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
+                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
 
-                replaceScrollEnchants(enchantment, left, right, name, outputSlot, container);
+                boolean canEnchant = true;
+                for (Enchantment enchantment2 : enchantments.keySet()) {
+                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
+                        canEnchant = false;
+                        break;
+                    }
+                }
 
+                if (canEnchant) {
+                    enchantments.put(enchantment, 1);
+                    ItemStack copy = left.copy();
+                    EnchantmentHelper.setEnchantments(enchantments, copy);
+                    if (name != null && !name.isEmpty()) {
+                        copy.setHoverName(new TextComponent(name));
+                    }
 
+                    outputSlot.setItem(0, copy);
+                    container.cost.set(8);
+                }
             }
         }
         return false;
-    }
-
-    private static void replaceScrollEnchants(Enchantment newEnchant, ItemStack insert, ItemStack result, String name, Container outputSlot, AnvilMenu container) {
-        ItemStack lefte = insert.copy();
-        Map<Enchantment, Integer> insertMap = EnchantmentHelper.getEnchantments(insert);
-        Map<Enchantment, Integer> resultMap = EnchantmentHelper.getEnchantments(result);
-//        Iterator<Map.Entry<Enchantment, Integer>> var5 = map.entrySet().iterator();
-
-        for (Enchantment enchantment : resultMap.keySet()) {
-            if (enchantment == newEnchant) {
-                return;
-            } else if (enchantment instanceof ScrollEnchantment) {
-                resultMap.remove(enchantment);
-                insertMap.put(newEnchant, 1);
-                ItemStack copy = result.copy();
-                EnchantmentHelper.setEnchantments(resultMap, copy);
-                if (name != null && !name.isEmpty()) {
-                    copy.setHoverName(new TextComponent(name));
-                }
-
-                outputSlot.setItem(0, copy);
-                container.cost.set(8);
-            } else {
-                insertMap.put(newEnchant, 1);
-                ItemStack copy = insert.copy();
-                EnchantmentHelper.setEnchantments(insertMap, copy);
-                if (name != null && !name.isEmpty()) {
-                    copy.setHoverName(new TextComponent(name));
-                }
-
-                outputSlot.setItem(0, copy);
-                container.cost.set(8);
-            }
-        }
     }
 }

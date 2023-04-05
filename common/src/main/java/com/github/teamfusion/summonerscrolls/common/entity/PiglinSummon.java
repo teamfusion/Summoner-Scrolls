@@ -1,14 +1,14 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.common.entity.goal.SummonerRangedBowAttackGoal;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,36 +18,40 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RangedCrossbowAttackGoal;
+import net.minecraft.world.entity.monster.CrossbowAttackMob;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.entity.projectile.AbstractArrow;
-import net.minecraft.world.entity.projectile.ProjectileUtil;
+import net.minecraft.world.entity.projectile.Projectile;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.ProjectileWeaponItem;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
-@SuppressWarnings({"rawtypes", "unchecked"})
-public class SkeletonSummon extends Skeleton implements ISummon {
-    public static final Supplier<EntityType<SkeletonSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(SkeletonSummon::new, MobCategory.MISC).sized(0.6F, 1.99F).clientTrackingRange(8).build("skeleton_summon"));
+@ParametersAreNonnullByDefault
+public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob {
+    public static final Supplier<EntityType<PiglinSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(PiglinSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("piglin_summon"));
+
+    private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PiglinSummon.class, EntityDataSerializers.BOOLEAN);
 
     public static UUID ownerUUID;
     private int despawnDelay;
 
-    private final SummonerRangedBowAttackGoal<SkeletonSummon> bowGoal = new SummonerRangedBowAttackGoal(this, 1.0, 20, 15.0F);
-
-    public SkeletonSummon(EntityType<? extends Skeleton> entityType, Level level) {
+    public PiglinSummon(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
-        this.reassessWeaponGoal();
     }
 
     public MobType getMobType() {
@@ -57,6 +61,8 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
+        this.goalSelector.addGoal(3, new RangedCrossbowAttackGoal<>(this, 1.0, 8.0F));
     }
 
     @Override
@@ -89,6 +95,12 @@ public class SkeletonSummon extends Skeleton implements ISummon {
         return false;
     }
 
+    @Nullable
+    @Override
+    public LivingEntity getTarget() {
+        return super.getTarget();
+    }
+
     @Override
     public boolean hurt(DamageSource damageSource, float f) {
         if (damageSource.getEntity() == this.getOwner()) {
@@ -114,7 +126,7 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     }
 
     @Override
-    protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+    public InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
         if (player.isShiftKeyDown()) {
             this.kill();
             return InteractionResult.SUCCESS;
@@ -153,7 +165,11 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     @Override
     protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
-        this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(SSItems.SUMMON_BOW.get()));
+        this.setItemSlot(EquipmentSlot.MAINHAND, createSpawnWeapon());
+    }
+
+    public ItemStack createSpawnWeapon() {
+        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(Items.CROSSBOW) : new ItemStack(Items.GOLDEN_SWORD);
     }
 
     @Override
@@ -163,49 +179,6 @@ public class SkeletonSummon extends Skeleton implements ISummon {
             this.maybeDespawn();
         }
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-    }
-
-    @Override
-    public void reassessWeaponGoal() {
-        if (this.level != null && !this.level.isClientSide) {
-            this.goalSelector.removeGoal(this.meleeGoal);
-            this.goalSelector.removeGoal(this.bowGoal);
-            ItemStack itemStack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, SSItems.SUMMON_BOW.get()));
-            if (itemStack.is(SSItems.SUMMON_BOW.get())) {
-                int i = 20;
-                if (this.level.getDifficulty() != Difficulty.HARD) {
-                    i = 40;
-                }
-
-                this.bowGoal.setMinAttackInterval(i);
-                this.goalSelector.addGoal(4, this.bowGoal);
-            } else {
-                this.goalSelector.addGoal(4, this.meleeGoal);
-            }
-
-        }
-    }
-
-    @Override
-    public void performRangedAttack(LivingEntity target, float velocity) {
-        preformBowAttack(target, velocity, false);
-    }
-
-    public void preformBowAttack(LivingEntity target, float velocity, boolean isStray) {
-        ItemStack itemStack = this.getProjectile(this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, SSItems.SUMMON_BOW.get())));
-        AbstractArrow abstractArrow = this.getArrow(itemStack, velocity);
-        double d = target.getX() - this.getX();
-        double e = target.getY(0.3333333333333333) - abstractArrow.getY();
-        double f = target.getZ() - this.getZ();
-        double g = Math.sqrt(d * d + f * f);
-        abstractArrow.shoot(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.level.getDifficulty().getId() * (isStray ? 8 : 4)));
-        this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(abstractArrow);
-    }
-
-    @Override
-    public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeapon) {
-        return projectileWeapon == SSItems.SUMMON_BOW.get();
     }
 
     @Override
@@ -226,8 +199,54 @@ public class SkeletonSummon extends Skeleton implements ISummon {
 
     public static AttributeSupplier.Builder createSummonAttributes() {
         return Monster.createMonsterAttributes().add(Attributes.FOLLOW_RANGE, 35.0)
-                .add(Attributes.MOVEMENT_SPEED, 0.3)
+                .add(Attributes.MOVEMENT_SPEED, 0.4)
+                .add(Attributes.ATTACK_DAMAGE, 8.0)
+                .add(Attributes.ARMOR, 2.0)
+                .add(Attributes.MAX_HEALTH, 16.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        this.populateDefaultEquipmentSlots(difficultyInstance);
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
+    @Override
+    public void performRangedAttack(LivingEntity livingEntity, float f) {
+        this.performCrossbowAttack(this, 1.6F);
+    }
+
+    @SuppressWarnings("unused")
+    private boolean isChargingCrossbow() {
+        return this.entityData.get(DATA_IS_CHARGING_CROSSBOW);
+    }
+
+    @Override
+    public void setChargingCrossbow(boolean bl) {
+        this.entityData.set(DATA_IS_CHARGING_CROSSBOW, bl);
+    }
+
+    @Override
+    public void onCrossbowAttackPerformed() {
+        this.noActionTime = 0;
+    }
+
+    @Override
+    public void shootCrossbowProjectile(LivingEntity livingEntity, ItemStack itemStack, Projectile projectile, float f) {
+        this.shootCrossbowProjectile(this, livingEntity, projectile, f, 1.6F);
+    }
+
+    @Override
+    public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeaponItem) {
+        return projectileWeaponItem == Items.CROSSBOW;
+    }
+
+    @Override
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
     }
 
     @Override

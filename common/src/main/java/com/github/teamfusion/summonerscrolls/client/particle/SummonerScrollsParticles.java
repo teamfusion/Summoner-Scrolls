@@ -4,8 +4,6 @@ import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import com.github.teamfusion.summonerscrolls.platform.Environment;
 import com.github.teamfusion.summonerscrolls.platform.client.ParticleRegistry;
-import dev.architectury.platform.Platform;
-import dev.architectury.utils.Env;
 import net.minecraft.core.Registry;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;

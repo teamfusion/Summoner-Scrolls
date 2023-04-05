@@ -1,7 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.item;
 
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
-import dev.architectury.registry.registries.RegistrySupplier;
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
