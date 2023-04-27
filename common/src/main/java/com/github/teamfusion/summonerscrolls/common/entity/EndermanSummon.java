@@ -179,11 +179,6 @@ public class EndermanSummon extends EnderMan implements ISummon {
         return ISummon.super.isEnemy(livingEntity);
     }
 
-    @Override
-    public void commonGoals(GoalSelector targetSelector, GoalSelector goalSelector) {
-        ISummon.super.commonGoals(targetSelector, goalSelector);
-    }
-
     private void maybeDespawn() {
         if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
             this.kill();
