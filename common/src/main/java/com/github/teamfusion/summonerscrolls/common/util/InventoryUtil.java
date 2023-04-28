@@ -17,7 +17,7 @@ import java.util.Map;
 
 @SuppressWarnings({"unused"})
 public class InventoryUtil {
-    //TODO: replaceable scrolls & Enhancements scrolls functionality
+    //todo: check if you can combine scrolls
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();
@@ -27,26 +27,15 @@ public class InventoryUtil {
 
             if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
-
-                boolean canEnchant = true;
-                for (Enchantment enchantment2 : enchantments.keySet()) {
-                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
-                        canEnchant = false;
-                        break;
-                    }
+                enchantments.put(enchantment, 1);
+                ItemStack copy = left.copy();
+                EnchantmentHelper.setEnchantments(enchantments, copy);
+                if (name != null && !name.isEmpty()) {
+                    copy.setHoverName(new TextComponent(name));
                 }
 
-                if (canEnchant) {
-                    enchantments.put(enchantment, 1);
-                    ItemStack copy = left.copy();
-                    EnchantmentHelper.setEnchantments(enchantments, copy);
-                    if (name != null && !name.isEmpty()) {
-                        copy.setHoverName(new TextComponent(name));
-                    }
-
-                    outputSlot.setItem(0, copy);
-                    container.cost.set(8);
-                }
+                outputSlot.setItem(0, copy);
+                container.cost.set(8);
             }
         }
         return false;

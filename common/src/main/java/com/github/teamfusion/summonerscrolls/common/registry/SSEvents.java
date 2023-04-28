@@ -2,8 +2,6 @@ package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.common.entity.ISummon;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
-import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.InteractionEvent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -29,25 +27,13 @@ public class SSEvents {
         ItemStack itemStack = player.getItemInHand(hand);
 
         // Check if the item is a TieredItem
-        if (itemStack.getItem() instanceof TieredItem) {
-            TieredItem item = (TieredItem) itemStack.getItem();
-
+        if (itemStack.getItem() instanceof TieredItem item) {
             // Check if the item is on cooldown and the player has enough XP
             int xpCost = ScrollUtil.getXP(itemStack);
             if (!player.getCooldowns().isOnCooldown(item) && player.experienceLevel >= xpCost) {
                 // Get the entity type and spawn the entity
                 EntityType<?> entityType = ScrollUtil.getEntityType(itemStack);
                 Entity entity = entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                if (entityType == SSEntityTypes.BEE_SUMMON.get()) {
-                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                }
-                if (entityType == SSEntityTypes.CAVE_SPIDER_SUMMON.get()) {
-                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-                }
 
                 // Check if the entity is an ISummon
                 if (entity instanceof ISummon summon) {
@@ -65,18 +51,17 @@ public class SSEvents {
                     String entityName = entity.getDisplayName().getString();
                     player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.summon_success", entityName), true);
                 }
-            } else {
-                // Display appropriate error message
-                if (player.getCooldowns().isOnCooldown(item)) {
-                    // Display cooldown message
-                    float cooldownTicks = player.getCooldowns().getCooldownPercent(item, 0);
-                    int remainingTicks = (int) (cooldownTicks * 600);
-                    // 20 ticks in 1 second
-                    int remainingSeconds = Math.max(0, remainingTicks / 20);
-                    player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.cooldown", remainingSeconds), true);
-                } else if (player.experienceLevel < xpCost) {
-                    player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.not_enough_xp", xpCost), true);
-                }
+            }
+            // Display appropriate error message
+            if (player.getCooldowns().isOnCooldown(item)) {
+                // Display cooldown message
+                float cooldownTicks = player.getCooldowns().getCooldownPercent(item, 0);
+                int remainingTicks = (int) (cooldownTicks * 600);
+                // 20 ticks in 1 second
+                int remainingSeconds = Math.max(0, remainingTicks / 20);
+                player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.cooldown", remainingSeconds), true);
+            } else if (player.experienceLevel < xpCost) {
+                player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.not_enough_xp", xpCost), true);
             }
         }
     }

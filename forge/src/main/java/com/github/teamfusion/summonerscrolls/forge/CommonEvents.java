@@ -19,7 +19,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Map;
-import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = SummonerScrolls.MOD_ID)
 public class CommonEvents {
@@ -38,7 +37,10 @@ public class CommonEvents {
                 enchantments.put(enchantment, 1);
                 ItemStack copy = left.copy();
                 EnchantmentHelper.setEnchantments(enchantments, copy);
-                copy.setHoverName(new TextComponent(Objects.requireNonNull(event.getName())));
+                String name = event.getName();
+                if (name != null && !name.isEmpty()) {
+                    copy.setHoverName(new TextComponent(name));
+                }
 
                 event.setOutput(copy);
                 event.setCost(8);
