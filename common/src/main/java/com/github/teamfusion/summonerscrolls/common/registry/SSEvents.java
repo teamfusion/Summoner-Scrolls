@@ -18,13 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.gameevent.GameEvent;
 
 public class SSEvents {
-    public static void init() {
-        InteractionEvent.RIGHT_CLICK_BLOCK.register((player, hand, pos, face) -> {
-            useScroll(player, hand);
-            return EventResult.interrupt(player.getLevel().isClientSide());
-        });
-    }
-
     public static void useScroll(Player player, InteractionHand hand) {
         Level level = player.getLevel();
         if (level.isClientSide()) {
@@ -60,7 +53,7 @@ public class SSEvents {
                 if (entity instanceof ISummon summon) {
                     // Set the owner UUID, add cooldown, set despawn delay, deduct XP, damage item
                     summon.setOwnerUUID(player.getUUID());
-                    if (player.isCreative()) {
+                    if (!player.isCreative()) {
                         player.getCooldowns().addCooldown(item, 1200);
                         summon.setDespawnDelay(600);
                         player.giveExperiencePoints(-xpCost);
