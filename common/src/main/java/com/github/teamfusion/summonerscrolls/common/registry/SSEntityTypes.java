@@ -9,6 +9,7 @@ import com.github.teamfusion.summonerscrolls.common.entity.HuskSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.IronGolemSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.PiglinBruteSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.PiglinSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.ShulkermanSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.SkeletonSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.SpiderSummon;
 import com.github.teamfusion.summonerscrolls.common.entity.StraySummon;
@@ -43,7 +44,7 @@ public class SSEntityTypes {
     public static final Supplier<EntityType<CreeperSummon>> CREEPER_SUMMON = ENTITY_TYPES.register("creeper_summon", CreeperSummon.TYPE);
     public static final Supplier<EntityType<CreeperSummon>> CHARGED_CREEPER_SUMMON = ENTITY_TYPES.register("charged_creeper_summon", CreeperSummon.TYPE_CHARGED);
     public static final Supplier<EntityType<PiglinBruteSummon>> PIGLIN_BRUTE_SUMMON = ENTITY_TYPES.register("piglin_brute_summon", PiglinBruteSummon.TYPE);
-//    //    public static final Supplier<EntityType<> SHULKERMAN_SUMMON = ENTITY_TYPES.register("shulkerman_summoner_scroll", () -> new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+    public static final Supplier<EntityType<ShulkermanSummon>> SHULKERMAN_SUMMON = ENTITY_TYPES.register("shulkerman_summoner_scroll", ShulkermanSummon.TYPE);
     public static final Supplier<EntityType<IronGolemSummon>> IRON_GOLEM_SUMMON = ENTITY_TYPES.register("iron_golem_summon", IronGolemSummon.TYPE);
 
     /* Summon Entities - Tier 4 */

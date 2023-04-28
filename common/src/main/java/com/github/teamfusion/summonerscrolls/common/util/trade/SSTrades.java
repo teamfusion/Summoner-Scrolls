@@ -18,18 +18,5 @@ public class SSTrades {
 
         // for some reason, forge doesn't want to accept EmeraldForItems, so we have to get the offer manually for some reason... may try implementing the listen() method in a future.
         items.forEach(item -> VillagerRegistry.addTrade(VillagerProfession.CLERIC, 1, (entity, random) -> new MerchantOffer(new ItemStack(item.get(), 1), new ItemStack(Items.EMERALD), 5, 2, 0.05F)));
-
-//        SSItems.ZOMBIE_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-//                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(item, 1, 5, 2)
-//        ));
-//        SSItems.SPIDER_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-//                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(item, 1, 5, 2)
-//        ));
-//        SSItems.SKELETON_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-//                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(item, 1, 5, 2)
-//        ));
-//        SSItems.BEE_SCROLL.listen((item) -> TradeRegistry.registerVillagerTrade(
-//                VillagerProfession.CLERIC, 1, new VillagerTrades.EmeraldForItems(item, 1, 5, 2)
-//        ));
     }
 }

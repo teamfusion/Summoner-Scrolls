@@ -1,7 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
-import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
