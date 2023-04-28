@@ -1,91 +1,189 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
+import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
+import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
-import net.minecraft.core.Direction;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.world.Difficulty;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.projectile.ShulkerBullet;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.EnumSet;
+import java.util.Random;
+import java.util.UUID;
 import java.util.function.Supplier;
 
-@MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class ShulkermanSummon extends EndermanSummon {
+@MethodsReturnNonnullByDefault
+public class ShulkermanSummon extends EnderMan implements ISummon {
     public static final Supplier<EntityType<ShulkermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(ShulkermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("shulkerman_summon"));
+
+    public static UUID ownerUUID;
+    private int despawnDelay;
 
     public ShulkermanSummon(EntityType<? extends EnderMan> entityType, Level level) {
         super(entityType, level);
     }
 
+    public MobType getMobType() {
+        return MobType.UNDEFINED;
+    }
+
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
-        this.goalSelector.addGoal(4, new ShulkermanSummon.ShulkermanAttackGoal());
+        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
     }
 
-    class ShulkermanAttackGoal extends Goal {
-        private int attackTime;
+    @Override
+    public LivingEntity getSummon() {
+        return this;
+    }
 
-        public ShulkermanAttackGoal() {
-            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+    @Override
+    public LivingEntity getOwner() {
+        try {
+            UUID uUID = this.getOwnerUUID();
+            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
+        } catch (IllegalArgumentException var2) {
+            return null;
         }
+    }
 
-        public boolean canUse() {
-            LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
-            if (livingEntity != null && livingEntity.isAlive()) {
-                return ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL;
-            } else {
-                return false;
-            }
+    @Override
+    public UUID getOwnerUUID() {
+        return ownerUUID;
+    }
+
+    @Override
+    public void setOwnerUUID(UUID uUID) {
+        ownerUUID = uUID;
+    }
+
+    @Override
+    public boolean isBaby() {
+        return false;
+    }
+
+    @Override
+    public boolean hurt(DamageSource damageSource, float f) {
+        if (damageSource.getEntity() == this.getOwner()) {
+            return false;
         }
-
-        public void start() {
-            this.attackTime = 20;
-//            ShulkermanSummon.this.setRawPeekAmount(100);
+        if (!this.level.isClientSide() && this.random.nextInt(10) != 0) {
+            this.teleport();
         }
+        return super.hurt(damageSource, f);
+    }
 
-        public void stop() {
-//            ShulkermanSummon.this.setRawPeekAmount(0);
+    @Override
+    public void push(Entity entity) {
+        if (entity == this.getOwner()) {
+            return;
         }
+        super.push(entity);
+    }
 
-        public boolean requiresUpdateEveryTick() {
-            return true;
+    @Override
+    protected void doPush(Entity entity) {
+        if (entity == this.getOwner()) {
+            return;
         }
+        super.doPush(entity);
+    }
 
-        public void tick() {
-            if (ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL) {
-                --this.attackTime;
-                LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
-                if (livingEntity != null) {
-                    ShulkermanSummon.this.getLookControl().setLookAt(livingEntity, 180.0F, 180.0F);
-                    double d = ShulkermanSummon.this.distanceToSqr(livingEntity);
-                    if (d < 400.0) {
-                        if (this.attackTime <= 0) {
-                            this.attackTime = 20 + ShulkermanSummon.this.random.nextInt(10) * 20 / 2;
-                            ShulkermanSummon.this.level.addFreshEntity(new ShulkerBullet(ShulkermanSummon.this.level, ShulkermanSummon.this, livingEntity, Direction.Axis.X));
-                            ShulkermanSummon.this.playSound(SoundEvents.SHULKER_SHOOT, 2.0F, (ShulkermanSummon.this.random.nextFloat() - ShulkermanSummon.this.random.nextFloat()) * 0.2F + 1.0F);
-                        }
-                    } else {
-                        ShulkermanSummon.this.setTarget(null);
-                    }
+    @Override
+    protected InteractionResult mobInteract(Player player, InteractionHand interactionHand) {
+        if (player.isShiftKeyDown()) {
+            this.kill();
+            return InteractionResult.SUCCESS;
+        }
+        return super.mobInteract(player, interactionHand);
+    }
 
-                    super.tick();
-                }
-            }
+    @Override
+    protected SoundEvent getDeathSound() {
+        return SummonerScrollsSoundEvents.SUMMON_DEATH.get();
+    }
+
+    @Override
+    public void addAdditionalSaveData(CompoundTag compoundTag) {
+        super.addAdditionalSaveData(compoundTag);
+        compoundTag.putInt("DespawnDelay", this.despawnDelay);
+    }
+
+    @Override
+    public void readAdditionalSaveData(CompoundTag compoundTag) {
+        super.readAdditionalSaveData(compoundTag);
+        if (compoundTag.contains("DespawnDelay", 99)) {
+            this.despawnDelay = compoundTag.getInt("DespawnDelay");
+        }
+    }
+
+    @Override
+    protected void dropEquipment() {
+        super.dropEquipment();
+        ItemStack itemstack = this.getItemBySlot(EquipmentSlot.OFFHAND);
+        if (!itemstack.isEmpty()) {
+            this.setItemSlot(EquipmentSlot.OFFHAND, ItemStack.EMPTY);
+        }
+    }
+
+    @Override
+    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+        this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
+    }
+
+    @Override
+    public void aiStep() {
+        super.aiStep();
+        if (!this.level.isClientSide) {
+            this.maybeDespawn();
+        }
+        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+    }
+
+    @Override
+    public void setDespawnDelay(int i) {
+        this.despawnDelay = i;
+    }
+
+    @Override
+    public int getDespawnDelay() {
+        return this.despawnDelay;
+    }
+
+    @Override
+    public void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
+        ISummon.super.spawnSummonParticles(random, level, x, y, z);
+    }
+
+    @Override
+    public boolean isEnemy(LivingEntity livingEntity) {
+        return ISummon.super.isEnemy(livingEntity);
+    }
+
+    private void maybeDespawn() {
+        if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
+            this.kill();
         }
     }
 
@@ -97,4 +195,85 @@ public class ShulkermanSummon extends EndermanSummon {
                 .add(Attributes.MAX_HEALTH, 40.0)
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
+
+    @Override
+    public boolean isAngryAt(LivingEntity livingEntity) {
+        return super.isAngryAt(livingEntity);
+    }
+
+    @Override
+    protected boolean isSunBurnTick() {
+        return false;
+    }
 }
+
+//@MethodsReturnNonnullByDefault
+//@ParametersAreNonnullByDefault
+//public class ShulkermanSummon extends EndermanSummon implements ISummon {
+//    public static final Supplier<EntityType<ShulkermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(ShulkermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("shulkerman_summon"));
+//
+//    public ShulkermanSummon(EntityType<? extends EnderMan> entityType, Level level) {
+//        super(entityType, level);
+//    }
+//
+//    @Override
+//    protected void registerGoals() {
+//        this.commonGoals(this.targetSelector, this.goalSelector);
+//        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
+//        this.goalSelector.addGoal(4, new ShulkermanSummon.ShulkermanAttackGoal());
+//    }
+//
+//    class ShulkermanAttackGoal extends Goal {
+//        private int attackTime;
+//
+//        public ShulkermanAttackGoal() {
+//            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+//        }
+//
+//        public boolean canUse() {
+//            LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
+//            if (livingEntity != null && livingEntity.isAlive()) {
+//                return ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL;
+//            } else {
+//                return false;
+//            }
+//        }
+//
+//        public void start() {
+//            this.attackTime = 20;
+////            ShulkermanSummon.this.setRawPeekAmount(100);
+//        }
+//
+//        public void stop() {
+////            ShulkermanSummon.this.setRawPeekAmount(0);
+//        }
+//
+//        public boolean requiresUpdateEveryTick() {
+//            return true;
+//        }
+//
+//        public void tick() {
+//            if (ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL) {
+//                --this.attackTime;
+//                LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
+//                if (livingEntity != null) {
+//                    ShulkermanSummon.this.getLookControl().setLookAt(livingEntity, 180.0F, 180.0F);
+//                    double d = ShulkermanSummon.this.distanceToSqr(livingEntity);
+//                    if (d < 400.0) {
+//                        if (this.attackTime <= 0) {
+//                            this.attackTime = 20 + ShulkermanSummon.this.random.nextInt(10) * 20 / 2;
+//                            ShulkermanSummon.this.level.addFreshEntity(new ShulkerBullet(ShulkermanSummon.this.level, ShulkermanSummon.this, livingEntity, Direction.Axis.X));
+//                            ShulkermanSummon.this.playSound(SoundEvents.SHULKER_SHOOT, 2.0F, (ShulkermanSummon.this.random.nextFloat() - ShulkermanSummon.this.random.nextFloat()) * 0.2F + 1.0F);
+//                        }
+//                    } else {
+//                        ShulkermanSummon.this.setTarget(null);
+//                    }
+//
+//                    super.tick();
+//                }
+//            }
+//        }
+//    }
+//
+
+//}
