@@ -39,7 +39,7 @@ public class SSEntityTypes {
     public static final Supplier<EntityType<CreeperSummon>> CREEPER_SUMMON = ENTITY_TYPES.register("creeper_summon", CreeperSummon.TYPE);
     public static final Supplier<EntityType<CreeperSummon>> CHARGED_CREEPER_SUMMON = ENTITY_TYPES.register("charged_creeper_summon", CreeperSummon.TYPE_CHARGED);
 //    public static final Supplier<EntityType<>> PIGLIN_BRUTE_SUMMON = ENTITY_TYPES.register("piglin_brute_summon", ZombieSummon.TYPE);
-//    //    public static final Supplier<EntityType<> SHULKERMAN_SUMMON = ENTITY_TYPES.register("shulkerman_summoner_scroll", () -> new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+    //    public static final Supplier<EntityType<> SHULKERMAN_SUMMON = ENTITY_TYPES.register("shulkerman_summoner_scroll", () -> new ScrollItem(SummonerScrollsEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 //    public static final Supplier<EntityType<>> IRON_GOLEM_SUMMON = ENTITY_TYPES.register("iron_golem_summon", ZombieSummon.TYPE);
 
     /* Summon Entities - Tier 4 */
