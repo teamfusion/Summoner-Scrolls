@@ -5,6 +5,7 @@ import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEv
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Direction;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -18,7 +19,9 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
@@ -30,6 +33,9 @@ import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
@@ -135,6 +141,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
         compoundTag.putInt("DespawnDelay", this.despawnDelay);
+        compoundTag.putBoolean("Invisible", this.isInvisible());
     }
 
     @Override
@@ -143,6 +150,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         if (compoundTag.contains("DespawnDelay", 99)) {
             this.despawnDelay = compoundTag.getInt("DespawnDelay");
         }
+        this.setInvisible(compoundTag.getBoolean("Invisible"));
     }
 
     @Override
@@ -160,12 +168,39 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+
+        if (particleTimer > 0) {
+            this.setInvulnerable(true); // make the entity invulnerable while it's delayed
+            this.setDeltaMovement(Vec3.ZERO); // stop the entity from moving
+            this.setInvisible(true);
+            particleTimer--;
+        } else if (particleTimer < 0) {
+            this.setInvisible(false);
+        }
+    }
+
+    @Override
     public void aiStep() {
-        super.aiStep();
+        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         if (!this.level.isClientSide) {
             this.maybeDespawn();
         }
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+
+        super.aiStep();
+    }
+
+    private int particleTimer = 200; // The number of ticks to show particles before the summon spawns
+    private boolean invisible; // The number of ticks to show particles before the summon spawns
+
+    protected void updateInvisibilityStatus() {
+        this.setInvisible(this.invisible);
+    }
+
+    public void setInvisible(boolean bl) {
+        this.invisible = bl;
+        super.setInvisible(bl);
     }
 
     @Override
@@ -176,11 +211,6 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     @Override
     public int getDespawnDelay() {
         return this.despawnDelay;
-    }
-
-    @Override
-    public void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
-        ISummon.super.spawnSummonParticles(random, level, x, y, z);
     }
 
     @Override

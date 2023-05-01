@@ -2,9 +2,15 @@ package com.github.teamfusion.summonerscrolls.client.render.entity;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.client.render.entity.layers.SummonGlowLayer;
+import com.github.teamfusion.summonerscrolls.common.entity.ShulkermanSummon;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.EndermanModel;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EndermanRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
@@ -14,6 +20,7 @@ import net.minecraft.world.entity.monster.EnderMan;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Objects;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -40,5 +47,15 @@ public class ShulkermanSummonRenderer extends EndermanRenderer {
     @Override
     public ResourceLocation getTextureLocation(EnderMan summon) {
         return SUMMON_LOCATION;
+    }
+
+    @Override
+    public void render(EnderMan enderMan, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
+        poseStack.pushPose();
+        if (enderMan instanceof ShulkermanSummon summon) {
+            this.model.setAllVisible(!summon.isInvisible());
+        }
+        poseStack.popPose();
+        super.render(enderMan, f, g, poseStack, multiBufferSource, i);
     }
 }
