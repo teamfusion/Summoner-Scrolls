@@ -38,6 +38,16 @@ public final class ModelGenerator extends FabricModelProvider {
         gen.generateFlatItem(SSItems.PIGLIN_BRUTE_SCROLL.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(SSItems.SHULKERMAN_SCROLL.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(SSItems.IRON_GOLEM_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+
+        gen.generateFlatItem(SSItems.ENHANCEMENT_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.INVISIBLE_SUMMON_LIGHT.get(), ModelTemplates.FLAT_ITEM);
+
+        gen.generateFlatItem(SSItems.SUMMON_ARROW.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_AXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_SHOVEL.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_HOE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     //todo: bow model

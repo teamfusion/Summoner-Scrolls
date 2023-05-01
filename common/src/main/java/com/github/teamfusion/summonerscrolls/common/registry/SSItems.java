@@ -65,7 +65,6 @@ public class SSItems {
     /* Extra Summon Items */
     public static final Supplier<Item> ENHANCEMENT_SCROLL = ITEMS.register("enhancement_scroll", () ->
             new Item(new Item.Properties().stacksTo(16).tab(SummonerScrolls.SCROLLS_TAB)));
-
     public static final Supplier<Item> INVISIBLE_SUMMON_LIGHT = ITEMS.register("invisible_summon_light", () ->
             new StandingAndWallBlockItem(Blocks.TORCH, Blocks.WALL_TORCH, new Item.Properties().stacksTo(1)));
 

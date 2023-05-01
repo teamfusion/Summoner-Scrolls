@@ -19,7 +19,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class ShulkermanSummonRenderer extends EndermanRenderer {
-    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/shulkerman.png");
+    public static final ResourceLocation SUMMON_LOCATION = new ResourceLocation(SummonerScrolls.MOD_ID, "textures/entity/summon/shulkerman_summon.png");
 
     public ShulkermanSummonRenderer(EntityRendererProvider.Context context) {
         super(context);

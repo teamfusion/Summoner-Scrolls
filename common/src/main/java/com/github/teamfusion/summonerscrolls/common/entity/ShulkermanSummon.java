@@ -4,8 +4,11 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -18,15 +21,18 @@ import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.EnumSet;
 import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
@@ -51,6 +57,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
         goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
+        goalSelector.addGoal(3, new ShulkermanAttackGoal());
     }
 
     @Override
@@ -205,75 +212,54 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     protected boolean isSunBurnTick() {
         return false;
     }
+
+    class ShulkermanAttackGoal extends Goal {
+        private int attackTime;
+
+        public ShulkermanAttackGoal() {
+            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
+        }
+
+        public boolean canUse() {
+            LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
+            if (livingEntity != null && livingEntity.isAlive()) {
+                return ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL;
+            } else {
+                return false;
+            }
+        }
+
+        public void start() {
+            this.attackTime = 20;
+        }
+
+        public void stop() {
+        }
+
+        public boolean requiresUpdateEveryTick() {
+            return true;
+        }
+
+        public void tick() {
+            if (ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL) {
+                --this.attackTime;
+                LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
+                if (livingEntity != null) {
+                    ShulkermanSummon.this.getLookControl().setLookAt(livingEntity, 180.0F, 180.0F);
+                    double d = ShulkermanSummon.this.distanceToSqr(livingEntity);
+                    if (d < 400.0) {
+                        if (this.attackTime <= 0) {
+                            this.attackTime = 20 + ShulkermanSummon.this.random.nextInt(10) * 20 / 2;
+                            ShulkermanSummon.this.level.addFreshEntity(new ShulkerBullet(ShulkermanSummon.this.level, ShulkermanSummon.this, livingEntity, Direction.Axis.X));
+                            ShulkermanSummon.this.playSound(SoundEvents.SHULKER_SHOOT, 2.0F, (ShulkermanSummon.this.random.nextFloat() - ShulkermanSummon.this.random.nextFloat()) * 0.2F + 1.0F);
+                        }
+                    } else {
+                        ShulkermanSummon.this.setTarget(null);
+                    }
+
+                    super.tick();
+                }
+            }
+        }
+    }
 }
-
-//@MethodsReturnNonnullByDefault
-//@ParametersAreNonnullByDefault
-//public class ShulkermanSummon extends EndermanSummon implements ISummon {
-//    public static final Supplier<EntityType<ShulkermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(ShulkermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("shulkerman_summon"));
-//
-//    public ShulkermanSummon(EntityType<? extends EnderMan> entityType, Level level) {
-//        super(entityType, level);
-//    }
-//
-//    @Override
-//    protected void registerGoals() {
-//        this.commonGoals(this.targetSelector, this.goalSelector);
-//        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
-//        this.goalSelector.addGoal(4, new ShulkermanSummon.ShulkermanAttackGoal());
-//    }
-//
-//    class ShulkermanAttackGoal extends Goal {
-//        private int attackTime;
-//
-//        public ShulkermanAttackGoal() {
-//            this.setFlags(EnumSet.of(Flag.MOVE, Flag.LOOK));
-//        }
-//
-//        public boolean canUse() {
-//            LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
-//            if (livingEntity != null && livingEntity.isAlive()) {
-//                return ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL;
-//            } else {
-//                return false;
-//            }
-//        }
-//
-//        public void start() {
-//            this.attackTime = 20;
-////            ShulkermanSummon.this.setRawPeekAmount(100);
-//        }
-//
-//        public void stop() {
-////            ShulkermanSummon.this.setRawPeekAmount(0);
-//        }
-//
-//        public boolean requiresUpdateEveryTick() {
-//            return true;
-//        }
-//
-//        public void tick() {
-//            if (ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL) {
-//                --this.attackTime;
-//                LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
-//                if (livingEntity != null) {
-//                    ShulkermanSummon.this.getLookControl().setLookAt(livingEntity, 180.0F, 180.0F);
-//                    double d = ShulkermanSummon.this.distanceToSqr(livingEntity);
-//                    if (d < 400.0) {
-//                        if (this.attackTime <= 0) {
-//                            this.attackTime = 20 + ShulkermanSummon.this.random.nextInt(10) * 20 / 2;
-//                            ShulkermanSummon.this.level.addFreshEntity(new ShulkerBullet(ShulkermanSummon.this.level, ShulkermanSummon.this, livingEntity, Direction.Axis.X));
-//                            ShulkermanSummon.this.playSound(SoundEvents.SHULKER_SHOOT, 2.0F, (ShulkermanSummon.this.random.nextFloat() - ShulkermanSummon.this.random.nextFloat()) * 0.2F + 1.0F);
-//                        }
-//                    } else {
-//                        ShulkermanSummon.this.setTarget(null);
-//                    }
-//
-//                    super.tick();
-//                }
-//            }
-//        }
-//    }
-//
-
-//}

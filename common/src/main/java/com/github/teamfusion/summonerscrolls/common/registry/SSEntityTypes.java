@@ -67,6 +67,7 @@ public class SSEntityTypes {
         MobRegistry.attributes(CREEPER_SUMMON, CreeperSummon::createSummonAttributes);
         MobRegistry.attributes(CHARGED_CREEPER_SUMMON, CreeperSummon::createSummonAttributes);
         MobRegistry.attributes(PIGLIN_BRUTE_SUMMON, PiglinBruteSummon::createSummonAttributes);
+        MobRegistry.attributes(SHULKERMAN_SUMMON, ShulkermanSummon::createSummonAttributes);
         MobRegistry.attributes(IRON_GOLEM_SUMMON, IronGolemSummon::createSummonAttributes);
     }
 
