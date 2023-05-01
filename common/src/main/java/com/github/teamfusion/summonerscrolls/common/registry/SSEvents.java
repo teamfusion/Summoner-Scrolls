@@ -34,7 +34,16 @@ public class SSEvents {
                 // Get the entity type and spawn the entity
                 EntityType<?> entityType = ScrollUtil.getEntityType(itemStack);
                 Entity entity = entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
-
+                if (entityType == SSEntityTypes.BEE_SUMMON.get()) {
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                }
+                if (entityType == SSEntityTypes.CAVE_SPIDER_SUMMON.get()) {
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                    entityType.spawn((ServerLevel) level, itemStack, player, player.blockPosition().offset(player.getDirection().getNormal()), MobSpawnType.MOB_SUMMONED, true, true);
+                }
                 // Check if the entity is an ISummon
                 if (entity instanceof ISummon summon) {
                     // Set the owner UUID, add cooldown, set despawn delay, deduct XP, damage item
