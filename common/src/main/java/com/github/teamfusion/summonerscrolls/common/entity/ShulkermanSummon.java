@@ -56,8 +56,8 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     @Override
     protected void registerGoals() {
         this.commonGoals(this.targetSelector, this.goalSelector);
-        goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
-        goalSelector.addGoal(3, new ShulkermanAttackGoal());
+        goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.0, true));
+        goalSelector.addGoal(2, new ShulkermanAttackGoal());
     }
 
     @Override
