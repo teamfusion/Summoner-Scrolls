@@ -48,14 +48,4 @@ public class ShulkermanSummonRenderer extends EndermanRenderer {
     public ResourceLocation getTextureLocation(EnderMan summon) {
         return SUMMON_LOCATION;
     }
-
-    @Override
-    public void render(EnderMan enderMan, float f, float g, PoseStack poseStack, MultiBufferSource multiBufferSource, int i) {
-        poseStack.pushPose();
-        if (enderMan instanceof ShulkermanSummon summon) {
-            this.model.setAllVisible(!summon.isInvisible());
-        }
-        poseStack.popPose();
-        super.render(enderMan, f, g, poseStack, multiBufferSource, i);
-    }
 }

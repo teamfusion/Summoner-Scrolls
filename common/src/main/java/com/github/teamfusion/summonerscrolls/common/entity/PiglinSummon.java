@@ -206,13 +206,6 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
                 .add(Attributes.SPAWN_REINFORCEMENTS_CHANCE);
     }
 
-    @Nullable
-    @Override
-    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        this.populateDefaultEquipmentSlots(difficultyInstance);
-        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
-    }
-
     @Override
     public void performRangedAttack(LivingEntity livingEntity, float f) {
         this.performCrossbowAttack(this, 1.6F);
@@ -252,5 +245,28 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
     @Override
     protected boolean isSunBurnTick() {
         return false;
+    }
+
+    float time = 0;
+    @Override
+    public void tick() {
+        if (this.isSumoningCooldown()) {
+            time--;
+            this.setDeltaMovement(0,0,0);
+            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        }
+        super.tick();
+    }
+
+    public boolean isSumoningCooldown() {
+        return time >= 0;
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        time = 75;
+        this.populateDefaultEquipmentSlots(difficultyInstance);
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 }

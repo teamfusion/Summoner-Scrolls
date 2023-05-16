@@ -22,8 +22,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LightningBolt;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
 import net.minecraft.world.entity.PowerableMob;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.SwellGoal;
@@ -33,7 +35,9 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
@@ -191,8 +195,6 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
-
-
     @Override
     public void setDespawnDelay(int i) {
         this.despawnDelay = i;
@@ -209,8 +211,26 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         }
     }
 
+    float time = 0;
+    public boolean isSumoningCooldown() {
+        return time >= 0;
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        time = 75;
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
     @Override
     public void tick() {
+        if (this.isSumoningCooldown()) {
+            time--;
+            this.setDeltaMovement(0,0,0);
+            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        }
+
         int swell = ((CreeperAccessor)this).getSwell();
         int maxSwell = ((CreeperAccessor)this).getMaxSwell();
 

@@ -3,6 +3,7 @@ package com.github.teamfusion.summonerscrolls.common.entity;
 import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.common.entity.goal.OwnerHurtByTargetGoal;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,6 +38,12 @@ public interface ISummon {
     default void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
         for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 0.5F) {
             level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * 1.0D, y, z + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
+        }
+    }
+
+    default void spawnCoolParticles(Random random, LevelAccessor level, double x, double y, double z) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 1F) {
+            level.addParticle(ParticleTypes.EXPLOSION, x + Mth.cos(i) * 0.5D, y, z + Mth.sin(i) * 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }
 

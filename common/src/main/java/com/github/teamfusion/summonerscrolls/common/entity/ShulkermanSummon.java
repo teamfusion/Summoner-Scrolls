@@ -1,14 +1,18 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
+import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
+import com.mojang.serialization.Codec;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.Unit;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -26,20 +30,18 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.ShulkerBullet;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -50,7 +52,6 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
 
     public static UUID ownerUUID;
     private int despawnDelay;
-
     public ShulkermanSummon(EntityType<? extends EnderMan> entityType, Level level) {
         super(entityType, level);
     }
@@ -167,18 +168,27 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
     }
 
+    float time = 0;
     @Override
     public void tick() {
-        super.tick();
-
-        if (particleTimer > 0) {
-            this.setInvulnerable(true); // make the entity invulnerable while it's delayed
-            this.setDeltaMovement(Vec3.ZERO); // stop the entity from moving
-            this.setInvisible(true);
-            particleTimer--;
-        } else if (particleTimer < 0) {
-            this.setInvisible(false);
+        if (this.isSumoningCooldown()) {
+            time--;
+            this.setDeltaMovement(0,0,0);
+            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            System.out.println(time);
         }
+        super.tick();
+    }
+
+    public boolean isSumoningCooldown() {
+        return time >= 0;
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        time = 75;
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
     @Override
@@ -189,18 +199,6 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         }
 
         super.aiStep();
-    }
-
-    private int particleTimer = 200; // The number of ticks to show particles before the summon spawns
-    private boolean invisible; // The number of ticks to show particles before the summon spawns
-
-    protected void updateInvisibilityStatus() {
-        this.setInvisible(this.invisible);
-    }
-
-    public void setInvisible(boolean bl) {
-        this.invisible = bl;
-        super.setInvisible(bl);
     }
 
     @Override
