@@ -88,6 +88,15 @@ public final class LanguageGenerator implements DataProvider {
 
         this.add("item.summonerscrolls.invisible_summon_light", "Invisible Summon Light");
 
+        // Tool Items
+        this.item(SSItems.SUMMON_BOW.get(), "Summon Bow");
+        this.item(SSItems.SUMMON_ARROW.get(), "Summon Arrow");
+        this.item(SSItems.SUMMON_SWORD.get(), "Summon Sword");
+        this.item(SSItems.SUMMON_AXE.get(), "Summon Axe");
+        this.item(SSItems.SUMMON_PICKAXE.get(), "Summon Pickaxe");
+        this.item(SSItems.SUMMON_SHOVEL.get(), "Summon Shovel");
+        this.item(SSItems.SUMMON_HOE.get(), "Summon Hoe");
+
         // Enchantment
         this.enchantment(SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(), "Zombie Summon");
         this.enchantment(SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get(), "Spider Summon");
