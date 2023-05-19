@@ -211,4 +211,13 @@ public class IronGolemSummon extends IronGolem implements ISummon {
         time = 75;
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
+
+    @Override
+    public boolean canAttackType(EntityType<?> entityType) {
+        if (this.isPlayerCreated() && entityType == EntityType.PLAYER) {
+            return false;
+        } else {
+            return !(entityType instanceof ISummon) && super.canAttackType(entityType);
+        }
+    }
 }

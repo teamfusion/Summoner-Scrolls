@@ -14,6 +14,7 @@ import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.LevelAccessor;
@@ -53,7 +54,7 @@ public interface ISummon {
                 return false;
             }
         }
-        return livingEntity instanceof Enemy;
+        return livingEntity instanceof Enemy && !(livingEntity instanceof ISummon);
     }
 
     default boolean isSummonAngryAt(LivingEntity livingEntity) {
