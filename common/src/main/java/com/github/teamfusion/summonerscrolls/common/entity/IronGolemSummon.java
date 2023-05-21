@@ -1,5 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
+import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
@@ -22,6 +23,7 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.IronGolem;
+import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -30,6 +32,9 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -88,6 +93,9 @@ public class IronGolemSummon extends IronGolem implements ISummon {
     @Override
     public boolean hurt(DamageSource damageSource, float f) {
         if (damageSource.getEntity() == this.getOwner()) {
+            return false;
+        }
+        if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
             return false;
         }
         return super.hurt(damageSource, f);
@@ -212,12 +220,17 @@ public class IronGolemSummon extends IronGolem implements ISummon {
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
-    @Override
-    public boolean canAttackType(EntityType<?> entityType) {
-        if (this.isPlayerCreated() && entityType == EntityType.PLAYER) {
-            return false;
-        } else {
-            return !(entityType instanceof ISummon) && super.canAttackType(entityType);
-        }
-    }
+//    @Override
+//    public boolean canAttackType(EntityType<?> entityType) {
+//        if (Arrays.stream(entityType.getBaseClass().getInterfaces()).anyMatch(ISummon)) {
+//            return false;
+//        }
+//
+//        return entityType != SSEntityTypes.PIGLIN_SUMMON.get() && super.canAttackType(entityType);
+//    }\
+
+//    @Override
+//    public boolean canAttack(LivingEntity livingEntity) {
+//        return !(livingEntity instanceof ISummon);
+//    }
 }

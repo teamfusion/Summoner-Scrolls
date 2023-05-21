@@ -98,6 +98,9 @@ public class SkeletonSummon extends Skeleton implements ISummon {
         if (damageSource.getEntity() == this.getOwner()) {
             return false;
         }
+        if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
+            return false;
+        }
         return super.hurt(damageSource, f);
     }
 

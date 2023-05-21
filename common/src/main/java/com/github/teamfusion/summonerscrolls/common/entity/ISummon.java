@@ -54,7 +54,7 @@ public interface ISummon {
                 return false;
             }
         }
-        return livingEntity instanceof Enemy && !(livingEntity instanceof ISummon);
+        return livingEntity instanceof Enemy;
     }
 
     default boolean isSummonAngryAt(LivingEntity livingEntity) {

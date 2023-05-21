@@ -93,8 +93,12 @@ public class EndermanSummon extends EnderMan implements ISummon {
         if (!this.level.isClientSide() && this.random.nextInt(10) != 0) {
             this.teleport();
         }
+        if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
+            return false;
+        }
         return super.hurt(damageSource, f);
     }
+
 
     @Override
     public void push(Entity entity) {
