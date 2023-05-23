@@ -2,7 +2,7 @@ package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.common.entity.ISummon;
 import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
@@ -58,7 +58,7 @@ public class SSEvents {
                     // Trigger ENTITY_PLACE event, display success message
                     level.gameEvent(player, GameEvent.ENTITY_PLACE, player.blockPosition().offset(player.getDirection().getNormal()));
                     String entityName = entity.getDisplayName().getString();
-                    player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.summon_success", entityName), true);
+                    player.displayClientMessage(Component.translatable("message.summonerscrolls.summon_success", entityName), true);
                 }
             }
             // Display appropriate error message
@@ -68,9 +68,9 @@ public class SSEvents {
                 int remainingTicks = (int) (cooldownTicks * 600);
                 // 20 ticks in 1 second
                 int remainingSeconds = Math.max(0, remainingTicks / 20);
-                player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.cooldown", remainingSeconds), true);
+                player.displayClientMessage(Component.translatable("message.summonerscrolls.cooldown", remainingSeconds), true);
             } else if (player.experienceLevel < xpCost) {
-                player.displayClientMessage(new TranslatableComponent("message.summonerscrolls.not_enough_xp", xpCost), true);
+                player.displayClientMessage(Component.translatable("message.summonerscrolls.not_enough_xp", xpCost), true);
             }
         }
     }

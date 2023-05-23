@@ -5,6 +5,7 @@ import com.github.teamfusion.summonerscrolls.common.entity.goal.FollowOwnerGoal;
 import com.github.teamfusion.summonerscrolls.common.entity.goal.OwnerHurtByTargetGoal;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
@@ -36,14 +37,14 @@ public interface ISummon {
 
     int getDespawnDelay();
 
-    default void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
-        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 0.5F) {
+    default void spawnSummonParticles(RandomSource random, LevelAccessor level, double x, double y, double z) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat() + 0.5F) {
             level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * 1.0D, y, z + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
         }
     }
 
-    default void spawnCoolParticles(Random random, LevelAccessor level, double x, double y, double z) {
-        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 1F) {
+    default void spawnCoolParticles(RandomSource random, LevelAccessor level, double x, double y, double z) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat() + 1F) {
             level.addParticle(ParticleTypes.EXPLOSION, x + Mth.cos(i) * 0.5D, y, z + Mth.sin(i) * 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }

@@ -6,6 +6,7 @@ import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -154,8 +155,9 @@ public class EndermanSummon extends EnderMan implements ISummon {
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
+        super.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
     }
 
     @Override

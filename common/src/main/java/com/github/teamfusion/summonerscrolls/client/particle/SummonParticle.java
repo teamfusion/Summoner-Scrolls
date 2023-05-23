@@ -23,7 +23,7 @@ public class SummonParticle extends TextureSheetParticle {
         this.xd = motionX;
         this.yd = motionY;
         this.zd = motionZ;
-        this.quadSize *= level.getRandom().nextDouble(0.6D) + 0.4D;
+        this.quadSize *= level.getRandom().triangle(0.6D, 0.6D) + 0.4D;
         this.lifetime = level.getRandom().nextInt(15) + 5;
         this.sprites = spriteSet;
         this.setSpriteFromAge(this.sprites);
@@ -33,7 +33,7 @@ public class SummonParticle extends TextureSheetParticle {
     public void tick() {
         super.tick();
         this.setSpriteFromAge(this.sprites);
-        this.yd += level.getRandom().nextDouble(0.01D);
+        this.yd += level.getRandom().triangle(0.01D, 0.01D);
     }
 
     @Override

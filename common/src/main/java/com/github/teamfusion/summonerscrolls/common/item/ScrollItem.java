@@ -4,7 +4,7 @@ import com.github.teamfusion.summonerscrolls.common.util.ScrollUtil;
 import net.minecraft.ChatFormatting;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.contents.TranslatableContents;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -29,7 +29,7 @@ public class ScrollItem extends Item {
     @Override
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
         super.appendHoverText(stack, level, list, tooltipFlag);
-        list.add((new TranslatableComponent("item.summonerscrolls.scroll.xp_warning")).append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
+        list.add((Component.translatable("item.summonerscrolls.scroll.xp_warning")).append(String.valueOf(ScrollUtil.getScrollXPCount(stack))).withStyle(ChatFormatting.AQUA));
     }
 
     public Supplier<Enchantment> getEnchantment() {

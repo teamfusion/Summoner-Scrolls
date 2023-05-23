@@ -7,7 +7,7 @@ import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleType;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -18,10 +18,10 @@ import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = SummonerScrolls.MOD_ID, value = Dist.CLIENT, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ParticleRegistryImpl {
-    private static final Set<Consumer<ParticleFactoryRegisterEvent>> FACTORIES = ConcurrentHashMap.newKeySet();
+    private static final Set<Consumer<RegisterParticleProvidersEvent>> FACTORIES = ConcurrentHashMap.newKeySet();
 
     @SubscribeEvent
-    public static void event(ParticleFactoryRegisterEvent event) {
+    public static void event(RegisterParticleProvidersEvent event) {
         FACTORIES.forEach(consumer -> consumer.accept(event));
     }
 

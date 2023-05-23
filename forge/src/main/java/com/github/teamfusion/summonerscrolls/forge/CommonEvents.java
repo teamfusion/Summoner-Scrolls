@@ -3,7 +3,7 @@ package com.github.teamfusion.summonerscrolls.forge;
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEvents;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.DiggerItem;
@@ -49,7 +49,7 @@ public class CommonEvents {
                     EnchantmentHelper.setEnchantments(enchantments, copy);
                     String name = event.getName();
                     if (name != null && !name.isEmpty()) {
-                        copy.setHoverName(new TextComponent(name));
+                        copy.setHoverName(Component.literal(name));
                     }
 
                     event.setOutput(copy);
@@ -61,7 +61,7 @@ public class CommonEvents {
 
     @SubscribeEvent()
     public static void onEntityInteract(PlayerInteractEvent.RightClickItem event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         InteractionHand hand = event.getHand();
         SSEvents.useScroll(player, hand);
     }

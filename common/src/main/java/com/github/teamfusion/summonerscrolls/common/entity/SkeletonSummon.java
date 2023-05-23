@@ -8,6 +8,7 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
@@ -158,7 +159,7 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
         this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(SSItems.SUMMON_BOW.get()));
     }

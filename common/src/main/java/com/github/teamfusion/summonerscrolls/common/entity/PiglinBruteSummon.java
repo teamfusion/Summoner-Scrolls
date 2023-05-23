@@ -4,6 +4,7 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -34,12 +35,12 @@ public class PiglinBruteSummon extends PiglinSummon {
     @Nullable
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
-        this.populateDefaultEquipmentSlots(difficultyInstance);
+        this.populateDefaultEquipmentSlots(this.getRandom(), difficultyInstance);
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
         this.setItemSlot(EquipmentSlot.MAINHAND, createSpawnWeapon());
     }

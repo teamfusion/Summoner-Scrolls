@@ -9,6 +9,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -166,9 +167,10 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
     }
 
     @Override
-    protected void populateDefaultEquipmentSlots(DifficultyInstance difficultyInstance) {
+    protected void populateDefaultEquipmentSlots(RandomSource randomSource, DifficultyInstance difficultyInstance) {
         this.setItemSlot(EquipmentSlot.OFFHAND, new ItemStack(SSItems.INVISIBLE_SUMMON_LIGHT.get()));
         this.setItemSlot(EquipmentSlot.MAINHAND, createSpawnWeapon());
+        super.populateDefaultEquipmentSlots(randomSource, difficultyInstance);
     }
 
     public ItemStack createSpawnWeapon() {
@@ -269,7 +271,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
         time = 75;
-        this.populateDefaultEquipmentSlots(difficultyInstance);
+        this.populateDefaultEquipmentSlots(this.getRandom(), difficultyInstance);
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 }
