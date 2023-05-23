@@ -59,7 +59,7 @@ public final class LanguageGenerator implements DataProvider {
         this.entity(SSEntityTypes.CREEPER_SUMMON.get(), "Creeper Summon");
         this.entity(SSEntityTypes.CHARGED_CREEPER_SUMMON.get(), "Charged Creeper Summon");
         this.entity(SSEntityTypes.PIGLIN_BRUTE_SUMMON.get(), "Piglin Brute Summon");
-//        this.entity(SSEntityTypes.SHULKERMAN_SUMMON.get(), "Shulkerman Summon");
+        this.entity(SSEntityTypes.SHULKERMAN_SUMMON.get(), "Shulkerman Summon");
         this.entity(SSEntityTypes.IRON_GOLEM_SUMMON.get(), "Iron Golem Summon");
 
 //        this.entity(SSEntityTypes.WARDEN_SUMMON.get(), "Warden Summon");
@@ -83,10 +83,19 @@ public final class LanguageGenerator implements DataProvider {
         this.item(SSItems.CREEPER_SCROLL.get(), "Creeper Summoner Scroll");
         this.item(SSItems.CHARGED_CREEPER_SCROLL.get(), "Charged Creeper Summoner Scroll");
         this.item(SSItems.PIGLIN_BRUTE_SCROLL.get(), "Piglin Brute Summoner Scroll");
-//        this.item(SSItems.SK.get(), "Shulkerman Summoner Scroll");
+        this.item(SSItems.SHULKERMAN_SCROLL.get(), "Shulkerman Summoner Scroll");
         this.item(SSItems.IRON_GOLEM_SCROLL.get(), "Iron Golem Summoner Scroll");
 
         this.add("item.summonerscrolls.invisible_summon_light", "Invisible Summon Light");
+
+        // Tool Items
+        this.item(SSItems.SUMMON_BOW.get(), "Summon Bow");
+        this.item(SSItems.SUMMON_ARROW.get(), "Summon Arrow");
+        this.item(SSItems.SUMMON_SWORD.get(), "Summon Sword");
+        this.item(SSItems.SUMMON_AXE.get(), "Summon Axe");
+        this.item(SSItems.SUMMON_PICKAXE.get(), "Summon Pickaxe");
+        this.item(SSItems.SUMMON_SHOVEL.get(), "Summon Shovel");
+        this.item(SSItems.SUMMON_HOE.get(), "Summon Hoe");
 
         // Enchantment
         this.enchantment(SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(), "Zombie Summon");
@@ -103,7 +112,7 @@ public final class LanguageGenerator implements DataProvider {
         this.enchantment(SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get(), "Creeper Summon");
         this.enchantment(SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get(), "Charged Creeper Summon");
         this.enchantment(SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get(), "Piglin Brute Summon");
-//        this.enchantment(SSEnchantments.BEE_SCROLL_ENCHANTMENT.get(), "Shulkerman Summon");
+        this.enchantment(SSEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT.get(), "Shulkerman Summon");
         this.enchantment(SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get(), "Iron Golem Summon");
 
         // Misc

@@ -116,6 +116,13 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
+        this.add(SSEntityTypes.SHULKERMAN_SUMMON, consumer, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(SSItems.IRON_GOLEM_SCROLL.get()))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+        );
         this.add(SSEntityTypes.IRON_GOLEM_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(SSItems.IRON_GOLEM_SCROLL.get()))

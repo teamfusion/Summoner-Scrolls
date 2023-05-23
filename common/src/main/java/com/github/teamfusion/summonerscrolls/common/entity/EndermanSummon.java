@@ -15,20 +15,21 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.EnderMan;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.ServerLevelAccessor;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -92,8 +93,12 @@ public class EndermanSummon extends EnderMan implements ISummon {
         if (!this.level.isClientSide() && this.random.nextInt(10) != 0) {
             this.teleport();
         }
+        if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
+            return false;
+        }
         return super.hurt(damageSource, f);
     }
+
 
     @Override
     public void push(Entity entity) {
@@ -173,18 +178,8 @@ public class EndermanSummon extends EnderMan implements ISummon {
     }
 
     @Override
-    public void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
-        ISummon.super.spawnSummonParticles(random, level, x, y, z);
-    }
-
-    @Override
     public boolean isEnemy(LivingEntity livingEntity) {
         return ISummon.super.isEnemy(livingEntity);
-    }
-
-    @Override
-    public void commonGoals(GoalSelector targetSelector, GoalSelector goalSelector) {
-        ISummon.super.commonGoals(targetSelector, goalSelector);
     }
 
     private void maybeDespawn() {
@@ -210,5 +205,27 @@ public class EndermanSummon extends EnderMan implements ISummon {
     @Override
     protected boolean isSunBurnTick() {
         return false;
+    }
+
+    float time = 0;
+    @Override
+    public void tick() {
+        if (this.isSumoningCooldown()) {
+            time--;
+            this.setDeltaMovement(0,0,0);
+            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        }
+        super.tick();
+    }
+
+    public boolean isSumoningCooldown() {
+        return time >= 0;
+    }
+
+    @Nullable
+    @Override
+    public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
+        time = 75;
+        return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 }

@@ -17,7 +17,6 @@ import java.util.Map;
 
 @SuppressWarnings({"unused"})
 public class InventoryUtil {
-    //TODO: replaceable scrolls & Enhancements scrolls functionality
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();

@@ -6,7 +6,6 @@ import net.minecraft.world.item.enchantment.EnchantmentCategory;
 
 
 public class ScrollEnchantment extends Enchantment {
-    //todo: make the checkCompatibility on the anvil mixin/event
     public ScrollEnchantment() {
         super(Rarity.RARE, EnchantmentCategory.BREAKABLE, new EquipmentSlot[]{ EquipmentSlot.MAINHAND, EquipmentSlot.OFFHAND });
     }
@@ -14,5 +13,10 @@ public class ScrollEnchantment extends Enchantment {
     @Override
     public boolean isTreasureOnly() {
         return true;
+    }
+
+    @Override
+    protected boolean checkCompatibility(Enchantment enchantment) {
+        return !(enchantment instanceof ScrollEnchantment);
     }
 }

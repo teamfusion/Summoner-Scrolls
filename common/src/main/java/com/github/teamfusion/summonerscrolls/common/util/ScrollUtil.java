@@ -32,6 +32,7 @@ public class ScrollUtil {
             .put(SSEntityTypes.CREEPER_SUMMON.get(), SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get())
             .put(SSEntityTypes.CHARGED_CREEPER_SUMMON.get(), SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get())
             .put(SSEntityTypes.PIGLIN_BRUTE_SUMMON.get(), SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.SHULKERMAN_SUMMON.get(), SSEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT.get())
             .put(SSEntityTypes.IRON_GOLEM_SUMMON.get(), SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get())
             .build();
 
@@ -114,6 +115,11 @@ public class ScrollUtil {
             }
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SSEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT.get()){
+                summonXP = 40;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()){
                 summonXP = 50;
             }
@@ -158,9 +164,6 @@ public class ScrollUtil {
         if (item == SSItems.ENDERMAN_SCROLL.get()){
             summonXP = 30;
         }
-        if (item == SSItems.SKELETON_SCROLL.get()){
-            summonXP = 30;
-        }
         if (item == SSItems.PIGLIN_SCROLL.get()){
             summonXP = 30;
         }
@@ -171,6 +174,9 @@ public class ScrollUtil {
         }
         if (item == SSItems.PIGLIN_BRUTE_SCROLL.get()){
             summonXP = 50;
+        }
+        if (item == SSItems.SHULKERMAN_SCROLL.get()){
+            summonXP = 40;
         }
         if (item == SSItems.IRON_GOLEM_SCROLL.get()){
             summonXP = 50;
@@ -242,6 +248,11 @@ public class ScrollUtil {
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get()){
+                durability = 10;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SSEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT.get()){
                 durability = 10;
             }
         }

@@ -9,6 +9,7 @@ import com.github.teamfusion.summonerscrolls.client.render.entity.HuskSummonRend
 import com.github.teamfusion.summonerscrolls.client.render.entity.IronGolemSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.PiglinBruteSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.PiglinSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.ShulkermanSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.SkeletonSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.SpiderSummonRenderer;
 import com.github.teamfusion.summonerscrolls.client.render.entity.StraySummonRenderer;
@@ -46,6 +47,7 @@ public class SSClient {
         RenderRegistry.renderer(SSEntityTypes.CREEPER_SUMMON, CreeperSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.CHARGED_CREEPER_SUMMON, CreeperSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.PIGLIN_BRUTE_SUMMON, PiglinBruteSummonRenderer::new);
+        RenderRegistry.renderer(SSEntityTypes.SHULKERMAN_SUMMON, ShulkermanSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.IRON_GOLEM_SUMMON, IronGolemSummonRenderer::new);
     }
 

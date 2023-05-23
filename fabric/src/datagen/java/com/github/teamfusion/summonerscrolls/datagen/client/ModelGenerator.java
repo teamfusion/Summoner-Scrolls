@@ -6,10 +6,6 @@ import net.fabricmc.fabric.api.datagen.v1.provider.FabricModelProvider;
 import net.minecraft.data.models.BlockModelGenerators;
 import net.minecraft.data.models.ItemModelGenerators;
 import net.minecraft.data.models.model.ModelTemplates;
-import net.minecraft.world.item.Item;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 public final class ModelGenerator extends FabricModelProvider {
     public ModelGenerator(FabricDataGenerator dataGenerator) {
@@ -22,18 +18,32 @@ public final class ModelGenerator extends FabricModelProvider {
 
     @Override
     public void generateItemModels(ItemModelGenerators gen) {
-        for (Field field : SSItems.class.getDeclaredFields()) {
-            if (Modifier.isStatic(field.getModifiers()) && field.getType().isAssignableFrom(Item.class)) {
-                try {
-                    Item item = (Item) field.get(null);
-                    if (item != SSItems.SUMMON_BOW) {
-                        gen.generateFlatItem(item, ModelTemplates.FLAT_ITEM);
-                    }
-                } catch (IllegalAccessException e) {
-                    System.out.println("Could not generate summoner items.");
-                }
-            }
-        }
+        gen.generateFlatItem(SSItems.ZOMBIE_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.SPIDER_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.SKELETON_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.BEE_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+
+        gen.generateFlatItem(SSItems.HUSK_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.STRAY_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.CAVE_SPIDER_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.ENDERMAN_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.PIGLIN_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+
+        gen.generateFlatItem(SSItems.CREEPER_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.CHARGED_CREEPER_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.PIGLIN_BRUTE_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.SHULKERMAN_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.IRON_GOLEM_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+
+        gen.generateFlatItem(SSItems.ENHANCEMENT_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.INVISIBLE_SUMMON_LIGHT.get(), ModelTemplates.FLAT_ITEM);
+
+        gen.generateFlatItem(SSItems.SUMMON_ARROW.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_SWORD.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_AXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_PICKAXE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_SHOVEL.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
+        gen.generateFlatItem(SSItems.SUMMON_HOE.get(), ModelTemplates.FLAT_HANDHELD_ITEM);
     }
 
     //todo: bow model
