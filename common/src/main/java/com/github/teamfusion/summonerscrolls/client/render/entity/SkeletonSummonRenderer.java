@@ -32,7 +32,7 @@ public class SkeletonSummonRenderer extends HumanoidMobRenderer<AbstractSkeleton
 
     public SkeletonSummonRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, ModelLayerLocation modelLayerLocation2, ModelLayerLocation modelLayerLocation3) {
         super(context, new SkeletonModel(context.bakeLayer(modelLayerLocation)), 0.5F);
-        this.addLayer(new HumanoidArmorLayer(this, new SkeletonModel(context.bakeLayer(modelLayerLocation2)), new SkeletonModel(context.bakeLayer(modelLayerLocation3))));
+        this.addLayer(new HumanoidArmorLayer(this, new SkeletonModel(context.bakeLayer(modelLayerLocation2)), new SkeletonModel(context.bakeLayer(modelLayerLocation3)), context.getModelManager()));
         this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
     }
 

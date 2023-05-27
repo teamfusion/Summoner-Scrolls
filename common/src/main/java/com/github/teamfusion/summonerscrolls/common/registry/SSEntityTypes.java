@@ -17,6 +17,7 @@ import com.github.teamfusion.summonerscrolls.common.entity.ZombieSummon;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import com.github.teamfusion.summonerscrolls.platform.common.MobRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +26,7 @@ import java.util.function.Supplier;
 
 @SuppressWarnings({"unused"})
 public class SSEntityTypes {
-    public static final CoreRegistry<EntityType<?>> ENTITY_TYPES = CoreRegistry.create(Registry.ENTITY_TYPE, SummonerScrolls.MOD_ID);
+    public static final CoreRegistry<EntityType<?>> ENTITY_TYPES = CoreRegistry.create(BuiltInRegistries.ENTITY_TYPE, SummonerScrolls.MOD_ID);
 
     /* Summon Entities - Tier 1 */
     public static final Supplier<EntityType<ZombieSummon>> ZOMBIE_SUMMON = ENTITY_TYPES.register("zombie_summon", ZombieSummon.TYPE);

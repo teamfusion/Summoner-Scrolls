@@ -4,12 +4,13 @@ import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.enchantment.ScrollEnchantment;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 import java.util.function.Supplier;
 
 public class SSEnchantments {
-    public static final CoreRegistry<Enchantment> ENCHANTMENTS = CoreRegistry.create(Registry.ENCHANTMENT, SummonerScrolls.MOD_ID);
+    public static final CoreRegistry<Enchantment> ENCHANTMENTS = CoreRegistry.create(BuiltInRegistries.ENCHANTMENT, SummonerScrolls.MOD_ID);
 
     //todo: make enchantment classes or automatic way
 

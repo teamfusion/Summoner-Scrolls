@@ -2,6 +2,7 @@ package com.github.teamfusion.summonerscrolls.mixin;
 
 import com.github.teamfusion.summonerscrolls.common.entity.CreeperSummon;
 import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -19,7 +20,7 @@ public abstract class PlayerMixin extends LivingEntity {
 
     @Inject(method = "hurt", at = @At("HEAD"), cancellable = true)
     public void hurt(DamageSource damageSource, float f, CallbackInfoReturnable<Boolean> cir) {
-        if (damageSource.isExplosion() && damageSource.getEntity() instanceof CreeperSummon creeperSummon) {
+        if (damageSource.is(DamageTypes.EXPLOSION) && damageSource.getEntity() instanceof CreeperSummon creeperSummon) {
             if (creeperSummon.getOwner() == this)
                 cir.setReturnValue(false);
         }

@@ -31,7 +31,7 @@ public class PiglinSummonRenderer extends PiglinRenderer {
 
     public PiglinSummonRenderer(EntityRendererProvider.Context context, ModelLayerLocation modelLayerLocation, ModelLayerLocation modelLayerLocation2, ModelLayerLocation modelLayerLocation3) {
         super(context, modelLayerLocation, modelLayerLocation2, modelLayerLocation3, true);
-        this.addLayer(new HumanoidArmorLayer(this, new HumanoidModel(context.bakeLayer(modelLayerLocation2)), new HumanoidModel(context.bakeLayer(modelLayerLocation3))));
+        this.addLayer(new HumanoidArmorLayer(this, new HumanoidModel(context.bakeLayer(modelLayerLocation2)), new HumanoidModel(context.bakeLayer(modelLayerLocation3)), context.getModelManager()));
         this.addLayer(new SummonGlowLayer<>(this, SUMMON_LOCATION));
     }
 

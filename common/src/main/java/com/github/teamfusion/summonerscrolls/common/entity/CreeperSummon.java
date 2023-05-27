@@ -268,7 +268,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     private void explodeSummonCreeper() {
         if (!this.level.isClientSide) {
             this.dead = true;
-            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Level.ExplosionInteraction.NONE);
             this.discard();
             ((CreeperAccessor)this).callSpawnLingeringCloud();
         }

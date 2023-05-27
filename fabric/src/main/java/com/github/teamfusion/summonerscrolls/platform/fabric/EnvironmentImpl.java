@@ -1,7 +1,7 @@
 package com.github.teamfusion.summonerscrolls.platform.fabric;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class EnvironmentImpl {
     public static CreativeModeTab createTab(ResourceLocation location, Supplier<ItemStack> icon) {
-        return FabricItemGroupBuilder.build(location, icon);
+        return FabricItemGroup.builder(location).icon(icon).build();
     }
 
     public static boolean isClientSide() {
