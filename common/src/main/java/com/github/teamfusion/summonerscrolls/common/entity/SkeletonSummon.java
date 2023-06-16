@@ -73,7 +73,7 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     public LivingEntity getOwner() {
         try {
             UUID uUID = this.getOwnerUUID();
-            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
+            return uUID == null ? null : this.level().getPlayerByUUID(uUID);
         } catch (IllegalArgumentException var2) {
             return null;
         }
@@ -167,21 +167,21 @@ public class SkeletonSummon extends Skeleton implements ISummon {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.maybeDespawn();
         }
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        this.spawnSummonParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
     }
 
     @Override
     public void reassessWeaponGoal() {
-        if (this.level != null && !this.level.isClientSide) {
+        if (this.level() != null && !this.level().isClientSide) {
             this.goalSelector.removeGoal(this.meleeGoal);
             this.goalSelector.removeGoal(this.bowGoal);
             ItemStack itemStack = this.getItemInHand(ProjectileUtil.getWeaponHoldingHand(this, SSItems.SUMMON_BOW.get()));
             if (itemStack.is(SSItems.SUMMON_BOW.get())) {
                 int i = 20;
-                if (this.level.getDifficulty() != Difficulty.HARD) {
+                if (this.level().getDifficulty() != Difficulty.HARD) {
                     i = 40;
                 }
 
@@ -206,9 +206,9 @@ public class SkeletonSummon extends Skeleton implements ISummon {
         double e = target.getY(0.3333333333333333) - abstractArrow.getY();
         double f = target.getZ() - this.getZ();
         double g = Math.sqrt(d * d + f * f);
-        abstractArrow.shoot(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.level.getDifficulty().getId() * (isStray ? 8 : 4)));
+        abstractArrow.shoot(d, e + g * 0.20000000298023224, f, 1.6F, (float)(14 - this.level().getDifficulty().getId() * (isStray ? 8 : 4)));
         this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-        this.level.addFreshEntity(abstractArrow);
+        this.level().addFreshEntity(abstractArrow);
     }
 
     @Override
@@ -249,7 +249,7 @@ public class SkeletonSummon extends Skeleton implements ISummon {
         if (this.isSumoningCooldown()) {
             time--;
             this.setDeltaMovement(0,0,0);
-            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnCoolParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
     }

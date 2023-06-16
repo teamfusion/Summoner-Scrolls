@@ -84,7 +84,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     public LivingEntity getOwner() {
         try {
             UUID uUID = this.getOwnerUUID();
-            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
+            return uUID == null ? null : this.level().getPlayerByUUID(uUID);
         } catch (IllegalArgumentException var2) {
             return null;
         }
@@ -194,10 +194,10 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.maybeDespawn();
         }
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        this.spawnSummonParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
     }
 
     @Override
@@ -233,7 +233,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         if (this.isSumoningCooldown()) {
             time--;
             this.setDeltaMovement(0,0,0);
-            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnCoolParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
         }
 
         int swell = ((CreeperAccessor)this).getSwell();
@@ -266,9 +266,9 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     }
 
     private void explodeSummonCreeper() {
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.dead = true;
-            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Level.ExplosionInteraction.NONE);
+            this.level().explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Level.ExplosionInteraction.NONE);
             this.discard();
             ((CreeperAccessor)this).callSpawnLingeringCloud();
         }

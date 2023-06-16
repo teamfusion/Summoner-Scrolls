@@ -65,7 +65,7 @@ public class EndermanSummon extends EnderMan implements ISummon {
     public LivingEntity getOwner() {
         try {
             UUID uUID = this.getOwnerUUID();
-            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
+            return uUID == null ? null : this.level().getPlayerByUUID(uUID);
         } catch (IllegalArgumentException var2) {
             return null;
         }
@@ -91,7 +91,7 @@ public class EndermanSummon extends EnderMan implements ISummon {
         if (damageSource.getEntity() == this.getOwner()) {
             return false;
         }
-        if (!this.level.isClientSide() && this.random.nextInt(10) != 0) {
+        if (!this.level().isClientSide() && this.random.nextInt(10) != 0) {
             this.teleport();
         }
         if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
@@ -163,10 +163,10 @@ public class EndermanSummon extends EnderMan implements ISummon {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
+        if (!this.level().isClientSide) {
             this.maybeDespawn();
         }
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        this.spawnSummonParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
     }
 
     @Override
@@ -215,7 +215,7 @@ public class EndermanSummon extends EnderMan implements ISummon {
         if (this.isSumoningCooldown()) {
             time--;
             this.setDeltaMovement(0,0,0);
-            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnCoolParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
     }

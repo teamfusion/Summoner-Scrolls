@@ -28,7 +28,7 @@ public class FollowOwnerGoal extends Goal {
 
     public FollowOwnerGoal(Mob summon, double d, float f, float g, boolean bl) {
         this.summon = summon;
-        this.level = summon.level;
+        this.level = summon.level();
         this.speedModifier = d;
         this.navigation = summon.getNavigation();
         this.startDistance = f;

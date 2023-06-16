@@ -71,7 +71,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     public LivingEntity getOwner() {
         try {
             UUID uUID = this.getOwnerUUID();
-            return uUID == null ? null : this.level.getPlayerByUUID(uUID);
+            return uUID == null ? null : this.level().getPlayerByUUID(uUID);
         } catch (IllegalArgumentException var2) {
             return null;
         }
@@ -97,7 +97,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         if (damageSource.getEntity() == this.getOwner()) {
             return false;
         }
-        if (!this.level.isClientSide() && this.random.nextInt(10) != 0) {
+        if (!this.level().isClientSide() && this.random.nextInt(10) != 0) {
             this.teleport();
         }
         if (damageSource.getEntity() instanceof ISummon summon && summon.getOwner() == this.getOwner()) {
@@ -172,7 +172,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         if (this.isSumoningCooldown()) {
             time--;
             this.setDeltaMovement(0,0,0);
-            this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnCoolParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
             System.out.println(time);
         }
         super.tick();
@@ -191,8 +191,8 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
 
     @Override
     public void aiStep() {
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-        if (!this.level.isClientSide) {
+        this.spawnSummonParticles(this.random, this.level(), this.getX(), this.getRandomY(), this.getZ());
+        if (!this.level().isClientSide) {
             this.maybeDespawn();
         }
 
@@ -249,7 +249,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         public boolean canUse() {
             LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
             if (livingEntity != null && livingEntity.isAlive()) {
-                return ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL;
+                return ShulkermanSummon.this.level().getDifficulty() != Difficulty.PEACEFUL;
             } else {
                 return false;
             }
@@ -267,7 +267,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
         }
 
         public void tick() {
-            if (ShulkermanSummon.this.level.getDifficulty() != Difficulty.PEACEFUL) {
+            if (ShulkermanSummon.this.level().getDifficulty() != Difficulty.PEACEFUL) {
                 --this.attackTime;
                 LivingEntity livingEntity = ShulkermanSummon.this.getTarget();
                 if (livingEntity != null) {
@@ -276,7 +276,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
                     if (d < 400.0) {
                         if (this.attackTime <= 0) {
                             this.attackTime = 20 + ShulkermanSummon.this.random.nextInt(10) * 20 / 2;
-                            ShulkermanSummon.this.level.addFreshEntity(new ShulkerBullet(ShulkermanSummon.this.level, ShulkermanSummon.this, livingEntity, Direction.Axis.X));
+                            ShulkermanSummon.this.level().addFreshEntity(new ShulkerBullet(ShulkermanSummon.this.level(), ShulkermanSummon.this, livingEntity, Direction.Axis.X));
                             ShulkermanSummon.this.playSound(SoundEvents.SHULKER_SHOOT, 2.0F, (ShulkermanSummon.this.random.nextFloat() - ShulkermanSummon.this.random.nextFloat()) * 0.2F + 1.0F);
                         }
                     } else {

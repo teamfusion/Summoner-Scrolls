@@ -38,9 +38,9 @@ public class CaveSpiderSummon extends SpiderSummon {
         if (super.doHurtTarget(summon)) {
             if (summon instanceof LivingEntity) {
                 int i = 0;
-                if (this.level.getDifficulty() == Difficulty.NORMAL) {
+                if (this.level().getDifficulty() == Difficulty.NORMAL) {
                     i = 7;
-                } else if (this.level.getDifficulty() == Difficulty.HARD) {
+                } else if (this.level().getDifficulty() == Difficulty.HARD) {
                     i = 15;
                 }
 

@@ -17,7 +17,7 @@ import net.minecraft.world.level.gameevent.GameEvent;
 
 public class SSEvents {
     public static void useScroll(Player player, InteractionHand hand) {
-        Level level = player.getLevel();
+        Level level = player.level();
         if (level.isClientSide()) {
             // Do nothing if this is the client side
             return;
