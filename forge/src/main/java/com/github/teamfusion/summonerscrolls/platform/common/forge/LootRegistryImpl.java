@@ -1,8 +1,8 @@
 package com.github.teamfusion.summonerscrolls.platform.common.forge;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
+import com.github.teamfusion.summonerscrolls.mixin.forge.LootTableAccessor;
 import com.github.teamfusion.summonerscrolls.platform.common.LootRegistry;
-import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraftforge.event.LootTableLoadEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +20,7 @@ public class LootRegistryImpl {
     }
 
     public static void modify(LootRegistry.LootTableModifier modifier) {
-        MODIFICATIONS.add(event -> modifier.modify(event.getTable(), event.getName(), pool -> event.getTable().addPool(pool), true));
+        MODIFICATIONS.add(event -> modifier.modify(null, event.getName(), pool -> ((LootTableAccessor)event.getTable()).getPools().add(pool), true));
 //        MinecraftForge.EVENT_BUS.<LootTableLoadEvent>addListener(event -> modifier.modify(event.getLootTableManager(), event.getName(), pool -> event.getTable().addPool(pool), true));
 //        FMLJavaModLoadingContext.get().getModEventBus().<LootTableLoadEvent>addListener(event -> modifier.modify(event.getLootTableManager(), event.getName(), pool -> event.getTable().addPool(pool), true));
     }

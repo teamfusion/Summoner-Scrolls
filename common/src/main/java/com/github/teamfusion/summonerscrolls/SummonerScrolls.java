@@ -22,7 +22,7 @@ public class SummonerScrolls {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
     public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).client(SSClient::commonClientInitialize).postClient(SSClient::postClientInitialize).build();
 
-    public static final CreativeModeTab SCROLLS_TAB = Environment.createTab(new ResourceLocation(MOD_ID, "scrolls_tab"), () -> new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
+//    public static final CreativeModeTab SCROLLS_TAB = Environment.createTab(new ResourceLocation(MOD_ID, "scrolls_tab"), () -> new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
     
     public static void commonInitialize() {
         LOGGER.info("Initializing {}", MOD_NAME);

@@ -12,11 +12,11 @@ import net.minecraft.world.item.ItemStack;
 import java.util.function.Supplier;
 
 public class EnvironmentImpl {
-    public static CreativeModeTab createTab(ResourceLocation location, Supplier<ItemStack> icon) {
-        return FabricItemGroup.builder().icon(icon).title(Component.literal(location.getPath())).displayItems((itemDisplayParameters, output) -> {
-            output.accept(SSItems.BEE_SCROLL.get());
-        }).build();
-    }
+//    public static CreativeModeTab createTab(ResourceLocation location, Supplier<ItemStack> icon) {
+//        return FabricItemGroup.builder().icon(icon).title(Component.literal(location.getPath())).displayItems((itemDisplayParameters, output) -> {
+//            output.accept(SSItems.BEE_SCROLL.get());
+//        }).build();
+//    }
 
     public static boolean isClientSide() {
         return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;

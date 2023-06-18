@@ -8,10 +8,10 @@ import net.minecraft.world.item.ItemStack;
 import java.util.function.Supplier;
 
 public class Environment {
-    @ExpectPlatform
-    public static CreativeModeTab createTab(ResourceLocation location, Supplier<ItemStack> icon) {
-        throw new AssertionError();
-    }
+//    @ExpectPlatform
+//    public static CreativeModeTab createTab(ResourceLocation location, Supplier<ItemStack> icon) {
+//        throw new AssertionError();
+//    }
 
     @ExpectPlatform
     public static boolean isClientSide() {
