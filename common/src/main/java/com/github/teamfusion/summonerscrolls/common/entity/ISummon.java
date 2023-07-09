@@ -36,9 +36,16 @@ public interface ISummon {
 
     int getDespawnDelay();
 
+
     default void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z) {
         for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 0.5F) {
             level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * 1.0D, y, z + Mth.sin(i) * 1.0D, 0.0D, 0.0D, 0.0D);
+        }
+    }
+
+    default void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z, float intensity, double intensity2) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(intensity) + intensity2) {
+            level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * intensity2, y, z + Mth.sin(i) * intensity2, 0.0D, 0.0D, 0.0D);
         }
     }
 

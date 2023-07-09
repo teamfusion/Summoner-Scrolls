@@ -32,9 +32,10 @@ public class BeeSummonRenderer extends BeeRenderer {
         return RenderType.entityTranslucent(getTextureLocation(summon));
     }
 
+    //TODO: turn down block light level
     @Override
     protected int getBlockLightLevel(Bee summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override

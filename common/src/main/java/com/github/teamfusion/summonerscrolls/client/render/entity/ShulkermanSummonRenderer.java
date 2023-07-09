@@ -34,7 +34,7 @@ public class ShulkermanSummonRenderer extends EndermanRenderer {
 
     @Override
     protected int getBlockLightLevel(EnderMan summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override

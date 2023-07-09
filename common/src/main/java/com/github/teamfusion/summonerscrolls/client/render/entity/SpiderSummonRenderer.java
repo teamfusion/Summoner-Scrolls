@@ -43,7 +43,7 @@ public class SpiderSummonRenderer<T extends SpiderSummon> extends SpiderRenderer
 
     @Override
     protected int getBlockLightLevel(T summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override

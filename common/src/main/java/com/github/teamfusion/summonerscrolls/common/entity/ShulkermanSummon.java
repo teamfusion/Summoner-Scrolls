@@ -191,9 +191,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
     @Override
     public void aiStep() {
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-        if (!this.level.isClientSide) {
-            this.maybeDespawn();
-        }
+        this.maybeDespawn();
 
         super.aiStep();
     }

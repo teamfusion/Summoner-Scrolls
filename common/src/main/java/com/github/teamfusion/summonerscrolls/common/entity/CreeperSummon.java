@@ -1,5 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
+import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.mixin.access.CreeperAccessor;
@@ -12,6 +13,7 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -35,11 +37,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
+import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -192,11 +196,40 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
-            this.maybeDespawn();
-        }
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        this.maybeDespawn();
+
+        // Spawn particles with the adjusted frequency
+        this.spawnSummonParticles2(
+                this.random,
+                this.level,
+                this.getX(),
+                this.getRandomY(),
+                this.getZ(),
+                particleFrequency
+        );
     }
+
+    private float particleFrequency = 0.0F;
+
+
+    public void spawnSummonParticles2(Random random, LevelAccessor level, double x, double y, double z, float particleFrequency) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 0.5F) {
+            if (random.nextFloat() < particleFrequency) {
+                level.addParticle(
+                        SummonerScrollsParticles.SUMMON_PARTICLE.get(),
+                        x + Mth.cos(i) * 1.0D,
+                        y,
+                        z + Mth.sin(i) * 1.0D,
+                        0.0D,
+                        0.0D,
+                        0.0D
+                );
+            }
+        }
+    }
+
+
+
 
     @Override
     public void setDespawnDelay(int i) {
@@ -226,8 +259,26 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
+
     @Override
     public void tick() {
+        if (particleFrequency > 0) {
+            particleFrequency--;
+        }
+
+        // Set particle frequency to full for 3 seconds
+        if (isSumoningCooldown() && particleFrequency == 0) {
+            particleFrequency = 1.0F;
+            particleFrequency = 60; // 3 seconds (assuming each tick is 1/20th of a second)
+        } else {
+            particleFrequency = 0.0F;
+        }
+
+        if (isSumoningCooldown()) {
+            setDeltaMovement(0, 0, 0);
+            spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+        }
+
         if (this.isSumoningCooldown()) {
             time--;
             this.setDeltaMovement(0,0,0);
@@ -266,7 +317,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     private void explodeSummonCreeper() {
         if (!this.level.isClientSide) {
             this.dead = true;
-            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 3.0F : 1.0F), false, Explosion.BlockInteraction.NONE);
             this.discard();
             ((CreeperAccessor)this).callSpawnLingeringCloud();
         }
