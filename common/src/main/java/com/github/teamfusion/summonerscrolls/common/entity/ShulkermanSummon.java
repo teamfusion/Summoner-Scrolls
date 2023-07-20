@@ -172,7 +172,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon {
             time--;
             this.setDeltaMovement(0,0,0);
             this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-            System.out.println(time);
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
     }

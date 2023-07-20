@@ -247,6 +247,7 @@ public class SkeletonSummon extends Skeleton implements ISummon {
             time--;
             this.setDeltaMovement(0,0,0);
             this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
     }
