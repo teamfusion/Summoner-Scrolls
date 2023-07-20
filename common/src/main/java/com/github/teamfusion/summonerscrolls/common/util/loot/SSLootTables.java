@@ -32,13 +32,24 @@ public class SSLootTables {
             LOOT_PER_TIER.forEach((lootTable, items) -> {
                 if (lootTable.contains(location)) {
                     items.forEach(item -> {
-                        LootPool.Builder pool = LootPool.lootPool().add(LootItem.lootTableItem(item.get())).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
+                        LootPool.Builder pool = LootPool.lootPool().add(LootItem.lootTableItem(item.get())).setRolls(BinomialDistributionGenerator.binomial(1, getTierProbability(lootTable)));
                         context.addPool(pool);
                     });
                 }
             });
         });
+    }
 
-        //TODO edit each level make it rare for each
+    // Adjust these probabilities as per rarity preference
+    private static float getTierProbability(Collection<ResourceLocation> lootTable) {
+        if (lootTable == TIER_ONE_SCROLL_TABLES) {
+            return 0.1F;
+        } else if (lootTable == TIER_TWO_SCROLL_TABLES) {
+            return 0.3F;
+        } else if (lootTable == TIER_THREE_SCROLL_TABLES) {
+            return 0.5F;
+        } else {
+            return 0.6F; // Default probability if the loot table doesn't belong to any tier
+        }
     }
 }
