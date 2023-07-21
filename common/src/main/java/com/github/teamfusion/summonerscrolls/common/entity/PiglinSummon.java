@@ -9,6 +9,8 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -20,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -43,13 +46,17 @@ import java.util.function.Supplier;
 //TODO: Instantly attacks other players
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob {
+public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob, NeutralMob {
     public static final Supplier<EntityType<PiglinSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(PiglinSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("piglin_summon"));
 
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PiglinSummon.class, EntityDataSerializers.BOOLEAN);
 
     public static UUID ownerUUID;
     private int despawnDelay;
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    @Nullable private UUID persistentAngerTarget;
 
     public PiglinSummon(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -273,5 +280,31 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
         time = 75;
         this.populateDefaultEquipmentSlots(difficultyInstance);
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uUID) {
+        this.persistentAngerTarget = uUID;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 }

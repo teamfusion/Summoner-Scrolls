@@ -12,6 +12,8 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -24,11 +26,13 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.PowerableMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.SwellGoal;
+import net.minecraft.world.entity.animal.Wolf;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
@@ -45,7 +49,7 @@ import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
+public class CreeperSummon extends Creeper implements ISummon, PowerableMob, NeutralMob {
     public static final Supplier<EntityType<CreeperSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, false), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("creeper_summon"));
     public static final Supplier<EntityType<CreeperSummon>> TYPE_CHARGED = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, true), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("charged_creeper_summon"));
 
@@ -53,6 +57,10 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
 
     public static UUID ownerUUID;
     private int despawnDelay;
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    @Nullable private UUID persistentAngerTarget;
 
     public CreeperSummon(EntityType<CreeperSummon> entityType, Level level, boolean isPowered) {
         super(entityType, level);
@@ -62,6 +70,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_POWERED, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public MobType getMobType() {
@@ -280,5 +289,31 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     @Override
     protected boolean isSunBurnTick() {
         return false;
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uUID) {
+        this.persistentAngerTarget = uUID;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 }
