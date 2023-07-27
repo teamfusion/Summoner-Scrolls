@@ -43,7 +43,6 @@ import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-//TODO: Instantly attacks other players
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob, NeutralMob {
@@ -251,6 +250,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob,
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     @Override

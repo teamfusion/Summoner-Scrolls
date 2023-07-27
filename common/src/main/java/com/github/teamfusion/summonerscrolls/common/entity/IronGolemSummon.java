@@ -1,6 +1,5 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
@@ -29,7 +28,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -38,9 +36,6 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.UUID;
 import java.util.function.Supplier;
 
@@ -52,12 +47,17 @@ public class IronGolemSummon extends IronGolem implements ISummon, NeutralMob {
     public static UUID ownerUUID;
     private int despawnDelay;
 
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(IronGolemSummon.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     @Nullable private UUID persistentAngerTarget;
 
     public IronGolemSummon(EntityType<? extends IronGolem> entityType, Level level) {
         super(entityType, level);
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public MobType getMobType() {
@@ -254,18 +254,4 @@ public class IronGolemSummon extends IronGolem implements ISummon, NeutralMob {
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
-
-//    @Override
-//    public boolean canAttackType(EntityType<?> entityType) {
-//        if (Arrays.stream(entityType.getBaseClass().getInterfaces()).anyMatch(ISummon)) {
-//            return false;
-//        }
-//
-//        return entityType != SSEntityTypes.PIGLIN_SUMMON.get() && super.canAttackType(entityType);
-//    }\
-
-//    @Override
-//    public boolean canAttack(LivingEntity livingEntity) {
-//        return !(livingEntity instanceof ISummon);
-//    }
 }

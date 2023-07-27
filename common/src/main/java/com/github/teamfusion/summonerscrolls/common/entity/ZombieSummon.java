@@ -47,7 +47,7 @@ public class ZombieSummon extends Zombie implements ISummon, NeutralMob {
     public static UUID ownerUUID;
     private int despawnDelay;
 
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(ZombieSummon.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     @Nullable private UUID persistentAngerTarget;
 
@@ -247,5 +247,10 @@ public class ZombieSummon extends Zombie implements ISummon, NeutralMob {
     @Override
     public void startPersistentAngerTimer() {
         this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 }
