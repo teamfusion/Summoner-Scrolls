@@ -169,7 +169,7 @@ public class SpiderSummon extends Spider implements ISummon, NeutralMob {
     public void aiStep() {
         super.aiStep();
         this.maybeDespawn();
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+//        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
     @Override

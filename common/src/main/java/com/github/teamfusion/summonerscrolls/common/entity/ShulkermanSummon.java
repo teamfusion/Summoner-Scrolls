@@ -201,7 +201,7 @@ public class ShulkermanSummon extends EnderMan implements ISummon, NeutralMob {
 
     @Override
     public void aiStep() {
-        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+//        this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         this.maybeDespawn();
 
         super.aiStep();
