@@ -47,6 +47,7 @@ public final class LanguageGenerator implements DataProvider {
         // Entities
         this.entity(SSEntityTypes.ZOMBIE_SUMMON.get(), "Zombie Summon");
         this.entity(SSEntityTypes.SPIDER_SUMMON.get(), "Spider Summon");
+        this.entity(SSEntityTypes.SPIDER_JOCKEY_SUMMON.get(), "Spider Jockey Summon");
         this.entity(SSEntityTypes.SKELETON_SUMMON.get(), "Skeleton Summon");
         this.entity(SSEntityTypes.BEE_SUMMON.get(), "Bee Summon");
 

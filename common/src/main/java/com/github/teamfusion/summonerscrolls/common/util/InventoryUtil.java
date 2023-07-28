@@ -24,6 +24,7 @@ public class InventoryUtil {
     static List<Enchantment> enchantmentsToRemove = Arrays.asList(
             SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(),
             SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.SPIDER_JOCKEY_SCROLL_ENCHANTMENT.get(),
             SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get(),
             SSEnchantments.BEE_SCROLL_ENCHANTMENT.get(),
 

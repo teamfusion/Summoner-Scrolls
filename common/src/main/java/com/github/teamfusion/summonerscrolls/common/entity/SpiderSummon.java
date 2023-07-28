@@ -1,5 +1,6 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
+import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
@@ -29,6 +30,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.Skeleton;
 import net.minecraft.world.entity.monster.Spider;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -43,7 +45,8 @@ import java.util.function.Supplier;
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
 public class SpiderSummon extends Spider implements ISummon, NeutralMob {
-    public static final Supplier<EntityType<SpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(SpiderSummon::new, MobCategory.MISC).sized(1.4F, 0.9F).clientTrackingRange(8).build("spider_summon"));
+    public static final Supplier<EntityType<SpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.<SpiderSummon>of((a, b)-> new SpiderSummon(a, b, false), MobCategory.MISC).sized(1.4F, 0.9F).clientTrackingRange(8).build("spider_summon"));
+    public static final Supplier<EntityType<SpiderSummon>> TYPE_JOCKEY = Suppliers.memoize(() -> EntityType.Builder.<SpiderSummon>of((a, b)-> new SpiderSummon(a, b, true), MobCategory.MISC).sized(1.4F, 0.9F).clientTrackingRange(8).build("spider_jockey_summon"));
 
     public static UUID ownerUUID;
     private int despawnDelay;
@@ -51,8 +54,12 @@ public class SpiderSummon extends Spider implements ISummon, NeutralMob {
     private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(SpiderSummon.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     @Nullable private UUID persistentAngerTarget;
-    public SpiderSummon(EntityType<? extends Spider> entityType, Level level) {
+
+    private static final EntityDataAccessor<Boolean> DATA_IS_JOCKEY = SynchedEntityData.defineId(SpiderSummon.class, EntityDataSerializers.BOOLEAN);
+
+    public SpiderSummon(EntityType<? extends Spider> entityType, Level level, boolean isJockey) {
         super(entityType, level);
+        this.entityData.set(DATA_IS_JOCKEY, isJockey);
     }
 
     public MobType getMobType() {
@@ -140,15 +147,23 @@ public class SpiderSummon extends Spider implements ISummon, NeutralMob {
     @Override
     public void addAdditionalSaveData(CompoundTag compoundTag) {
         super.addAdditionalSaveData(compoundTag);
+        if (this.entityData.get(DATA_IS_JOCKEY)) {
+            compoundTag.putBoolean("jockey", true);
+        }
         compoundTag.putInt("DespawnDelay", this.despawnDelay);
     }
 
     @Override
     public void readAdditionalSaveData(CompoundTag compoundTag) {
         super.readAdditionalSaveData(compoundTag);
+        this.entityData.set(DATA_IS_JOCKEY, compoundTag.getBoolean("jockey"));
         if (compoundTag.contains("DespawnDelay", 99)) {
             this.despawnDelay = compoundTag.getInt("DespawnDelay");
         }
+    }
+
+    public boolean isJockey() {
+        return this.entityData.get(DATA_IS_JOCKEY);
     }
 
     @Override
@@ -222,6 +237,15 @@ public class SpiderSummon extends Spider implements ISummon, NeutralMob {
     @Override
     public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyInstance, MobSpawnType mobSpawnType, @Nullable SpawnGroupData spawnGroupData, @Nullable CompoundTag compoundTag) {
         time = 75;
+
+        if (isJockey()) {
+            SkeletonSummon skeleton = SSEntityTypes.SKELETON_SUMMON.get().create(this.level);
+            skeleton.setOwnerUUID(getOwnerUUID());
+            skeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
+            skeleton.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, null, null);
+            skeleton.startRiding(this);
+        }
+
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
@@ -254,5 +278,6 @@ public class SpiderSummon extends Spider implements ISummon, NeutralMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+        this.entityData.define(DATA_IS_JOCKEY, false);
     }
 }

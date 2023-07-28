@@ -20,6 +20,7 @@ public final class ModelGenerator extends FabricModelProvider {
     public void generateItemModels(ItemModelGenerators gen) {
         gen.generateFlatItem(SSItems.ZOMBIE_SCROLL.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(SSItems.SPIDER_SCROLL.get(), ModelTemplates.FLAT_ITEM);
+        gen.generateFlatItem(SSItems.SPIDER_JOCKEY_SCROLL.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(SSItems.SKELETON_SCROLL.get(), ModelTemplates.FLAT_ITEM);
         gen.generateFlatItem(SSItems.BEE_SCROLL.get(), ModelTemplates.FLAT_ITEM);
 

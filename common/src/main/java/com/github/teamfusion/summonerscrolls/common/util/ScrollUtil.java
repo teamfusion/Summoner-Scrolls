@@ -18,6 +18,7 @@ public class ScrollUtil {
             /* Summon Types - Tier 1 */
             .put(SSEntityTypes.ZOMBIE_SUMMON.get(), SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get())
             .put(SSEntityTypes.SPIDER_SUMMON.get(), SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get())
+            .put(SSEntityTypes.SPIDER_JOCKEY_SUMMON.get(), SSEnchantments.SPIDER_JOCKEY_SCROLL_ENCHANTMENT.get())
             .put(SSEntityTypes.SKELETON_SUMMON.get(), SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get())
             .put(SSEntityTypes.BEE_SUMMON.get(), SSEnchantments.BEE_SCROLL_ENCHANTMENT.get())
 
@@ -63,6 +64,11 @@ public class ScrollUtil {
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+                summonXP = 10;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SSEnchantments.SPIDER_JOCKEY_SCROLL_ENCHANTMENT.get()){
                 summonXP = 10;
             }
         }
@@ -145,6 +151,9 @@ public class ScrollUtil {
         if (item == SSItems.SPIDER_SCROLL.get()){
             summonXP = 10;
         }
+        if (item == SSItems.SPIDER_JOCKEY_SCROLL.get()){
+            summonXP = 10;
+        }
         if (item == SSItems.SKELETON_SCROLL.get()){
             summonXP = 15;
         }
@@ -200,6 +209,11 @@ public class ScrollUtil {
         }
         for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
             if (enchantment == SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get()){
+                durability = 1;
+            }
+        }
+        for(Enchantment enchantment : EnchantmentHelper.getEnchantments(stack).keySet()) {
+            if (enchantment == SSEnchantments.SPIDER_JOCKEY_SCROLL_ENCHANTMENT.get()){
                 durability = 1;
             }
         }

@@ -16,6 +16,7 @@ public class SSEnchantments {
     /* Summon Enchantments - Tier 1 */
     public static final Supplier<Enchantment> ZOMBIE_SCROLL_ENCHANTMENT = register("zombie_scroll", new ScrollEnchantment());
     public static final Supplier<Enchantment> SPIDER_SCROLL_ENCHANTMENT = register("spider_scroll", new ScrollEnchantment());
+    public static final Supplier<Enchantment> SPIDER_JOCKEY_SCROLL_ENCHANTMENT = register("spider_jockey_scroll", new ScrollEnchantment());
     public static final Supplier<Enchantment> SKELETON_SCROLL_ENCHANTMENT = register("skeleton_scroll", new ScrollEnchantment());
     public static final Supplier<Enchantment> BEE_SCROLL_ENCHANTMENT = register("bee_scroll", new ScrollEnchantment());
 

@@ -22,7 +22,7 @@ public class SSLootTables {
     public static final Collection<ResourceLocation> TIER_THREE_SCROLL_TABLES = Set.of(BuiltInLootTables.END_CITY_TREASURE, BuiltInLootTables.WOODLAND_MANSION);
 
     private static final Map<Collection<ResourceLocation>, List<Supplier<Item>>> LOOT_PER_TIER = ImmutableMap.of(
-            TIER_ONE_SCROLL_TABLES, List.of(SSItems.ZOMBIE_SCROLL, SSItems.SPIDER_SCROLL, SSItems.SKELETON_SCROLL, SSItems.BEE_SCROLL),
+            TIER_ONE_SCROLL_TABLES, List.of(SSItems.ZOMBIE_SCROLL, SSItems.SPIDER_SCROLL, SSItems.SPIDER_JOCKEY_SCROLL, SSItems.SKELETON_SCROLL, SSItems.BEE_SCROLL),
             TIER_TWO_SCROLL_TABLES, List.of(SSItems.HUSK_SCROLL, SSItems.STRAY_SCROLL, SSItems.CAVE_SPIDER_SCROLL, SSItems.ENDERMAN_SCROLL, SSItems.PIGLIN_SCROLL),
             TIER_THREE_SCROLL_TABLES, List.of(SSItems.CREEPER_SCROLL, SSItems.PIGLIN_BRUTE_SCROLL, SSItems.SHULKERMAN_SCROLL, SSItems.IRON_GOLEM_SCROLL, SSItems.CHARGED_CREEPER_SCROLL)
     );

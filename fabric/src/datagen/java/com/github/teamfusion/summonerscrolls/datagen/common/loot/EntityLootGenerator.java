@@ -42,6 +42,13 @@ public class EntityLootGenerator extends SimpleFabricLootTableProvider {
                         .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
                 )
         );
+        this.add(SSEntityTypes.SPIDER_JOCKEY_SUMMON, consumer, LootTable.lootTable()
+                .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
+                        .add(LootItem.lootTableItem(SSItems.SPIDER_SCROLL.get()))
+                        .when(LootItemKilledByPlayerCondition.killedByPlayer())
+                        .when(LootItemRandomChanceWithLootingCondition.randomChanceAndLootingBoost(0.025F, 0.01F))
+                )
+        );
         this.add(SSEntityTypes.SKELETON_SUMMON, consumer, LootTable.lootTable()
                 .withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1))
                         .add(LootItem.lootTableItem(SSItems.SKELETON_SCROLL.get()))
