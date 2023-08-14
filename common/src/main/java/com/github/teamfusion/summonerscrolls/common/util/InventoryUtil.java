@@ -1,7 +1,8 @@
 package com.github.teamfusion.summonerscrolls.common.util;
 
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
-import net.minecraft.network.chat.Component;
+import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -13,10 +14,32 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 @SuppressWarnings({"unused"})
 public class InventoryUtil {
+
+    static List<Enchantment> enchantmentsToRemove = Arrays.asList(
+            SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.BEE_SCROLL_ENCHANTMENT.get(),
+
+            SSEnchantments.HUSK_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.STRAY_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.CAVE_SPIDER_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.ENDERMAN_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.PIGLIN_SCROLL_ENCHANTMENT.get(),
+
+            SSEnchantments.CREEPER_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.CHARGED_CREEPER_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.PIGLIN_BRUTE_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.SHULKERMAN_SCROLL_ENCHANTMENT.get(),
+            SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()
+    );
+
     public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();
@@ -26,21 +49,26 @@ public class InventoryUtil {
 
             if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
-
-                boolean canEnchant = true;
-                for (Enchantment enchantment2 : enchantments.keySet()) {
-                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
-                        canEnchant = false;
-                        break;
+                for (Enchantment enchantment2 : enchantmentsToRemove) {
+                    if (enchantments.containsKey(enchantment2)) {
+                        enchantments.remove(enchantment2);
                     }
                 }
+
+                boolean canEnchant = true;
+//                for (Enchantment enchantment2 : enchantments.keySet()) {
+//                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
+//                        canEnchant = false;
+//                        break;
+//                    }
+//                }
 
                 if (canEnchant) {
                     enchantments.put(enchantment, 1);
                     ItemStack copy = left.copy();
                     EnchantmentHelper.setEnchantments(enchantments, copy);
                     if (name != null && !name.isEmpty()) {
-                        copy.setHoverName(Component.literal(name));
+                        copy.setHoverName(new TextComponent(name));
                     }
 
                     outputSlot.setItem(0, copy);

@@ -174,7 +174,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
     }
 
     public ItemStack createSpawnWeapon() {
-        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(Items.CROSSBOW) : new ItemStack(Items.GOLDEN_SWORD);
+        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(SSItems.SUMMON_CROSSBOW.get()) : new ItemStack(Items.GOLDEN_SWORD);
     }
 
     @Override
@@ -238,7 +238,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
 
     @Override
     public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeaponItem) {
-        return projectileWeaponItem == Items.CROSSBOW;
+        return projectileWeaponItem == SSItems.SUMMON_CROSSBOW.get();
     }
 
     @Override

@@ -34,7 +34,7 @@ public class CreeperSummonRenderer extends CreeperRenderer {
 
     @Override
     protected int getBlockLightLevel(Creeper summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override

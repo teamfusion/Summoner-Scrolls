@@ -48,6 +48,12 @@ public interface ISummon {
             level.addParticle(ParticleTypes.EXPLOSION, x + Mth.cos(i) * 0.5D, y, z + Mth.sin(i) * 0.5D, 0.0D, 0.0D, 0.0D);
         }
     }
+    
+    default void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z, float intensity, double intensity2) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(intensity) + intensity2) {
+            level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * intensity2, y, z + Mth.sin(i) * intensity2, 0.0D, 0.0D, 0.0D);
+        }
+    }
 
     default boolean isEnemy(LivingEntity livingEntity) {
         if (livingEntity instanceof ISummon summon) {

@@ -74,6 +74,9 @@ public class SSItems {
     /* Summon Tools */
     public static final Supplier<Item> SUMMON_BOW = ITEMS.register("summon_bow", () ->
             new SummonerBowItem(new Item.Properties().stacksTo(1)));
+    //TODO: add texture
+    public static final Supplier<Item> SUMMON_CROSSBOW = ITEMS.register("summon_crossbow", () ->
+            new SummonerBowItem(new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final Supplier<Item> SUMMON_ARROW = ITEMS.register("summon_arrow", () ->
             new ArrowItem(new Item.Properties().stacksTo(1)));
     public static final Supplier<Item> SUMMON_SWORD = ITEMS.register("summon_sword", () ->

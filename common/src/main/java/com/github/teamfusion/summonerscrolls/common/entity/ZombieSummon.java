@@ -45,6 +45,9 @@ public class ZombieSummon extends Zombie implements ISummon {
     public ZombieSummon(EntityType<? extends Zombie> entityType, Level level) {
         super(entityType, level);
     }
+    public ZombieSummon(EntityType<? extends Zombie> entityType, Level level) {
+        super(entityType, level);
+    }
 
     public MobType getMobType() {
         return MobType.UNDEFINED;
@@ -158,9 +161,7 @@ public class ZombieSummon extends Zombie implements ISummon {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
-            this.maybeDespawn();
-        }
+        this.maybeDespawn();
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 

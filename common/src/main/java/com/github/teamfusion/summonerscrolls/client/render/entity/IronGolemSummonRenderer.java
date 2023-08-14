@@ -34,7 +34,7 @@ public class IronGolemSummonRenderer extends IronGolemRenderer {
 
     @Override
     protected int getBlockLightLevel(IronGolem summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override
