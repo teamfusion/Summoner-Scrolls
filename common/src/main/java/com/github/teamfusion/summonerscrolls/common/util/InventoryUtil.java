@@ -2,7 +2,7 @@ package com.github.teamfusion.summonerscrolls.common.util;
 
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEnchantments;
-import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.Container;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AnvilMenu;
@@ -68,7 +68,7 @@ public class InventoryUtil {
                     ItemStack copy = left.copy();
                     EnchantmentHelper.setEnchantments(enchantments, copy);
                     if (name != null && !name.isEmpty()) {
-                        copy.setHoverName(new TextComponent(name));
+                        copy.setHoverName(Component.literal(name));
                     }
 
                     outputSlot.setItem(0, copy);
