@@ -1,21 +1,18 @@
 package com.github.teamfusion.summonerscrolls.platform.forge;
 
+import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.util.function.Supplier;
 
-@SuppressWarnings("NullableProblems")
 public class EnvironmentImpl {
     public static CreativeModeTab createTab(ResourceLocation location, Supplier<ItemStack> icon) {
-        return new CreativeModeTab(location.toString().replace(":", ".")) {
-            @Override public ItemStack makeIcon() {
-                return icon.get();
-            }
-        };
+        return CreativeModeTab.builder(CreativeModeTab.Row.BOTTOM, 1).title(Component.translatable(location.toString().replace(":", "."))).icon(icon).build();
     }
 
     public static boolean isClientSide() {
