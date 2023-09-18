@@ -29,7 +29,7 @@ public class SSEvents {
         // Check if the item is a TieredItem
         if (itemStack.getItem() instanceof TieredItem item) {
             // Check if the item is on cooldown and the player has enough XP
-            int xpCost = ScrollUtil.getXP(itemStack);
+            int xpCost = player.isCreative() ? ScrollUtil.getXP(itemStack) : 0;
             if (!player.getCooldowns().isOnCooldown(item) && player.experienceLevel >= xpCost) {
                 // Get the entity type and spawn the entity
                 EntityType<?> entityType = ScrollUtil.getEntityType(itemStack);

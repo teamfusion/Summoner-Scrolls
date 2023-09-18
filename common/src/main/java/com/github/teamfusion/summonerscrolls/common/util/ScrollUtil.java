@@ -51,6 +51,7 @@ public class ScrollUtil {
         return TYPE;
     }
 
+    //TODO: XP wont work for all
     public static int getXP(ItemStack stack) {
         int summonXP = 0;
 

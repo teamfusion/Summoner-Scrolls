@@ -14,7 +14,9 @@ import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.goal.target.ResetUniversalAngerTargetGoal;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.player.Player;
@@ -49,6 +51,12 @@ public interface ISummon {
         }
     }
 
+    default void spawnSummonParticles(Random random, LevelAccessor level, double x, double y, double z, float intensity, double intensity2) {
+        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(intensity) + intensity2) {
+            level.addParticle(SummonerScrollsParticles.SUMMON_PARTICLE.get(), x + Mth.cos(i) * intensity2, y, z + Mth.sin(i) * intensity2, 0.0D, 0.0D, 0.0D);
+        }
+    }
+
     default boolean isEnemy(LivingEntity livingEntity) {
         if (livingEntity instanceof ISummon summon) {
             if (summon.getOwner() == this.getOwner()) {
@@ -62,7 +70,7 @@ public interface ISummon {
         if (!this.getSummon().canAttack(livingEntity)) {
             return false;
         } else {
-            return livingEntity.getType() == EntityType.PLAYER && !livingEntity.getUUID().equals(this.getOwnerUUID());
+            return !livingEntity.getUUID().equals(this.getOwnerUUID());
         }
     }
 
@@ -70,13 +78,14 @@ public interface ISummon {
         if (this.getSummon() instanceof Mob mob) {
             targetSelector.addGoal(1, new OwnerHurtByTargetGoal(mob));
             targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(mob, Mob.class, 5, false, false, this::isEnemy));
-            targetSelector.addGoal(4, new NearestAttackableTargetGoal<>(mob, Player.class, 10, true, false, this::isSummonAngryAt));
             if (mob instanceof PathfinderMob pathfinderMob) {
                 goalSelector.addGoal(5, new WaterAvoidingRandomStrollGoal(pathfinderMob, 1.0));
+                targetSelector.addGoal(3, new HurtByTargetGoal(pathfinderMob));
             }
             goalSelector.addGoal(6, new FollowOwnerGoal(mob, 1.0, 10.0F, 2.0F, false));
             goalSelector.addGoal(7, new LookAtPlayerGoal(mob, Player.class, 6.0F));
-            goalSelector.addGoal(8, new RandomLookAroundGoal(mob));
+            targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal(mob, true));
+            goalSelector.addGoal(9, new RandomLookAroundGoal(mob));
         }
     }
 }

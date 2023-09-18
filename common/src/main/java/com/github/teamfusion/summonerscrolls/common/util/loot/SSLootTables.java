@@ -32,147 +32,24 @@ public class SSLootTables {
             LOOT_PER_TIER.forEach((lootTable, items) -> {
                 if (lootTable.contains(location)) {
                     items.forEach(item -> {
-                        LootPool.Builder pool = LootPool.lootPool().add(LootItem.lootTableItem(item.get())).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
+                        LootPool.Builder pool = LootPool.lootPool().add(LootItem.lootTableItem(item.get())).setRolls(BinomialDistributionGenerator.binomial(1, getTierProbability(lootTable)));
                         context.addPool(pool);
                     });
                 }
             });
         });
+    }
 
-
-
-
-//        /* Loot - Tier 1 */
-//        SSItems.ZOMBIE_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_ONE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.SPIDER_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_ONE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.SKELETON_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_ONE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.BEE_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_ONE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//
-//        /* Loot - Tier 2 */
-//        SSItems.HUSK_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_TWO_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.STRAY_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_TWO_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.CAVE_SPIDER_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_TWO_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.ENDERMAN_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_TWO_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.PIGLIN_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_TWO_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//
-//        /* Loot - Tier 3
-//        SummonerScrollsItems.SHULKERMAN_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//         */
-//        SSItems.CREEPER_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.PIGLIN_BRUTE_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.IRON_GOLEM_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
-//        SSItems.CHARGED_CREEPER_SCROLL.listen((item) ->
-//                LootEvent.MODIFY_LOOT_TABLE.register((lootTables, id, context, builtin) -> {
-//                    if (TIER_THREE_SCROLL_TABLES.contains(id)) {
-//                        LootPool.Builder pool = LootPool.lootPool()
-//                                .add(LootItem.lootTableItem(item)).setRolls(BinomialDistributionGenerator.binomial(1, 0.5F));
-//                        context.addPool(pool);
-//                    }
-//                })
-//        );
+    // Adjust these probabilities as per rarity preference
+    private static float getTierProbability(Collection<ResourceLocation> lootTable) {
+        if (lootTable == TIER_ONE_SCROLL_TABLES) {
+            return 0.1F;
+        } else if (lootTable == TIER_TWO_SCROLL_TABLES) {
+            return 0.3F;
+        } else if (lootTable == TIER_THREE_SCROLL_TABLES) {
+            return 0.5F;
+        } else {
+            return 0.6F; // Default probability if the loot table doesn't belong to any tier
+        }
     }
 }

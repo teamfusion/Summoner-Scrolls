@@ -43,7 +43,7 @@ public class PiglinSummonRenderer extends PiglinRenderer {
 
     @Override
     protected int getBlockLightLevel(Mob summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override

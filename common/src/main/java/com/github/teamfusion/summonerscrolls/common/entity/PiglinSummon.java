@@ -10,6 +10,8 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -21,6 +23,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.MobType;
+import net.minecraft.world.entity.NeutralMob;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -43,10 +46,14 @@ import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob {
+public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob, NeutralMob {
     public static final Supplier<EntityType<PiglinSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(PiglinSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("piglin_summon"));
 
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PiglinSummon.class, EntityDataSerializers.BOOLEAN);
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(PiglinSummon.class, EntityDataSerializers.INT);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    @Nullable private UUID persistentAngerTarget;
 
     public static UUID ownerUUID;
     private int despawnDelay;
@@ -64,6 +71,33 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
         this.commonGoals(this.targetSelector, this.goalSelector);
         this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0, true));
         this.goalSelector.addGoal(3, new RangedCrossbowAttackGoal<>(this, 1.0, 8.0F));
+    }
+
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uUID) {
+        this.persistentAngerTarget = uUID;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 
     @Override
@@ -174,7 +208,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
     }
 
     public ItemStack createSpawnWeapon() {
-        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(Items.CROSSBOW) : new ItemStack(Items.GOLDEN_SWORD);
+        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(SSItems.SUMMON_CROSSBOW.get()) : new ItemStack(Items.GOLDEN_SWORD);
     }
 
     @Override
@@ -238,7 +272,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
 
     @Override
     public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeaponItem) {
-        return projectileWeaponItem == Items.CROSSBOW;
+        return projectileWeaponItem == SSItems.SUMMON_CROSSBOW.get();
     }
 
     @Override
@@ -258,6 +292,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
         if (this.isSumoningCooldown()) {
             time--;
             this.setDeltaMovement(0,0,0);
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
             this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
