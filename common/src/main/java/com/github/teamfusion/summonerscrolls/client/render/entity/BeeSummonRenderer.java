@@ -34,7 +34,7 @@ public class BeeSummonRenderer extends BeeRenderer {
 
     @Override
     protected int getBlockLightLevel(Bee summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override
