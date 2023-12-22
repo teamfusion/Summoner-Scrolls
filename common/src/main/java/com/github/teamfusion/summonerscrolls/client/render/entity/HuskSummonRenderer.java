@@ -34,7 +34,7 @@ public class HuskSummonRenderer extends HuskRenderer {
 
     @Override
     protected int getBlockLightLevel(Zombie summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override

@@ -44,7 +44,7 @@ public class SkeletonSummonRenderer extends HumanoidMobRenderer<AbstractSkeleton
 
     @Override
     protected int getBlockLightLevel(AbstractSkeleton summon, BlockPos blockPos) {
-        return 15;
+        return 10;
     }
 
     @Override
