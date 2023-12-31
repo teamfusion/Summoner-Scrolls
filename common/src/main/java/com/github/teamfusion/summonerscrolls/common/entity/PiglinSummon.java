@@ -235,7 +235,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob,
 
     @Override
     public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeaponItem) {
-        return projectileWeaponItem == SSItems.SUMMON_CROSSBOW.get();;
+        return projectileWeaponItem == SSItems.SUMMON_CROSSBOW.get();
     }
 
     @Override

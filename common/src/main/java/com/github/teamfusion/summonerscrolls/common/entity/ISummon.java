@@ -6,10 +6,7 @@ import com.github.teamfusion.summonerscrolls.common.entity.goal.OwnerHurtByTarge
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.PathfinderMob;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.goal.GoalSelector;
 import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
@@ -117,7 +114,7 @@ public interface ISummon {
             goalSelector.addGoal(6, new FollowOwnerGoal(mob, 1.0, 10.0F, 2.0F, false));
             goalSelector.addGoal(7, new LookAtPlayerGoal(mob, Player.class, 6.0F));
             goalSelector.addGoal(8, new RandomLookAroundGoal(mob));
-            targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal<>(mob, true));
+            targetSelector.addGoal(8, new ResetUniversalAngerTargetGoal(mob, true));
         }
     }
 }
