@@ -49,7 +49,6 @@ public class InventoryUtil {
 
             if ((leftItem instanceof DiggerItem || leftItem instanceof SwordItem)) {
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(left);
-
                 for (Enchantment enchantment2 : enchantmentsToRemove) {
                     if (enchantments.containsKey(enchantment2)) {
                         enchantments.remove(enchantment2);
@@ -57,12 +56,18 @@ public class InventoryUtil {
                 }
 
                 boolean canEnchant = true;
-//                for (Enchantment enchantment2 : enchantments.keySet()) {
-//                    if (enchantment2 != enchantment && (!enchantment.isCompatibleWith(enchantment2) || !enchantment2.isCompatibleWith(enchantment))) {
-//                        canEnchant = false;
-//                        break;
-//                    }
-//                }
+
+                if (canEnchant) {
+                    enchantments.put(enchantment, 1);
+                    ItemStack copy = left.copy();
+                    EnchantmentHelper.setEnchantments(enchantments, copy);
+                    if (name != null && !name.isEmpty()) {
+                        copy.setHoverName(Component.literal(name));
+                    }
+
+                    outputSlot.setItem(0, copy);
+                    container.cost.set(8);
+                }
             }
         }
         return false;

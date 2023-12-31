@@ -74,6 +74,7 @@ public final class LanguageGenerator implements DataProvider {
         this.item(SSItems.ZOMBIE_SCROLL.get(), "Zombie Summoner Scroll");
         this.item(SSItems.SKELETON_SCROLL.get(), "Skeleton Summoner Scroll");
         this.item(SSItems.SPIDER_SCROLL.get(), "Spider Summoner Scroll");
+        this.item(SSItems.SPIDER_JOCKEY_SCROLL.get(), "Spider Jockey Scroll");
         this.item(SSItems.BEE_SCROLL.get(), "Bee Swarm Summoner Scroll");
 
         this.item(SSItems.HUSK_SCROLL.get(), "Husk Summoner Scroll");
@@ -102,6 +103,7 @@ public final class LanguageGenerator implements DataProvider {
         // Enchantment
         this.enchantment(SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT.get(), "Zombie Summon");
         this.enchantment(SSEnchantments.SPIDER_SCROLL_ENCHANTMENT.get(), "Spider Summon");
+        this.enchantment(SSEnchantments.SPIDER_JOCKEY_SCROLL_ENCHANTMENT.get(), "Spider Jockey Summon");
         this.enchantment(SSEnchantments.SKELETON_SCROLL_ENCHANTMENT.get(), "Skeleton Summon");
         this.enchantment(SSEnchantments.BEE_SCROLL_ENCHANTMENT.get(), "Bee Summon");
 
