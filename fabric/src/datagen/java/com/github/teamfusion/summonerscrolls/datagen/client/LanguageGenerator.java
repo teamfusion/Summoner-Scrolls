@@ -6,6 +6,7 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import net.minecraft.MethodsReturnNonnullByDefault;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.HashCache;
@@ -32,10 +33,10 @@ public final class LanguageGenerator implements DataProvider {
     }
 
     @Override
-    public void run(HashCache cache) throws IOException {
+    public void run(CachedOutput cachedOutput) throws IOException {
         this.addTranslations();
         Path path = this.generator.getOutputFolder().resolve("assets/summonerscrolls/lang/en_us.json");
-        DataProvider.save(GSON, cache, GSON.toJsonTree(this.data), path);
+        DataProvider.saveStable(cachedOutput, GSON.toJsonTree(this.data), path);
     }
 
     @Override
@@ -48,6 +49,7 @@ public final class LanguageGenerator implements DataProvider {
         this.entity(SSEntityTypes.ZOMBIE_SUMMON.get(), "Zombie Summon");
         this.entity(SSEntityTypes.SPIDER_SUMMON.get(), "Spider Summon");
         this.entity(SSEntityTypes.SKELETON_SUMMON.get(), "Skeleton Summon");
+        this.entity(SSEntityTypes.SPIDER_JOCKEY_SUMMON.get(), "Spider Jockey Summon");
         this.entity(SSEntityTypes.BEE_SUMMON.get(), "Bee Summon");
 
         this.entity(SSEntityTypes.HUSK_SUMMON.get(), "Husk Summon");

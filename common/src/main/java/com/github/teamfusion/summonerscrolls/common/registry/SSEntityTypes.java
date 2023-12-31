@@ -30,6 +30,7 @@ public class SSEntityTypes {
     /* Summon Entities - Tier 1 */
     public static final Supplier<EntityType<ZombieSummon>> ZOMBIE_SUMMON = ENTITY_TYPES.register("zombie_summon", ZombieSummon.TYPE);
     public static final Supplier<EntityType<SpiderSummon>> SPIDER_SUMMON = ENTITY_TYPES.register("spider_summon", SpiderSummon.TYPE);
+    public static final Supplier<EntityType<SpiderSummon>> SPIDER_JOCKEY_SUMMON = ENTITY_TYPES.register("spider_jockey_summon", SpiderSummon.TYPE_JOCKEY);
     public static final Supplier<EntityType<SkeletonSummon>> SKELETON_SUMMON = ENTITY_TYPES.register("skeleton_summon", SkeletonSummon.TYPE);
     public static final Supplier<EntityType<BeeSummon>> BEE_SUMMON = ENTITY_TYPES.register("bee_summon", BeeSummon.TYPE);
 
@@ -55,6 +56,7 @@ public class SSEntityTypes {
     public static void postRegister() {
         MobRegistry.attributes(ZOMBIE_SUMMON, ZombieSummon::createSummonAttributes);
         MobRegistry.attributes(SPIDER_SUMMON, SpiderSummon::createSummonAttributes);
+        MobRegistry.attributes(SPIDER_JOCKEY_SUMMON, SpiderSummon::createSummonAttributes);
         MobRegistry.attributes(SKELETON_SUMMON, SkeletonSummon::createSummonAttributes);
         MobRegistry.attributes(BEE_SUMMON, BeeSummon::createSummonAttributes);
 

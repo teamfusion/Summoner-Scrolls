@@ -30,7 +30,7 @@ public class CaveSpiderSummon extends SpiderSummon {
     public static final Supplier<EntityType<CaveSpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(CaveSpiderSummon::new, MobCategory.MISC).sized(0.7F, 0.5F).clientTrackingRange(8).build("cave_spider_summon"));
 
     public CaveSpiderSummon(EntityType<? extends CaveSpiderSummon> summon, Level level) {
-        super(summon, level);
+        super(summon, level, false);
     }
 
     @Override

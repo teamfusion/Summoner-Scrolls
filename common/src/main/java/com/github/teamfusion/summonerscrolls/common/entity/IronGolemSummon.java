@@ -1,30 +1,26 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.google.common.base.Suppliers;
 import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.monster.Enemy;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -33,19 +29,20 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class IronGolemSummon extends IronGolem implements ISummon {
+public class IronGolemSummon extends IronGolem implements ISummon, NeutralMob {
     public static final Supplier<EntityType<IronGolemSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(IronGolemSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("iron_golem_summon"));
 
     public static UUID ownerUUID;
     private int despawnDelay;
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(IronGolemSummon.class, EntityDataSerializers.INT);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    @Nullable private UUID persistentAngerTarget;
 
     public IronGolemSummon(EntityType<? extends IronGolem> entityType, Level level) {
         super(entityType, level);
@@ -164,9 +161,7 @@ public class IronGolemSummon extends IronGolem implements ISummon {
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
-            this.maybeDespawn();
-        }
+        this.maybeDespawn();
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
@@ -207,6 +202,7 @@ public class IronGolemSummon extends IronGolem implements ISummon {
             time--;
             this.setDeltaMovement(0,0,0);
             this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
     }
@@ -222,17 +218,34 @@ public class IronGolemSummon extends IronGolem implements ISummon {
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
     }
 
-//    @Override
-//    public boolean canAttackType(EntityType<?> entityType) {
-//        if (Arrays.stream(entityType.getBaseClass().getInterfaces()).anyMatch(ISummon)) {
-//            return false;
-//        }
-//
-//        return entityType != SSEntityTypes.PIGLIN_SUMMON.get() && super.canAttackType(entityType);
-//    }\
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
 
-//    @Override
-//    public boolean canAttack(LivingEntity livingEntity) {
-//        return !(livingEntity instanceof ISummon);
-//    }
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uUID) {
+        this.persistentAngerTarget = uUID;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
+    }
+
+    protected void defineSynchedData() {
+        super.defineSynchedData();
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
+    }
 }

@@ -27,7 +27,6 @@ import net.minecraft.world.item.Item;
 
 import java.util.function.Supplier;
 
-
 @Environment(EnvType.CLIENT)
 public class SSClient {
     public static void commonClientInitialize() {
@@ -35,6 +34,7 @@ public class SSClient {
 
         RenderRegistry.renderer(SSEntityTypes.ZOMBIE_SUMMON, ZombieSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.SPIDER_SUMMON, SpiderSummonRenderer::new);
+        RenderRegistry.renderer(SSEntityTypes.SPIDER_JOCKEY_SUMMON, SpiderSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.SKELETON_SUMMON, SkeletonSummonRenderer::new);
         RenderRegistry.renderer(SSEntityTypes.BEE_SUMMON, BeeSummonRenderer::new);
 

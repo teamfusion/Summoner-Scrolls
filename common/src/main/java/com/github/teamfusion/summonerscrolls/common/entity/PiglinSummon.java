@@ -10,18 +10,13 @@ import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
@@ -43,13 +38,17 @@ import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob {
+public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob, NeutralMob {
     public static final Supplier<EntityType<PiglinSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(PiglinSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("piglin_summon"));
 
     private static final EntityDataAccessor<Boolean> DATA_IS_CHARGING_CROSSBOW = SynchedEntityData.defineId(PiglinSummon.class, EntityDataSerializers.BOOLEAN);
 
     public static UUID ownerUUID;
     private int despawnDelay;
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    @Nullable private UUID persistentAngerTarget;
 
     public PiglinSummon(EntityType<? extends Monster> entityType, Level level) {
         super(entityType, level);
@@ -174,15 +173,13 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
     }
 
     public ItemStack createSpawnWeapon() {
-        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(Items.CROSSBOW) : new ItemStack(Items.GOLDEN_SWORD);
+        return (double)this.random.nextFloat() < 0.5 ? new ItemStack(SSItems.SUMMON_CROSSBOW.get()) : new ItemStack(Items.GOLDEN_SWORD);
     }
 
     @Override
     public void aiStep() {
         super.aiStep();
-        if (!this.level.isClientSide) {
-            this.maybeDespawn();
-        }
+        this.maybeDespawn();
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
     }
 
@@ -238,13 +235,14 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
 
     @Override
     public boolean canFireProjectileWeapon(ProjectileWeaponItem projectileWeaponItem) {
-        return projectileWeaponItem == Items.CROSSBOW;
+        return projectileWeaponItem == SSItems.SUMMON_CROSSBOW.get();;
     }
 
     @Override
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_CHARGING_CROSSBOW, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     @Override
@@ -259,6 +257,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
             time--;
             this.setDeltaMovement(0,0,0);
             this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         }
         super.tick();
     }
@@ -273,5 +272,31 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob 
         time = 75;
         this.populateDefaultEquipmentSlots(this.getRandom(), difficultyInstance);
         return super.finalizeSpawn(serverLevelAccessor, difficultyInstance, mobSpawnType, spawnGroupData, compoundTag);
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uUID) {
+        this.persistentAngerTarget = uUID;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 }

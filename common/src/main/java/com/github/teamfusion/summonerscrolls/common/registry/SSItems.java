@@ -28,6 +28,8 @@ public class SSItems {
             new ScrollItem(SSEnchantments.ZOMBIE_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final Supplier<Item> SPIDER_SCROLL = ITEMS.register("spider_summoner_scroll", () ->
             new ScrollItem(SSEnchantments.SPIDER_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+    public static final Supplier<Item> SPIDER_JOCKEY_SCROLL = ITEMS.register("spider_jockey_summoner_scroll", () ->
+            new ScrollItem(SSEnchantments.SPIDER_JOCKEY_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final Supplier<Item> SKELETON_SCROLL = ITEMS.register("skeleton_summoner_scroll", () ->
             new ScrollItem(SSEnchantments.SKELETON_SCROLL_ENCHANTMENT, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final Supplier<Item> BEE_SCROLL = ITEMS.register("bee_summoner_scroll", () ->
@@ -70,6 +72,8 @@ public class SSItems {
 
     /* Summon Tools */
     public static final Supplier<Item> SUMMON_BOW = ITEMS.register("summon_bow", () ->
+            new SummonerBowItem(new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+    public static final Supplier<Item> SUMMON_CROSSBOW = ITEMS.register("summon_crossbow", () ->
             new SummonerBowItem(new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final Supplier<Item> SUMMON_ARROW = ITEMS.register("summon_arrow", () ->
             new ArrowItem(new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));

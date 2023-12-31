@@ -1,6 +1,5 @@
 package com.github.teamfusion.summonerscrolls.common.entity;
 
-import com.github.teamfusion.summonerscrolls.client.particle.SummonerScrollsParticles;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.mixin.access.CreeperAccessor;
@@ -13,22 +12,14 @@ import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
-import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.util.TimeUtil;
+import net.minecraft.util.valueproviders.UniformInt;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.damagesource.DamageSource;
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.LightningBolt;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobCategory;
-import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.MobType;
-import net.minecraft.world.entity.PowerableMob;
-import net.minecraft.world.entity.SpawnGroupData;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.goal.SwellGoal;
@@ -38,19 +29,17 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Random;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault
-public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
+public class CreeperSummon extends Creeper implements ISummon, PowerableMob, NeutralMob {
     public static final Supplier<EntityType<CreeperSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, false), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("creeper_summon"));
     public static final Supplier<EntityType<CreeperSummon>> TYPE_CHARGED = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, true), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("charged_creeper_summon"));
 
@@ -58,6 +47,10 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
 
     public static UUID ownerUUID;
     private int despawnDelay;
+
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
+    @Nullable private UUID persistentAngerTarget;
 
     public CreeperSummon(EntityType<CreeperSummon> entityType, Level level, boolean isPowered) {
         super(entityType, level);
@@ -67,6 +60,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     protected void defineSynchedData() {
         super.defineSynchedData();
         this.entityData.define(DATA_IS_POWERED, false);
+        this.entityData.define(DATA_REMAINING_ANGER_TIME, 0);
     }
 
     public MobType getMobType() {
@@ -157,7 +151,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
             compoundTag.putBoolean("powered", true);
         }
 
-        compoundTag.putInt("DespawnDelay", this.despawnDelay);
+        compoundTag.putInt("DespawnDelay", this.getDespawnDelay());
     }
 
     @Override
@@ -165,7 +159,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         super.readAdditionalSaveData(compoundTag);
         this.entityData.set(DATA_IS_POWERED, compoundTag.getBoolean("powered"));
         if (compoundTag.contains("DespawnDelay", 99)) {
-            this.despawnDelay = compoundTag.getInt("DespawnDelay");
+            this.setDespawnDelay(compoundTag.getInt("DespawnDelay"));
         }
     }
 
@@ -200,35 +194,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
         super.aiStep();
         this.maybeDespawn();
 
-        // Spawn particles with the adjusted frequency
-        this.spawnSummonParticles2(
-                this.random,
-                this.level,
-                this.getX(),
-                this.getRandomY(),
-                this.getZ(),
-                particleFrequency
-        );
         this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
-    }
-
-    private float particleFrequency = 0.0F;
-
-
-    public void spawnSummonParticles2(Random random, LevelAccessor level, double x, double y, double z, float particleFrequency) {
-        for (float i = 0; i < Mth.TWO_PI; i += random.nextFloat(3.2F) + 0.5F) {
-            if (random.nextFloat() < particleFrequency) {
-                level.addParticle(
-                        SummonerScrollsParticles.SUMMON_PARTICLE.get(),
-                        x + Mth.cos(i) * 1.0D,
-                        y,
-                        z + Mth.sin(i) * 1.0D,
-                        0.0D,
-                        0.0D,
-                        0.0D
-                );
-            }
-        }
     }
 
     @Override
@@ -242,7 +208,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     }
 
     private void maybeDespawn() {
-        if (this.despawnDelay > 0 && --this.despawnDelay == 0) {
+        if (this.getDespawnDelay() > 0 && --this.despawnDelay == 0) {
             this.kill();
         }
     }
@@ -265,6 +231,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
             time--;
             this.setDeltaMovement(0,0,0);
             this.spawnCoolParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
+            this.spawnSummonParticles(this.random, this.level, this.getX(), this.getRandomY(), this.getZ());
         }
 
         int swell = ((CreeperAccessor)this).getSwell();
@@ -299,7 +266,7 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     private void explodeSummonCreeper() {
         if (!this.level.isClientSide) {
             this.dead = true;
-            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 8.0F : 4.0F), false, Explosion.BlockInteraction.NONE);
+            this.level.explode(this, null, null, this.getX(), this.getY(), this.getZ(), (float)((CreeperAccessor) this).getExplosionRadius() * (this.isPowered() ? 3.0F : 1.0F), false, Explosion.BlockInteraction.NONE);
             this.discard();
             ((CreeperAccessor)this).callSpawnLingeringCloud();
         }
@@ -314,5 +281,31 @@ public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     @Override
     protected boolean isSunBurnTick() {
         return false;
+    }
+
+    @Override
+    public int getRemainingPersistentAngerTime() {
+        return this.entityData.get(DATA_REMAINING_ANGER_TIME);
+    }
+
+    @Override
+    public void setRemainingPersistentAngerTime(int i) {
+        this.entityData.set(DATA_REMAINING_ANGER_TIME, i);
+    }
+
+    @Nullable
+    @Override
+    public UUID getPersistentAngerTarget() {
+        return this.persistentAngerTarget;
+    }
+
+    @Override
+    public void setPersistentAngerTarget(@Nullable UUID uUID) {
+        this.persistentAngerTarget = uUID;
+    }
+
+    @Override
+    public void startPersistentAngerTimer() {
+        this.setRemainingPersistentAngerTime(PERSISTENT_ANGER_TIME.sample(this.random));
     }
 }
