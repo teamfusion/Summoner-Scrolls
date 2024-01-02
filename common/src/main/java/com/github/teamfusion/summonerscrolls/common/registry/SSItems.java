@@ -2,6 +2,7 @@ package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.item.ScrollItem;
+import com.github.teamfusion.summonerscrolls.common.item.SummonHoe;
 import com.github.teamfusion.summonerscrolls.common.item.SummonerBowItem;
 import com.github.teamfusion.summonerscrolls.common.item.SummonerTiers;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
@@ -86,7 +87,7 @@ public class SSItems {
     public static final Supplier<Item> SUMMON_SHOVEL = ITEMS.register("summon_shovel", () ->
             new ShovelItem(SummonerTiers.SUMMONER, 1.5F, -3.0F, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
     public static final Supplier<Item> SUMMON_HOE = ITEMS.register("summon_hoe", () ->
-            new HoeItem(SummonerTiers.SUMMONER, -2, -3.0F, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
+            new SummonHoe(SummonerTiers.SUMMONER, -2, -3.0F, new Item.Properties().stacksTo(1).tab(SummonerScrolls.SCROLLS_TAB)));
 
     private static Supplier<Item> register(String id, Function<Item.Properties, Item> item) {
         return register(id, () -> item.apply(new Item.Properties().tab(SummonerScrolls.SCROLLS_TAB)));
