@@ -30,12 +30,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 public class SpiderSummon extends Spider implements ISummon, NeutralMob {
     public static final Supplier<EntityType<SpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.<SpiderSummon>of((a, b)-> new SpiderSummon(a, b, false), MobCategory.MISC).sized(1.4F, 0.9F).clientTrackingRange(8).build("spider_summon"));
     public static final Supplier<EntityType<SpiderSummon>> TYPE_JOCKEY = Suppliers.memoize(() -> EntityType.Builder.<SpiderSummon>of((a, b)-> new SpiderSummon(a, b, true), MobCategory.MISC).sized(1.4F, 0.9F).clientTrackingRange(8).build("spider_jockey_summon"));

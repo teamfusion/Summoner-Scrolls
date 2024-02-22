@@ -26,7 +26,7 @@ public class RenderRegistryImpl {
     private static final Set<Consumer<EntityRenderersEvent.RegisterLayerDefinitions>> DEFINITIONS = ConcurrentHashMap.newKeySet();
 
     public static void block(RenderType type, Block... blocks) {
-        Arrays.stream(blocks).forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, type));
+//        Arrays.stream(blocks).forEach(block -> ItemBlockRenderTypes.setRenderLayer(block, type));
     }
 
     @SubscribeEvent

@@ -11,11 +11,11 @@ import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.Level;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ScrollItem extends Item {
     public Supplier<Enchantment> enchantment;

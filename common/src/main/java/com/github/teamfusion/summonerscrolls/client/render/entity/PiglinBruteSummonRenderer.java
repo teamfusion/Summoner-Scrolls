@@ -6,9 +6,9 @@ import net.minecraft.MethodsReturnNonnullByDefault;
 import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class PiglinBruteSummonRenderer extends PiglinSummonRenderer {

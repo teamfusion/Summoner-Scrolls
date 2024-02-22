@@ -33,11 +33,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @SuppressWarnings({"rawtypes", "unchecked"})
 public class SkeletonSummon extends Skeleton implements ISummon, NeutralMob {

@@ -21,11 +21,11 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 public class CaveSpiderSummon extends SpiderSummon {
     public static final Supplier<EntityType<CaveSpiderSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(CaveSpiderSummon::new, MobCategory.MISC).sized(0.7F, 0.5F).clientTrackingRange(8).build("cave_spider_summon"));
 

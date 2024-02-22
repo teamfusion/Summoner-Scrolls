@@ -16,9 +16,9 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.monster.RangedAttackMob;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Environment(EnvType.CLIENT)

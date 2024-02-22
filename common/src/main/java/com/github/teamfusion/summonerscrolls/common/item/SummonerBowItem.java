@@ -16,10 +16,10 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Predicate;
 
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class SummonerBowItem extends BowItem {
     public static final Predicate<ItemStack> SUMMONER_ARROW_ONLY = (itemStack) -> itemStack.is(SSItems.SUMMON_ARROW.get());

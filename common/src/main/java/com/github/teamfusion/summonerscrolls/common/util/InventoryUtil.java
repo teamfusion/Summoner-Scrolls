@@ -13,7 +13,6 @@ import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +39,7 @@ public class InventoryUtil {
             SSEnchantments.IRON_GOLEM_SCROLL_ENCHANTMENT.get()
     );
 
-    public static boolean onAnvilChange(AnvilMenu container, @Nonnull ItemStack left, @Nonnull ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
+    public static boolean onAnvilChange(AnvilMenu container, ItemStack left, ItemStack right, Container outputSlot, String name, int baseCost, Player player) {
         Item leftItem = left.getItem();
         Item rightItem = right.getItem();
 

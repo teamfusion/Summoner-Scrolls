@@ -28,12 +28,12 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
+//import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
+//@ParametersAreNonnullByDefault
 public class BeeSummon extends Bee implements ISummon, NeutralMob {
     public static final Supplier<EntityType<BeeSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(BeeSummon::new, MobCategory.MISC).sized(0.7F, 0.6F).clientTrackingRange(8).build("bee_summon"));
 
