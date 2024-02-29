@@ -46,7 +46,7 @@ public class PiglinSummon extends Monster implements ISummon, CrossbowAttackMob,
     public static UUID ownerUUID;
     private int despawnDelay;
 
-    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(CreeperSummon.class, EntityDataSerializers.INT);
+    private static final EntityDataAccessor<Integer> DATA_REMAINING_ANGER_TIME = SynchedEntityData.defineId(PiglinSummon.class, EntityDataSerializers.INT);
     private static final UniformInt PERSISTENT_ANGER_TIME = TimeUtil.rangeOfSeconds(20, 39);
     @Nullable private UUID persistentAngerTarget;
 
