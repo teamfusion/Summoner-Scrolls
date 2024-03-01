@@ -8,11 +8,7 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
 import com.github.teamfusion.summonerscrolls.common.util.trade.SSTrades;
-import com.github.teamfusion.summonerscrolls.platform.Environment;
 import com.github.teamfusion.summonerscrolls.platform.ModInstance;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

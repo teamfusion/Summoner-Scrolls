@@ -3,7 +3,6 @@ package com.github.teamfusion.summonerscrolls.common.registry;
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
 import com.github.teamfusion.summonerscrolls.common.enchantment.ScrollEnchantment;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.enchantment.Enchantment;
 

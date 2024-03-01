@@ -1,19 +1,7 @@
 package com.github.teamfusion.summonerscrolls.client;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.client.render.entity.BeeSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.CaveSpiderSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.CreeperSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.EndermanSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.HuskSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.IronGolemSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.PiglinBruteSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.PiglinSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.ShulkermanSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.SkeletonSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.SpiderSummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.StraySummonRenderer;
-import com.github.teamfusion.summonerscrolls.client.render.entity.ZombieSummonRenderer;
+import com.github.teamfusion.summonerscrolls.client.render.entity.*;
 import com.github.teamfusion.summonerscrolls.common.registry.SSEntityTypes;
 import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.mixin.ItemPropertiesAccessor;

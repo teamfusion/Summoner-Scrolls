@@ -1,22 +1,9 @@
 package com.github.teamfusion.summonerscrolls.common.registry;
 
 import com.github.teamfusion.summonerscrolls.SummonerScrolls;
-import com.github.teamfusion.summonerscrolls.common.entity.BeeSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.CaveSpiderSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.CreeperSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.EndermanSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.HuskSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.IronGolemSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.PiglinBruteSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.PiglinSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.ShulkermanSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.SkeletonSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.SpiderSummon;
-import com.github.teamfusion.summonerscrolls.common.entity.StraySummon;
-import com.github.teamfusion.summonerscrolls.common.entity.ZombieSummon;
+import com.github.teamfusion.summonerscrolls.common.entity.*;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import com.github.teamfusion.summonerscrolls.platform.common.MobRegistry;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EntityType;

@@ -6,17 +6,8 @@ import com.github.teamfusion.summonerscrolls.common.item.SummonerBowItem;
 import com.github.teamfusion.summonerscrolls.common.item.SummonerTiers;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.world.item.ArrowItem;
-import net.minecraft.world.item.AxeItem;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.HoeItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.PickaxeItem;
-import net.minecraft.world.item.ShovelItem;
-import net.minecraft.world.item.StandingAndWallBlockItem;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 
 import java.util.function.Function;
