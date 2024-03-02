@@ -23,11 +23,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class EndermanSummon extends EnderMan implements ISummon {
     public static final Supplier<EntityType<EndermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(EndermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("enderman_summon"));

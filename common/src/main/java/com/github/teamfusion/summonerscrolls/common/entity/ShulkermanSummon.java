@@ -28,12 +28,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.EnumSet;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class ShulkermanSummon extends EnderMan implements ISummon {
     public static final Supplier<EntityType<ShulkermanSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(ShulkermanSummon::new, MobCategory.MISC).sized(0.6F, 2.9F).clientTrackingRange(8).build("shulkerman_summon"));

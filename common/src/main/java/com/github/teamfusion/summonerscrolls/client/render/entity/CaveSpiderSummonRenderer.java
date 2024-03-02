@@ -10,9 +10,6 @@ import net.minecraft.client.model.geom.ModelLayers;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class CaveSpiderSummonRenderer<T extends CaveSpiderSummon> extends SpiderSummonRenderer<T> {

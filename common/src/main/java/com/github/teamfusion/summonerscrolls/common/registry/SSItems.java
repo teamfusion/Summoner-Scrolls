@@ -83,6 +83,7 @@ public class SSItems {
     }
 
     private static Supplier<Item> register(String id, Supplier<Item> item) {
+        SummonerScrolls.itemsList.add(item.get());
         return ITEMS.register(id, item);
     }
 }

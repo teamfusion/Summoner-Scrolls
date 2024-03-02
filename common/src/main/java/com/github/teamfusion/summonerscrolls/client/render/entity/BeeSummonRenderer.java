@@ -13,9 +13,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.animal.Bee;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @Environment(EnvType.CLIENT)
 public class BeeSummonRenderer extends BeeRenderer {

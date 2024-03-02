@@ -15,11 +15,9 @@ import net.minecraft.world.entity.projectile.Arrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class StraySummon extends SkeletonSummon {
     public static final Supplier<EntityType<StraySummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(StraySummon::new, MobCategory.MISC).sized(0.6F, 1.99F).clientTrackingRange(8).build("stray_summon"));
 

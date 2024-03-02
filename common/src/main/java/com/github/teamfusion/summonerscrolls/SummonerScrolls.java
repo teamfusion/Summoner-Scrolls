@@ -8,9 +8,16 @@ import com.github.teamfusion.summonerscrolls.common.registry.SSItems;
 import com.github.teamfusion.summonerscrolls.common.sound.SummonerScrollsSoundEvents;
 import com.github.teamfusion.summonerscrolls.common.util.loot.SSLootTables;
 import com.github.teamfusion.summonerscrolls.common.util.trade.SSTrades;
+import com.github.teamfusion.summonerscrolls.platform.Environment;
 import com.github.teamfusion.summonerscrolls.platform.ModInstance;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SummonerScrolls {
     public static final String MOD_ID = "summonerscrolls";
@@ -18,8 +25,9 @@ public class SummonerScrolls {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
     public static final ModInstance INSTANCE = ModInstance.create(MOD_ID).client(SSClient::commonClientInitialize).postClient(SSClient::postClientInitialize).build();
 
-//    public static final CreativeModeTab SCROLLS_TAB = Environment.createTab(new ResourceLocation(MOD_ID, "scrolls_tab"), () -> new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()));
-    
+    public static List<Item> itemsList = List.of();
+//    public static final CreativeModeTab SCROLLS_TAB = Environment.createTab(MOD_ID + ".scrolls_tab", () -> new ItemStack(SSItems.ENHANCEMENT_SCROLL.get()), itemsList);
+
     public static void commonInitialize() {
         LOGGER.info("Initializing {}", MOD_NAME);
         INSTANCE.bootstrap();

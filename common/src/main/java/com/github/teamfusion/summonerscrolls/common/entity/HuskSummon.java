@@ -25,11 +25,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 public class HuskSummon extends Husk implements ISummon {
     public static final Supplier<EntityType<HuskSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(HuskSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("husk_summon"));

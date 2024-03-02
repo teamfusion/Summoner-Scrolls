@@ -15,7 +15,6 @@ import net.minecraft.world.item.Item;
 
 import java.util.function.Supplier;
 
-
 @Environment(EnvType.CLIENT)
 public class SSClient {
     public static void commonClientInitialize() {

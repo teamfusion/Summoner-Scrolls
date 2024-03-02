@@ -23,12 +23,10 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.ServerLevelAccessor;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class IronGolemSummon extends IronGolem implements ISummon {
     public static final Supplier<EntityType<IronGolemSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.of(IronGolemSummon::new, MobCategory.MISC).sized(0.6F, 1.95F).clientTrackingRange(8).build("iron_golem_summon"));
 

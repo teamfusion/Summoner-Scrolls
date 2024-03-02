@@ -30,12 +30,10 @@ import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.level.gameevent.GameEvent;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.UUID;
 import java.util.function.Supplier;
 
 @MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class CreeperSummon extends Creeper implements ISummon, PowerableMob {
     public static final Supplier<EntityType<CreeperSummon>> TYPE = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, false), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("creeper_summon"));
     public static final Supplier<EntityType<CreeperSummon>> TYPE_CHARGED = Suppliers.memoize(() -> EntityType.Builder.<CreeperSummon>of((a, b)-> new CreeperSummon(a, b, true), MobCategory.MISC).sized(0.6F, 1.7F).clientTrackingRange(8).build("charged_creeper_summon"));

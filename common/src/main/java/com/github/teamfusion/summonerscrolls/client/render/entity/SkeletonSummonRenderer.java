@@ -17,9 +17,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import org.jetbrains.annotations.Nullable;
 
-import javax.annotation.ParametersAreNonnullByDefault;
-
-@ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
 @SuppressWarnings({"rawtypes", "unchecked"})
 @Environment(EnvType.CLIENT)
