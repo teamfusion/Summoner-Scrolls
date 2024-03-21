@@ -10,12 +10,15 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unused"})
 public class SSItems {
     public static final CoreRegistry<Item> ITEMS = CoreRegistry.create(BuiltInRegistries.ITEM, SummonerScrolls.MOD_ID);
+    public static final Set<Supplier<Item>> ENTRIES = new HashSet<>();;
 
     /* Mob Scrolls - Tier 1 */
     public static final Supplier<Item> ZOMBIE_SCROLL = ITEMS.register("zombie_summoner_scroll", () ->
@@ -83,6 +86,7 @@ public class SSItems {
     }
 
     private static Supplier<Item> register(String id, Supplier<Item> item) {
+        ENTRIES.add(item);
         return ITEMS.register(id, item);
     }
 }
