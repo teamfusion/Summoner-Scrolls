@@ -7,18 +7,17 @@ import com.github.teamfusion.summonerscrolls.common.item.SummonerTiers;
 import com.github.teamfusion.summonerscrolls.platform.CoreRegistry;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Blocks;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"unused"})
 public class SSItems {
     public static final CoreRegistry<Item> ITEMS = CoreRegistry.create(BuiltInRegistries.ITEM, SummonerScrolls.MOD_ID);
-    public static final Set<Supplier<Item>> ENTRIES = new HashSet<>();;
 
     /* Mob Scrolls - Tier 1 */
     public static final Supplier<Item> ZOMBIE_SCROLL = ITEMS.register("zombie_summoner_scroll", () ->
@@ -86,7 +85,8 @@ public class SSItems {
     }
 
     private static Supplier<Item> register(String id, Supplier<Item> item) {
-        ENTRIES.add(item);
         return ITEMS.register(id, item);
     }
+
+    public static final List<Supplier<Item>> ENTRIES = Arrays.asList(SSItems.ZOMBIE_SCROLL, SSItems.SPIDER_SCROLL, SSItems.SKELETON_SCROLL, SSItems.BEE_SCROLL, SSItems.HUSK_SCROLL, SSItems.STRAY_SCROLL, SSItems.CAVE_SPIDER_SCROLL, SSItems.ENDERMAN_SCROLL, SSItems.PIGLIN_SCROLL, SSItems.CREEPER_SCROLL, SSItems.CHARGED_CREEPER_SCROLL, SSItems.PIGLIN_BRUTE_SCROLL, SSItems.SHULKERMAN_SCROLL, SSItems.IRON_GOLEM_SCROLL, SSItems.ENHANCEMENT_SCROLL, SSItems.SUMMON_BOW, SSItems.SUMMON_ARROW, SSItems.SUMMON_SWORD, SSItems.SUMMON_AXE, SSItems.SUMMON_PICKAXE, SSItems.SUMMON_SHOVEL, SSItems.SUMMON_HOE);
 }
