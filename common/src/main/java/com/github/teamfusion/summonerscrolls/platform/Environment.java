@@ -2,15 +2,12 @@ package com.github.teamfusion.summonerscrolls.platform;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
-import java.util.List;
-import java.util.function.Supplier;
+import java.util.function.Consumer;
 
 public class Environment {
     @ExpectPlatform
-    public static CreativeModeTab createTab(String location, Supplier<ItemStack> icon, List<Item> items) {
+    public static CreativeModeTab createTab(Consumer<CreativeModeTab.Builder> mapper) {
         throw new AssertionError();
     }
 

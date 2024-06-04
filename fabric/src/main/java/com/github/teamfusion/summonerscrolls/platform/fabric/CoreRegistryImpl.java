@@ -17,8 +17,8 @@ public class CoreRegistryImpl<T> extends CoreRegistry<T> {
 
     @Override
     public <E extends T> Supplier<E> register(String key, Supplier<E> entry) {
-        E registry = Registry.register(this.registry, new ResourceLocation(this.modId, key), entry.get());
-        return () -> registry;
+        E value = Registry.register(this.registry, new ResourceLocation(this.modId, key), entry.get());
+        return () -> value;
     }
 
     @Override
